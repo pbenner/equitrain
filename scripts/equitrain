@@ -10,14 +10,12 @@ import time
 import torch
 import numpy as np
 import os
-from accelerate import Accelerator
+import torch_geometric
 
+from accelerate import Accelerator
 from pathlib import Path
 from typing  import Iterable, Optional
 
-import torch_geometric
-
-from torch_geometric.loader import DataLoader
 from torch_cluster import radius_graph
 
 from timm.optim.adafactor import Adafactor
@@ -31,13 +29,12 @@ from timm.optim.radam import RAdam
 from timm.optim.rmsprop_tf import RMSpropTF
 from timm.optim.sgdp import SGDP
 from timm.optim.adabelief import AdaBelief
-from timm.utils import ModelEmaV2, get_state_dict, dispatch_clip_grad
+from timm.utils import ModelEmaV2, get_state_dict
 from timm.scheduler import create_scheduler
 
 from equitrain.equiformer_v2 import EquiformerV2_OC20
 from equitrain.mace.data.hdf5_dataset import HDF5Dataset
 from equitrain.mace.tools import get_atomic_number_table_from_zs
-
 
 ModelEma = ModelEmaV2
 
@@ -45,36 +42,36 @@ ModelEma = ModelEmaV2
 
 def get_dataloaders(args):
 
-    with open(f'data-r{args.radius}/statistics.json', "r") as f:
+    with open(args.statistics_file, "r") as f:
         statistics = json.load(f)
 
     zs_list = ast.literal_eval(statistics["atomic_numbers"])
     z_table = get_atomic_number_table_from_zs(zs_list)
 
-
     train_set = HDF5Dataset(
-        f"data-r{args.radius}/train.h5", r_max=args.radius, z_table=z_table
+        args.train_file, r_max=args.radius, z_table=z_table
     )
     valid_set = HDF5Dataset(
-        f"data-r{args.radius}/valid.h5", r_max=args.radius, z_table=z_table
+        args.valid_file, r_max=args.radius, z_table=z_table
     )
 
     train_loader = torch_geometric.loader.DataLoader(
         dataset=train_set,
-        batch_size=5,
+        batch_size=args.batch_size,
         shuffle=True,
         drop_last=False,
-        pin_memory=False,
-        num_workers=10,
+        pin_memory=args.pin_mem,
+        num_workers=args.workers,
     )
     valid_loader = torch_geometric.loader.DataLoader(
         dataset=valid_set,
         batch_size=1,
         shuffle=True,
         drop_last=False,
-        pin_memory=False,
-        num_workers=10,
+        pin_memory=args.pin_mem,
+        num_workers=args.workers,
     )
+
     return train_loader, valid_loader, valid_loader
 
 # %%
@@ -126,6 +123,12 @@ class FileLogger:
 
     def info(self, *args):
         self.logger.info(*args)
+
+# no_op method/object that accept every signature
+class NoOp:
+    def __getattr__(self, *args):
+        def no_op(*args, **kwargs): pass
+        return no_op
 
 # %%
 
@@ -370,7 +373,12 @@ def create_optimizer_v2(
 
 def get_args_parser():
     parser = argparse.ArgumentParser('Training equivariant networks', add_help=False)
-    parser.add_argument('--output-dir', type=str, default='result')
+    # required arguments
+    parser.add_argument('--train-file', type=str, default=None)
+    parser.add_argument('--valid-file', type=str, default=None)
+    parser.add_argument('--statistics-file', type=str, default=None)
+    parser.add_argument('--output-dir', type=str, default=None)
+    # graph options
     parser.add_argument('--radius', type=float, default=4.5)
     # training hyper-parameters
     parser.add_argument("--epochs", type=int, default=1000)
@@ -424,10 +432,6 @@ def get_args_parser():
     # logging
     parser.add_argument("--print-freq", type=int, default=100)
     # task and dataset
-    parser.add_argument("--target", type=str, default='aspirin')
-    parser.add_argument("--data-path", type=str, default='datasets/md17')
-    parser.add_argument("--train-size", type=int, default=950)
-    parser.add_argument("--val-size", type=int, default=50)
     parser.add_argument('--compute-stats', action='store_true', dest='compute_stats')
     parser.set_defaults(compute_stats=False)
     parser.add_argument('--test-interval', type=int, default=10, 
@@ -442,8 +446,6 @@ def get_args_parser():
     parser.add_argument("--workers", type=int, default=4)
     parser.add_argument('--pin-mem', action='store_true',
                         help='Pin CPU memory in DataLoader for more efficient (sometimes) transfer to GPU.')
-    parser.add_argument('--no-pin-mem', action='store_false', dest='pin_mem',
-                        help='')
     parser.set_defaults(pin_mem=True)
     # evaluation
     parser.add_argument('--checkpoint-path', type=str, default=None)
@@ -793,7 +795,18 @@ def evaluate(args,
 if __name__ == "__main__":
     
     parser = argparse.ArgumentParser('Training equivariant networks', parents=[get_args_parser()])
-    args = parser.parse_args()  
+    args = parser.parse_args()
+
+    if args.train_file is None:
+        raise ValueError("--train-file is a required argument")
+    if args.valid_file is None:
+        raise ValueError("--train-file is a required argument")
+    if args.statistics_file is None:
+        raise ValueError("--statistics-file is a required argument")
+    if args.output_dir is None:
+        raise ValueError("--output-dir is a required argument")
+
     if args.output_dir:
         Path(args.output_dir).mkdir(parents=True, exist_ok=True)
+
     main(args)
