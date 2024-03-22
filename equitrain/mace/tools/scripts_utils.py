@@ -7,12 +7,8 @@
 import dataclasses
 import logging
 import ast
-import os
-from typing import Dict, List, Optional, Tuple
 
-import torch
-import torch.distributed
-from prettytable import PrettyTable
+from typing import Dict, List, Optional, Tuple
 
 from equitrain.mace.data import Configurations, load_from_xyz, random_train_valid_split, test_config_types, compute_average_E0s
 
@@ -97,20 +93,6 @@ def get_dataset_from_xyz(
         atomic_energies_dict,
     )
 
-def get_config_type_weights(ct_weights):
-    """
-    Get config type weights from command line argument
-    """
-    try:
-        config_type_weights = ast.literal_eval(ct_weights)
-        assert isinstance(config_type_weights, dict)
-    except Exception as e:  # pylint: disable=W0703
-        logging.warning(
-            f"Config type weights not specified correctly ({e}), using Default"
-        )
-        config_type_weights = {"Default": 1.0}
-    return config_type_weights
-
 def get_atomic_energies(E0s, train_collection, z_table)->dict:
     if E0s is not None:
         logging.info(
@@ -143,65 +125,3 @@ def get_atomic_energies(E0s, train_collection, z_table)->dict:
             "E0s not found in training file and not specified in command line"
         )
     return atomic_energies_dict
-
-def get_loss_fn(loss: str,
-                energy_weight: float,
-                forces_weight: float,
-                stress_weight: float,
-                virials_weight: float,
-                dipole_weight: float,
-                dipole_only: bool,
-                compute_dipole: bool) -> torch.nn.Module:
-    if loss == "weighted":
-        loss_fn = modules.WeightedEnergyForcesLoss(
-            energy_weight=energy_weight, forces_weight=forces_weight
-        )
-    elif loss == "forces_only":
-        loss_fn = modules.WeightedForcesLoss(forces_weight=forces_weight)
-    elif loss == "virials":
-        loss_fn = modules.WeightedEnergyForcesVirialsLoss(
-            energy_weight=energy_weight,
-            forces_weight=forces_weight,
-            virials_weight=virials_weight,
-        )
-    elif loss == "stress":
-        loss_fn = modules.WeightedEnergyForcesStressLoss(
-            energy_weight=energy_weight,
-            forces_weight=forces_weight,
-            stress_weight=stress_weight,
-        )
-    elif loss == "dipole":
-        assert (
-            dipole_only is True
-        ), "dipole loss can only be used with AtomicDipolesMACE model"
-        loss_fn = modules.DipoleSingleLoss(
-            dipole_weight=dipole_weight,
-        )
-    elif loss == "energy_forces_dipole":
-        assert dipole_only is False and compute_dipole is True
-        loss_fn = modules.WeightedEnergyForcesDipoleLoss(
-            energy_weight=energy_weight,
-            forces_weight=forces_weight,
-            dipole_weight=dipole_weight,
-        )
-    else:
-        loss_fn = modules.EnergyForcesLoss(
-            energy_weight=energy_weight, forces_weight=forces_weight
-        )
-    return loss_fn
-
-def get_files_with_suffix(dir_path:str, suffix:str)-> List[str]:
-    return [os.path.join(dir_path, f) for f in os.listdir(dir_path) if f.endswith(suffix)]
-
-def custom_key(key):
-    """
-    Helper function to sort the keys of the data loader dictionary
-    to ensure that the training set, and validation set
-    are evaluated first
-    """
-    if key == 'train':
-        return (0, key)
-    elif key == 'valid':
-        return (1, key)
-    else:
-        return (2, key)

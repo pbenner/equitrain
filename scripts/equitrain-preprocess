@@ -9,6 +9,7 @@ import random
 import h5py
 import torch_geometric
 
+from equitrain import get_args_parser_preprocess
 from equitrain.mace import tools
 from equitrain.mace.data import HDF5Dataset
 from equitrain.mace.data.utils import save_configurations_as_HDF5
@@ -45,7 +46,7 @@ def main():
     new hdf5 file that is ready for training with on-the-fly dataloading
     """
 
-    args = tools.build_preprocess_arg_parser().parse_args()
+    args = get_args_parser_preprocess().parse_args()
 
     # Setup
     tools.set_seeds(args.seed)
