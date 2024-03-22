@@ -23,7 +23,6 @@ setup(name='equitrain',
           'tqdm',
           'timm',
           'accelerate',
-          'ocp-models',
         ],
       python_requires='>=3.8',
       scripts=[

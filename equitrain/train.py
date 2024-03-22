@@ -144,40 +144,6 @@ class AverageMeter:
         self.count += n
         self.avg = self.sum / self.count
 
-
-def evaluate(model, norm_factor, target, data_loader, amp_autocast=None, 
-    print_freq=100, logger=None):
-    
-    model.eval()
-    
-    loss_metric = AverageMeter()
-    mae_metric = AverageMeter()
-    criterion = torch.nn.L1Loss()
-    criterion.eval()
-    
-    task_mean = norm_factor[0] #model.task_mean
-    task_std  = norm_factor[1] #model.task_std
-    
-    with torch.no_grad():
-            
-        for data in data_loader:
-            #data.edge_d_index = radius_graph(data.pos, r=10.0, batch=data.batch, loop=True)
-            #data.edge_d_attr = data.edge_attr
-            
-            with amp_autocast():
-                pred = model(f_in=data.x, pos=data.pos, batch=data.batch, 
-                    node_atom=data.z,
-                    edge_d_index=data.edge_d_index, edge_d_attr=data.edge_d_attr)
-                pred = pred.squeeze()
-            
-            loss = criterion(pred, (data.y[:, target] - task_mean) / task_std)
-            loss_metric.update(loss.item(), n=pred.shape[0])
-            err = pred.detach() * task_std + task_mean - data.y[:, target]
-            mae_metric.update(torch.mean(torch.abs(err)).item(), n=pred.shape[0])
-        
-    return mae_metric.avg, loss_metric.avg
-
-
 def compute_stats(data_loader, max_radius, logger, print_freq=1000):
     '''
         Compute mean of numbers of nodes and edges
@@ -263,7 +229,7 @@ def create_optimizer(args, model, filter_bias_and_bn=True):
 def create_optimizer_v2(
         model: torch.nn.Module,
         optimizer_name: str = 'sgd',
-        learning_rate: Optional[float] = None,
+        lr: Optional[float] = None,
         weight_decay: float = 0.,
         momentum: float = 0.9,
         filter_bias_and_bn: bool = True,
@@ -278,7 +244,7 @@ def create_optimizer_v2(
     Args:
         model (nn.Module): model containing parameters to optimize
         optimizer_name: name of optimizer to create
-        learning_rate: initial learning rate
+        lr: initial learning rate
         weight_decay: weight decay to apply in optimizer
         momentum:  momentum for momentum based optimizers (others may use betas via kwargs)
         filter_bias_and_bn:  filter out bias, bn and other 1d params from weight decay
@@ -299,7 +265,7 @@ def create_optimizer_v2(
     #if 'fused' in opt_lower:
     #    assert has_apex and torch.cuda.is_available(), 'APEX and CUDA required for fused optimizers'
 
-    opt_args = dict(lr=learning_rate, weight_decay=weight_decay, **kwargs)
+    opt_args = dict(lr=lr, weight_decay=weight_decay, **kwargs)
     opt_split = opt_lower.split('_')
     opt_lower = opt_split[-1]
     if opt_lower == 'sgd' or opt_lower == 'nesterov':
@@ -325,7 +291,7 @@ def create_optimizer_v2(
     elif opt_lower == 'adadelta':
         optimizer = torch.optim.Adadelta(parameters, **opt_args)
     elif opt_lower == 'adafactor':
-        if not learning_rate:
+        if not lr:
             opt_args['lr'] = None
         optimizer = Adafactor(parameters, **opt_args)
     elif opt_lower == 'adahessian':
@@ -363,13 +329,14 @@ class L2MAELoss(torch.nn.Module):
         elif self.reduction == "sum":
             return torch.sum(dists)
 
-def evaluate(args, 
-            model: torch.nn.Module, criterion: torch.nn.Module,
-            data_loader: Iterable, 
-            print_freq: int = 100, 
-            logger=None, 
-            print_progress=False, 
-            max_iter=-1):
+def evaluate(model: torch.nn.Module,
+             accelerator: Accelerator,
+             criterion: torch.nn.Module,
+             data_loader: Iterable, 
+             print_freq: int = 100, 
+             logger=None, 
+             print_progress=False, 
+             max_iter=-1):
 
     model.eval()
     criterion.eval()
@@ -567,7 +534,7 @@ def _train(args):
         'test_force_err': float('inf'), 'test_energy_err': float('inf')}
 
     if args.evaluate:
-        test_err, test_loss = evaluate(args=args, model=model, criterion=criterion, 
+        test_err, test_loss = evaluate(model=model, accelerator=accelerator, criterion=criterion, 
             data_loader=test_loader,
             print_freq=args.print_freq, logger=_log, print_progress=True, max_iter=-1)
         return
@@ -583,12 +550,12 @@ def _train(args):
             epoch=epoch, model_ema=model_ema,
             print_freq=args.print_freq, logger=_log)
         
-        val_err, val_loss = evaluate(args=args, model=model, criterion=criterion, 
+        val_err, val_loss = evaluate(model=model, accelerator=accelerator, criterion=criterion, 
             data_loader=val_loader,
             print_freq=args.print_freq, logger=_log, print_progress=False)
         
         if (epoch + 1) % args.test_interval == 0:
-            test_err, test_loss = evaluate(args=args, model=model, criterion=criterion, 
+            test_err, test_loss = evaluate(model=model, accelerator=accelerator, criterion=criterion, 
             data_loader=test_loader,
             print_freq=args.print_freq, logger=_log, print_progress=True, max_iter=args.test_max_iter)
         else:
@@ -632,12 +599,12 @@ def _train(args):
         
         # evaluation with EMA
         if model_ema is not None:
-            ema_val_err, _ = evaluate(args=args, model=model_ema.module, criterion=criterion, 
+            ema_val_err, _ = evaluate(model=model_ema.module, accelerator=accelerator, criterion=criterion, 
                 data_loader=val_loader,
                 print_freq=args.print_freq, logger=_log, print_progress=False)
             
             if (epoch + 1) % args.test_interval == 0:
-                ema_test_err, _ = evaluate(args=args, model=model_ema.module, criterion=criterion, 
+                ema_test_err, _ = evaluate(model=model_ema.module, accelerator=accelerator, criterion=criterion, 
                     data_loader=test_loader,
                     print_freq=args.print_freq, logger=_log, print_progress=True, max_iter=args.test_max_iter)
             else:
@@ -679,7 +646,7 @@ def _train(args):
                 _log.info(info_str)
 
     # evaluate on the whole testing set
-    test_err, test_loss = evaluate(args=args, model=model, criterion=criterion, 
+    test_err, test_loss = evaluate(model=model, accelerator=accelerator, criterion=criterion, 
         data_loader=test_loader,
         print_freq=args.print_freq, logger=_log, print_progress=True, max_iter=-1)
  
@@ -689,7 +656,7 @@ def train(args):
     if args.train_file is None:
         raise ValueError("--train-file is a required argument")
     if args.valid_file is None:
-        raise ValueError("--train-file is a required argument")
+        raise ValueError("--valid-file is a required argument")
     if args.statistics_file is None:
         raise ValueError("--statistics-file is a required argument")
     if args.output_dir is None:
