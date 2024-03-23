@@ -203,7 +203,7 @@ def optimizer_kwargs(cfg):
     """
     kwargs = dict(
         optimizer_name=cfg.opt,
-        learning_rate=cfg.lr,
+        lr=cfg.lr,
         weight_decay=cfg.weight_decay,
         momentum=cfg.momentum)
     if getattr(cfg, 'opt_eps', None) is not None:

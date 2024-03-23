@@ -33,8 +33,8 @@ def get_args_parser():
     parser.add_argument('--weight-decay', type=float, default=5e-3,
                         help='weight decay (default: 5e-3)')
     # learning rate schedule parameters (timm)
-    parser.add_argument('--sched', default='cosine', type=str, metavar='SCHEDULER',
-                        help='LR scheduler (default: "cosine"')
+    parser.add_argument('--sched', default='plateau', type=str, metavar='SCHEDULER',
+                        help='LR scheduler (default: "plateau"')
     parser.add_argument('--lr', type=float, default=5e-4, metavar='LR',
                         help='learning rate (default: 5e-4)')
     parser.add_argument('--lr-noise', type=float, nargs='+', default=None, metavar='pct, pct',
