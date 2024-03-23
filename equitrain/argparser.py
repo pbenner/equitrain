@@ -10,7 +10,7 @@ def get_args_parser():
     # graph options
     parser.add_argument('--radius', type=float, default=4.5)
     # training hyper-parameters
-    parser.add_argument("--epochs", type=int, default=1000)
+    parser.add_argument("--epochs", type=int, default=100)
     parser.add_argument("--batch-size", type=int, default=8)
     parser.add_argument("--eval-batch-size", type=int, default=24)
     parser.add_argument('--model-ema', action='store_true')
@@ -43,21 +43,21 @@ def get_args_parser():
                         help='learning rate noise limit percent (default: 0.67)')
     parser.add_argument('--lr-noise-std', type=float, default=1.0, metavar='STDDEV',
                         help='learning rate noise std-dev (default: 1.0)')
-    parser.add_argument('--warmup-lr', type=float, default=1e-6, metavar='LR',
+    parser.add_argument('--warmup-lr', type=float, default=0.01, metavar='LR',
                         help='warmup learning rate (default: 1e-6)')
     parser.add_argument('--min-lr', type=float, default=1e-6, metavar='LR',
                         help='lower lr bound for cyclic schedulers that hit 0 (1e-6)')
 
     parser.add_argument('--decay-epochs', type=float, default=30, metavar='N',
                         help='epoch interval to decay LR')
-    parser.add_argument('--warmup-epochs', type=int, default=10, metavar='N',
+    parser.add_argument('--warmup-epochs', type=int, default=0, metavar='N',
                         help='epochs to warmup LR, if scheduler supports')
-    parser.add_argument('--cooldown-epochs', type=int, default=10, metavar='N',
+    parser.add_argument('--cooldown-epochs', type=int, default=0, metavar='N',
                         help='epochs to cooldown LR at min_lr, after cyclic schedule ends')
-    parser.add_argument('--patience-epochs', type=int, default=10, metavar='N',
-                        help='patience epochs for Plateau LR scheduler (default: 10')
-    parser.add_argument('--decay-rate', '--dr', type=float, default=0.1, metavar='RATE',
-                        help='LR decay rate (default: 0.1)')
+    parser.add_argument('--patience-epochs', type=int, default=2, metavar='N',
+                        help='patience epochs for Plateau LR scheduler (default: 2')
+    parser.add_argument('--decay-rate', '--dr', type=float, default=0.5, metavar='RATE',
+                        help='LR decay rate (default: 0.5)')
     # logging
     parser.add_argument("--print-freq", type=int, default=100)
     # task and dataset

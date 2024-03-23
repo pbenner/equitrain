@@ -306,7 +306,6 @@ def create_optimizer_v2(
         optimizer = NvNovoGrad(parameters, **opt_args)
     else:
         assert False and "Invalid optimizer"
-        raise ValueError
 
     if len(opt_split) > 1:
         if opt_split[0] == 'lookahead':
@@ -542,9 +541,9 @@ def _train(args):
     for epoch in range(args.epochs):
         
         epoch_start_time = time.perf_counter()
-        
+
         lr_scheduler.step(epoch)
-        
+
         train_err, train_loss = train_one_epoch(args=args, model=model, accelerator=accelerator, criterion=criterion,
             data_loader=train_loader, optimizer=optimizer,
             epoch=epoch, model_ema=model_ema,
