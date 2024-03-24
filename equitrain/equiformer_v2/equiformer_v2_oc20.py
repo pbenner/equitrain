@@ -427,17 +427,18 @@ class EquiformerV2_OC20(BaseModel):
         # Update spherical node embeddings
         ###############################################################
 
-        for i in range(self.num_layers):
-            x = self.blocks[i](
-                x,                  # SO3_Embedding
-                atomic_numbers,
-                edge_distance,
-                edge_index,
-                batch=data.batch    # for GraphDropPath
-            )
+        if edge_distance_vec.numel() > 0:
+            for i in range(self.num_layers):
+                x = self.blocks[i](
+                    x,                  # SO3_Embedding
+                    atomic_numbers,
+                    edge_distance,
+                    edge_index,
+                    batch=data.batch    # for GraphDropPath
+                )
 
-        # Final layer norm
-        x.embedding = self.norm(x.embedding)
+            # Final layer norm
+            x.embedding = self.norm(x.embedding)
 
         ###############################################################
         # Energy estimation
@@ -452,13 +453,16 @@ class EquiformerV2_OC20(BaseModel):
         # Force estimation
         ###############################################################
         if self.regress_forces:
-            forces = self.force_block(x,
-                atomic_numbers,
-                edge_distance,
-                edge_index)
-            forces = forces.embedding.narrow(1, 1, 3)
-            forces = forces.view(-1, 3)            
-            
+            if edge_distance_vec.numel() > 0:
+                forces = self.force_block(x,
+                    atomic_numbers,
+                    edge_distance,
+                    edge_index)
+                forces = forces.embedding.narrow(1, 1, 3)
+                forces = forces.view(-1, 3)
+            else:
+                forces = torch.zeros((num_atoms, 3), device=self.device)
+
         if not self.regress_forces:
             return energy
         else:
