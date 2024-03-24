@@ -1,10 +1,6 @@
-import logging
-import time
 import math
-import numpy as np
 import torch
 import torch.nn as nn
-from pyexpat.model import XML_CQUANT_OPT
 from functools import wraps
 
 from ocpmodels.models.base import BaseModel
@@ -16,7 +12,6 @@ except ImportError:
     pass
 
 from .gaussian_rbf import GaussianRadialBasisLayer
-from torch.nn import Linear
 from .edge_rot_mat import init_edge_rot_mat
 from .so3 import (
     CoefficientMappingModule,
@@ -26,7 +21,6 @@ from .so3 import (
     SO3_LinearV2
 )
 from .module_list import ModuleListInfo
-from .so2_ops import SO2_Convolution
 from .radial_function import RadialFunction
 from .layer_norm import (
     EquivariantLayerNormArray, 
@@ -370,15 +364,12 @@ class EquiformerV2_OC20(BaseModel):
 
         atomic_numbers = data.atomic_numbers.long()
         num_atoms = len(atomic_numbers)
-        pos = data.pos
 
         (
             edge_index,
             edge_distance,
             edge_distance_vec,
-            cell_offsets,
-            _,  # cell offset distances
-            neighbors,
+            _, _, _,
         ) = self.generate_graph(data)
 
         ###############################################################

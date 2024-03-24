@@ -339,7 +339,7 @@ def evaluate(model: torch.nn.Module,
             
         for step, data in enumerate(data_loader):
 
-            pred_y, pred_dy = model(node_atom=data.z, pos=data.pos, batch=data.batch)
+            pred_y, pred_dy = model(data)
 
             loss_e = criterion(pred_y, data.y)
             loss_f = criterion(pred_dy, data['force'])
