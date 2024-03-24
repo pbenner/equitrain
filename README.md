@@ -48,3 +48,7 @@ if __name__ == "__main__":
 ```sh
     accelerate launch --num-processes=2 train_equiformer.py
 ```
+
+## TODO
+
+* Implement stress predictions

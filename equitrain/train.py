@@ -133,16 +133,16 @@ class AverageMeter:
         self.reset()
 
     def reset(self):
-        self.val = 0
-        self.avg = 0
-        self.sum = 0
+        self.val   = 0
+        self.avg   = 0
+        self.sum   = 0
         self.count = 0
 
     def update(self, val, n=1):
-        self.val = val
-        self.sum += val * n
+        self.val    = val
+        self.sum   += val * n
         self.count += n
-        self.avg = self.sum / self.count
+        self.avg    = self.sum / self.count
 
 def compute_stats(data_loader, max_radius, logger, print_freq=1000):
     '''
@@ -152,25 +152,26 @@ def compute_stats(data_loader, max_radius, logger, print_freq=1000):
     log_str = log_str + 'max_radius={}\n'.format(max_radius)
     logger.info(log_str)
         
-    avg_node = AverageMeter()
-    avg_edge = AverageMeter()
+    avg_node   = AverageMeter()
+    avg_edge   = AverageMeter()
     avg_degree = AverageMeter()
     
     for step, data in enumerate(data_loader):
         
-        pos = data.pos
+        pos   = data.pos
         batch = data.batch
         edge_src, edge_dst = radius_graph(pos, r=max_radius, batch=batch,
             max_num_neighbors=1000)
+
         batch_size = float(batch.max() + 1)
-        num_nodes = pos.shape[0]
-        num_edges = edge_src.shape[0]
+        num_nodes  = pos.shape[0]
+        num_edges  = edge_src.shape[0]
         num_degree = torch_geometric.utils.degree(edge_src, num_nodes)
         num_degree = torch.sum(num_degree)
             
-        avg_node.update(num_nodes / batch_size, batch_size)
-        avg_edge.update(num_edges / batch_size, batch_size)
-        avg_degree.update(num_degree / (num_nodes), num_nodes)
+        avg_node  .update(num_nodes  / batch_size, batch_size)
+        avg_edge  .update(num_edges  / batch_size, batch_size)
+        avg_degree.update(num_degree / num_nodes, num_nodes)
             
         if step % print_freq == 0 or step == (len(data_loader) - 1):
             log_str = '[{}/{}]\tavg node: {}, '.format(step, len(data_loader), avg_node.avg)
@@ -314,19 +315,9 @@ def create_optimizer_v2(
     return optimizer
 
 # %%
-# from https://github.com/Open-Catalyst-Project/ocp/blob/main/ocpmodels/modules/loss.py#L7
-class L2MAELoss(torch.nn.Module):
-    def __init__(self, reduction="mean"):
-        super().__init__()
-        self.reduction = reduction
-        assert reduction in ["mean", "sum"]
 
-    def forward(self, input: torch.Tensor, target: torch.Tensor):
-        dists = torch.norm(input - target, p=2, dim=-1)
-        if self.reduction == "mean":
-            return torch.mean(dists)
-        elif self.reduction == "sum":
-            return torch.sum(dists)
+def compute_weighted_loss(args, energy_loss, force_loss):
+    return args.energy_weight * energy_loss + args.force_weight * force_loss 
 
 def evaluate(model: torch.nn.Module,
              accelerator: Accelerator,
@@ -339,8 +330,8 @@ def evaluate(model: torch.nn.Module,
 
     model.eval()
     criterion.eval()
+
     loss_metrics = {'energy': AverageMeter(), 'force': AverageMeter()}
-    mae_metrics  = {'energy': AverageMeter(), 'force': AverageMeter()}
     
     start_time = time.perf_counter()
     
@@ -353,15 +344,15 @@ def evaluate(model: torch.nn.Module,
             loss_e = criterion(pred_y, data.y)
             loss_f = criterion(pred_dy, data['force'])
             
-            loss_metrics['energy'].update(loss_e.item(), n=pred_y.shape[0])
-            loss_metrics['force'].update(loss_f.item(), n=pred_dy.shape[0])
+            loss_metrics['energy'].update(loss_e.item(), n=pred_y .shape[0])
+            loss_metrics['force' ].update(loss_f.item(), n=pred_dy.shape[0])
             
-            energy_err = pred_y.detach() - data.y
-            energy_err = torch.mean(torch.abs(energy_err)).item()
-            mae_metrics['energy'].update(energy_err, n=pred_y.shape[0])
-            force_err = pred_dy.detach() - data['force']
-            force_err = torch.mean(torch.abs(force_err)).item()     # based on OC20 and TorchMD-Net, they average over x, y, z
-            mae_metrics['force'].update(force_err, n=pred_dy.shape[0])
+            energy_loss = pred_y.detach() - data.y
+            energy_loss = torch.mean(torch.abs(energy_loss)).item()
+            loss_metrics['energy'].update(energy_loss, n=pred_y.shape[0])
+            force_loss = pred_dy.detach() - data['force']
+            force_loss = torch.mean(torch.abs(force_loss)).item()
+            loss_metrics['force'].update(force_loss, n=pred_dy.shape[0])
             
             if accelerator.process_index == 0:
                 # logging
@@ -369,8 +360,8 @@ def evaluate(model: torch.nn.Module,
                     w = time.perf_counter() - start_time
                     e = (step + 1) / len(data_loader)
                     info_str = '[{step}/{length}] \t'.format(step=step, length=len(data_loader))
-                    info_str +=  'e_MAE: {e_mae:.5f}, f_MAE: {f_mae:.5f}, '.format(
-                        e_mae=mae_metrics['energy'].avg, f_mae=mae_metrics['force'].avg, 
+                    info_str +=  'e_loss: {e_loss:.5f}, f_loss: {f_loss:.5f}, '.format(
+                        e_loss=loss_metrics['energy'].avg, f_loss=loss_metrics['force'].avg, 
                     )
                     info_str += 'time/step={time_per_step:.0f}ms'.format( 
                         time_per_step=(1e3 * w / e / len(data_loader))
@@ -380,32 +371,29 @@ def evaluate(model: torch.nn.Module,
             if ((step + 1) >= max_iter) and (max_iter != -1):
                 break
 
-    return mae_metrics, loss_metrics
+    return loss_metrics
 
-def update_best_results(args, best_metrics, val_err, test_err, epoch):
-
-    def _compute_weighted_error(args, energy_err, force_err):
-        return args.energy_weight * energy_err + args.force_weight * force_err 
+def update_best_results(args, best_metrics, val_loss, test_loss, epoch):
 
     update_val_result, update_test_result = False, False 
 
-    new_loss  = _compute_weighted_error(args, val_err['energy'].avg, val_err['force'].avg)
-    prev_loss = _compute_weighted_error(args, best_metrics['val_energy_err'], best_metrics['val_force_err'])
+    new_loss  = compute_weighted_loss(args, val_loss['energy'].avg, val_loss['force'].avg)
+    prev_loss = compute_weighted_loss(args, best_metrics['val_energy_loss'], best_metrics['val_force_loss'])
     if new_loss < prev_loss:
-        best_metrics['val_energy_err'] = val_err['energy'].avg
-        best_metrics['val_force_err']  = val_err['force'].avg
-        best_metrics['val_epoch'] = epoch
+        best_metrics['val_energy_loss'] = val_loss['energy'].avg
+        best_metrics['val_force_loss' ] = val_loss['force'].avg
+        best_metrics['val_epoch'      ] = epoch
         update_val_result = True
 
-    if test_err is None:
+    if test_loss is None:
         return update_val_result, update_test_result
 
-    new_loss  = _compute_weighted_error(args, test_err['energy'].avg, test_err['force'].avg)
-    prev_loss = _compute_weighted_error(args, best_metrics['test_energy_err'], best_metrics['test_force_err'])
+    new_loss  = compute_weighted_loss(args, test_loss['energy'].avg, test_loss['force'].avg)
+    prev_loss = compute_weighted_loss(args, best_metrics['test_energy_loss'], best_metrics['test_force_loss'])
     if new_loss < prev_loss:
-        best_metrics['test_energy_err'] = test_err['energy'].avg
-        best_metrics['test_force_err']  = test_err['force'].avg
-        best_metrics['test_epoch'] = epoch
+        best_metrics['test_energy_loss'] = test_loss['energy'].avg
+        best_metrics['test_force_loss' ] = test_loss['force'].avg
+        best_metrics['test_epoch'      ] = epoch
         update_test_result = True
 
     return update_val_result, update_test_result
@@ -418,67 +406,59 @@ def train_one_epoch(args,
                     model_ema: Optional[ModelEma] = None,  
                     print_freq: int = 100, 
                     logger=None):
-    
+
     model.train()
     criterion.train()
-    
-    loss_metrics = {'energy': AverageMeter(), 'force': AverageMeter()}
-    mae_metrics  = {'energy': AverageMeter(), 'force': AverageMeter()}
-    
+
+    loss_metrics = {'total': AverageMeter(), 'energy': AverageMeter(), 'force': AverageMeter()}
+
     start_time = time.perf_counter()
 
     for step, data in enumerate(data_loader):
 
-        pred_y, pred_dy = model(data)
+        e_true = data.y
+        f_true = data['force']
 
-        loss_e = criterion(pred_y, data.y)
-        loss_f = criterion(pred_dy, data['force'])
-        loss = args.energy_weight * loss_e + args.force_weight * loss_f
+        e_pred, f_pred = model(data)
+
+        loss_e = criterion(e_pred, e_true)
+        loss_f = criterion(f_pred, f_true)
+        loss   = compute_weighted_loss(args, loss_e, loss_f)
 
         optimizer.zero_grad()
         accelerator.backward(loss)
         optimizer.step()
-        
-        loss_metrics['energy'].update(loss_e.item(), n=pred_y.shape[0])
-        loss_metrics['force'].update(loss_f.item(), n=pred_dy.shape[0])
-        
-        energy_err = pred_y.detach() - data.y
-        energy_err = torch.mean(torch.abs(energy_err)).item()
-        mae_metrics['energy'].update(energy_err, n=pred_y.shape[0])
-        force_err = pred_dy.detach()- data['force']
-        force_err = torch.mean(torch.abs(force_err)).item()     # based on OC20 and TorchMD-Net, they average over x, y, z
-        mae_metrics['force'].update(force_err, n=pred_dy.shape[0])
-        
+
+        loss_metrics['total' ].update(loss  .item(), n=e_pred.shape[0])
+        loss_metrics['energy'].update(loss_e.item(), n=e_pred.shape[0])
+        loss_metrics['force' ].update(loss_f.item(), n=f_pred.shape[0])
+
         if model_ema is not None:
             model_ema.update(model)
-        
+
         if accelerator.process_index == 0:
 
             # logging
             if step % print_freq == 0 or step == len(data_loader) - 1: 
                 w = time.perf_counter() - start_time
                 e = (step + 1) / len(data_loader)
-                info_str = 'Epoch: [{epoch}][{step}/{length}] \t'.format(epoch=epoch, step=step, length=len(data_loader))
-                info_str +=  'loss_e: {loss_e:.5f}, loss_f: {loss_f:.5f}, e_MAE: {e_mae:.5f}, f_MAE: {f_mae:.5f}, '.format(
-                    loss_e=loss_metrics['energy'].avg, loss_f=loss_metrics['force'].avg, 
-                    e_mae=mae_metrics['energy'].avg, f_mae=mae_metrics['force'].avg, 
+                info_str  = 'Epoch: [{epoch}][{step}/{length}] \t'.format(epoch=epoch, step=step, length=len(data_loader))
+                info_str += 'loss: {loss:.5f}, loss_e: {loss_e:.5f}, loss_f: {loss_f:.5f}, '.format(
+                    loss=loss_metrics['total'].avg, loss_e=loss_metrics['energy'].avg, loss_f=loss_metrics['force'].avg, 
                 )
                 info_str += 'time/step={time_per_step:.0f}ms, '.format( 
                     time_per_step=(1e3 * w / e / len(data_loader))
                 )
                 info_str += 'lr={:.2e}'.format(optimizer.param_groups[0]["lr"])
                 logger.info(info_str)
-        
-    return mae_metrics, loss_metrics
+
+    return loss_metrics
 
 def _train(args):
     
     _log = FileLogger(is_master=True, is_rank0=True, output_dir=args.output_dir)
     _log.info(args)
     
-    torch.manual_seed(args.seed)
-    np.random.seed(args.seed)
-
     # since dataset needs random 
     torch.manual_seed(args.seed)
     np.random.seed(args.seed)
@@ -499,7 +479,6 @@ def _train(args):
     
     model_ema = None
     if args.model_ema:
-        # Important to create EMA model after cuda(), DP wrapper, and AMP but before SyncBN and DDP wrapper
         model_ema = ModelEma(
             model,
             decay=args.model_ema_decay)
@@ -511,7 +490,7 @@ def _train(args):
     ''' Optimizer and LR Scheduler '''
     optimizer = create_optimizer(args, model)
     lr_scheduler, _ = create_scheduler(args, optimizer)
-    criterion = L2MAELoss() #torch.nn.L1Loss()  #torch.nn.MSELoss() # torch.nn.L1Loss() 
+    criterion = torch.nn.L1Loss() 
 
     model, optimizer, lr_scheduler = accelerator.prepare(model, optimizer, lr_scheduler)
 
@@ -524,16 +503,16 @@ def _train(args):
         compute_stats(train_loader, max_radius=args.radius, logger=_log, print_freq=args.print_freq)
         return
     
-    # record the best validation and testing errors and corresponding epochs
+    # record the best validation and testing loss and corresponding epochs
     best_metrics = {'val_epoch': 0, 'test_epoch': 0, 
-        'val_force_err': float('inf'),  'val_energy_err': float('inf'), 
-        'test_force_err': float('inf'), 'test_energy_err': float('inf')}
+         'val_force_loss': float('inf'),  'val_energy_loss': float('inf'), 
+        'test_force_loss': float('inf'), 'test_energy_loss': float('inf')}
     best_ema_metrics = {'val_epoch': 0, 'test_epoch': 0, 
-        'val_force_err': float('inf'),  'val_energy_err': float('inf'), 
-        'test_force_err': float('inf'), 'test_energy_err': float('inf')}
+         'val_force_loss': float('inf'),  'val_energy_loss': float('inf'), 
+        'test_force_loss': float('inf'), 'test_energy_loss': float('inf')}
 
     if args.evaluate:
-        test_err, test_loss = evaluate(model=model, accelerator=accelerator, criterion=criterion, 
+        test_loss = evaluate(model=model, accelerator=accelerator, criterion=criterion, 
             data_loader=test_loader,
             print_freq=args.print_freq, logger=_log, print_progress=True, max_iter=-1)
         return
@@ -544,72 +523,72 @@ def _train(args):
 
         lr_scheduler.step(epoch)
 
-        train_err, train_loss = train_one_epoch(args=args, model=model, accelerator=accelerator, criterion=criterion,
+        train_loss = train_one_epoch(args=args, model=model, accelerator=accelerator, criterion=criterion,
             data_loader=train_loader, optimizer=optimizer,
             epoch=epoch, model_ema=model_ema,
             print_freq=args.print_freq, logger=_log)
         
-        val_err, val_loss = evaluate(model=model, accelerator=accelerator, criterion=criterion, 
+        val_loss = evaluate(model=model, accelerator=accelerator, criterion=criterion, 
             data_loader=val_loader,
             print_freq=args.print_freq, logger=_log, print_progress=False)
         
         if (epoch + 1) % args.test_interval == 0:
-            test_err, test_loss = evaluate(model=model, accelerator=accelerator, criterion=criterion, 
+            test_loss = evaluate(model=model, accelerator=accelerator, criterion=criterion, 
             data_loader=test_loader,
             print_freq=args.print_freq, logger=_log, print_progress=True, max_iter=args.test_max_iter)
         else:
-            test_err, test_loss = None, None
+            test_loss = None
 
         # Only main process should save model
         if accelerator.process_index == 0:
 
-            update_val_result, update_test_result = update_best_results(args, best_metrics, val_err, test_err, epoch)
+            update_val_result, update_test_result = update_best_results(args, best_metrics, val_loss, test_loss, epoch)
             if update_val_result:
                 torch.save(
-                    {'state_dict': model.state_dict()}, 
-                    os.path.join(args.output_dir, 
-                        'best_val_epochs@{}_e@{:.4f}_f@{:.4f}.pth.tar'.format(epoch, val_err['energy'].avg, val_err['force'].avg))
+                    {'state_dict': model.state_dict()},
+                    os.path.join(args.output_dir,
+                        'best_val_epochs@{}_e@{:.4f}_f@{:.4f}.pth.tar'.format(epoch, val_loss['energy'].avg, val_loss['force'].avg))
                 )
             if update_test_result:
                 torch.save(
-                    {'state_dict': model.state_dict()}, 
-                    os.path.join(args.output_dir, 
-                        'best_test_epochs@{}_e@{:.4f}_f@{:.4f}.pth.tar'.format(epoch, test_err['energy'].avg, test_err['force'].avg))
+                    {'state_dict': model.state_dict()},
+                    os.path.join(args.output_dir,
+                        'best_test_epochs@{}_e@{:.4f}_f@{:.4f}.pth.tar'.format(epoch, test_loss['energy'].avg, test_loss['force'].avg))
                 )
             if (epoch + 1) % args.test_interval == 0 and (not update_val_result) and (not update_test_result):
                 torch.save(
-                    {'state_dict': model.state_dict()}, 
-                    os.path.join(args.output_dir, 
-                        'epochs@{}_e@{:.4f}_f@{:.4f}.pth.tar'.format(epoch, test_err['energy'].avg, test_err['force'].avg))
+                    {'state_dict': model.state_dict()},
+                    os.path.join(args.output_dir,
+                        'epochs@{}_e@{:.4f}_f@{:.4f}.pth.tar'.format(epoch, test_loss['energy'].avg, test_loss['force'].avg))
                 )
 
-            info_str = 'Epoch: [{epoch}] Target: [{target}] train_e_MAE: {train_e_mae:.5f}, train_f_MAE: {train_f_mae:.5f}, '.format(
-                epoch=epoch, target=args.target, train_e_mae=train_err['energy'].avg, train_f_mae=train_err['force'].avg)
-            info_str += 'val_e_MAE: {:.5f}, val_f_MAE: {:.5f}, '.format(val_err['energy'].avg, val_err['force'].avg)
+            info_str = 'Epoch: [{epoch}] Target: [{target}] train_e_loss: {train_e_loss:.5f}, train_f_loss: {train_f_loss:.5f}, '.format(
+                epoch=epoch, target=args.target, train_e_loss=train_loss['energy'].avg, train_f_loss=train_loss['force'].avg)
+            info_str += 'val_e_loss: {:.5f}, val_f_loss: {:.5f}, '.format(val_loss['energy'].avg, val_loss['force'].avg)
             if (epoch + 1) % args.test_interval == 0:
-                info_str += 'test_e_MAE: {:.5f}, test_f_MAE: {:.5f}, '.format(test_err['energy'].avg, test_err['force'].avg)
+                info_str += 'test_e_loss: {:.5f}, test_f_loss: {:.5f}, '.format(test_loss['energy'].avg, test_loss['force'].avg)
             info_str += 'Time: {:.2f}s'.format(time.perf_counter() - epoch_start_time)
             _log.info(info_str)
-            
+
             info_str = 'Best -- val_epoch={}, test_epoch={}, '.format(best_metrics['val_epoch'], best_metrics['test_epoch'])
-            info_str += 'val_e_MAE: {:.5f}, val_f_MAE: {:.5f}, '.format(best_metrics['val_energy_err'], best_metrics['val_force_err'])
-            info_str += 'test_e_MAE: {:.5f}, test_f_MAE: {:.5f}\n'.format(best_metrics['test_energy_err'], best_metrics['test_force_err'])
+            info_str +=  'val_e_loss: {:.5f}, val_f_loss: {:.5f}, '.format(best_metrics['val_energy_loss'], best_metrics['val_force_loss'])
+            info_str += 'test_e_loss: {:.5f}, test_f_loss: {:.5f}\n'.format(best_metrics['test_energy_loss'], best_metrics['test_force_loss'])
             _log.info(info_str)
-        
+
         # evaluation with EMA
         if model_ema is not None:
-            ema_val_err, _ = evaluate(model=model_ema.module, accelerator=accelerator, criterion=criterion, 
+            ema_val_loss = evaluate(model=model_ema.module, accelerator=accelerator, criterion=criterion, 
                 data_loader=val_loader,
                 print_freq=args.print_freq, logger=_log, print_progress=False)
-            
+
             if (epoch + 1) % args.test_interval == 0:
-                ema_test_err, _ = evaluate(model=model_ema.module, accelerator=accelerator, criterion=criterion, 
+                ema_test_loss = evaluate(model=model_ema.module, accelerator=accelerator, criterion=criterion, 
                     data_loader=test_loader,
                     print_freq=args.print_freq, logger=_log, print_progress=True, max_iter=args.test_max_iter)
             else:
-                ema_test_err, ema_test_loss = None, None
-                
-            update_val_result, update_test_result = update_best_results(args, best_ema_metrics, ema_val_err, ema_test_err, epoch)
+                ema_test_loss = None
+
+            update_val_result, update_test_result = update_best_results(args, best_ema_metrics, ema_val_loss, ema_test_loss, epoch)
 
             if accelerator.process_index == 0:
 
@@ -617,35 +596,35 @@ def _train(args):
                     torch.save(
                         {'state_dict': get_state_dict(model_ema)}, 
                         os.path.join(args.output_dir, 
-                            'best_ema_val_epochs@{}_e@{:.4f}_f@{:.4f}.pth.tar'.format(epoch, ema_val_err['energy'].avg, ema_val_err['force'].avg))
+                            'best_ema_val_epochs@{}_e@{:.4f}_f@{:.4f}.pth.tar'.format(epoch, ema_val_loss['energy'].avg, ema_val_loss['force'].avg))
                     )
                 if update_test_result:
                     torch.save(
                         {'state_dict': get_state_dict(model_ema)}, 
                         os.path.join(args.output_dir, 
-                            'best_ema_test_epochs@{}_e@{:.4f}_f@{:.4f}.pth.tar'.format(epoch, ema_test_err['energy'].avg, ema_test_err['force'].avg))
+                            'best_ema_test_epochs@{}_e@{:.4f}_f@{:.4f}.pth.tar'.format(epoch, ema_test_loss['energy'].avg, ema_test_loss['force'].avg))
                     )
                 if (epoch + 1) % args.test_interval == 0 and (not update_val_result) and (not update_test_result):
                     torch.save(
                         {'state_dict': get_state_dict(model_ema)}, 
                         os.path.join(args.output_dir, 
-                            'ema_epochs@{}_e@{:.4f}_f@{:.4f}.pth.tar'.format(epoch, test_err['energy'].avg, test_err['force'].avg))
+                            'ema_epochs@{}_e@{:.4f}_f@{:.4f}.pth.tar'.format(epoch, test_loss['energy'].avg, test_loss['force'].avg))
                     )
 
                 info_str = 'EMA '
-                info_str += 'val_e_MAE: {:.5f}, val_f_MAE: {:.5f}, '.format(ema_val_err['energy'].avg, ema_val_err['force'].avg)
+                info_str += 'val_e_loss: {:.5f}, val_f_loss: {:.5f}, '.format(ema_val_loss['energy'].avg, ema_val_loss['force'].avg)
                 if (epoch + 1) % args.test_interval == 0:
-                    info_str += 'test_e_MAE: {:.5f}, test_f_MAE: {:.5f}, '.format(ema_test_err['energy'].avg, ema_test_err['force'].avg)
+                    info_str += 'test_e_loss: {:.5f}, test_f_loss: {:.5f}, '.format(ema_test_loss['energy'].avg, ema_test_loss['force'].avg)
                 info_str += 'Time: {:.2f}s'.format(time.perf_counter() - epoch_start_time)
                 _log.info(info_str)
-                
+
                 info_str = 'Best EMA -- val_epoch={}, test_epoch={}, '.format(best_ema_metrics['val_epoch'], best_ema_metrics['test_epoch'])
-                info_str += 'val_e_MAE: {:.5f}, val_f_MAE: {:.5f}, '.format(best_ema_metrics['val_energy_err'], best_ema_metrics['val_force_err'])
-                info_str += 'test_e_MAE: {:.5f}, test_f_MAE: {:.5f}\n'.format(best_ema_metrics['test_energy_err'], best_ema_metrics['test_force_err'])
+                info_str += 'val_e_loss: {:.5f}, val_f_loss: {:.5f}, '.format(best_ema_metrics['val_energy_loss'], best_ema_metrics['val_force_loss'])
+                info_str += 'test_e_loss: {:.5f}, test_f_loss: {:.5f}\n'.format(best_ema_metrics['test_energy_loss'], best_ema_metrics['test_force_loss'])
                 _log.info(info_str)
 
     # evaluate on the whole testing set
-    test_err, test_loss = evaluate(model=model, accelerator=accelerator, criterion=criterion, 
+    test_loss = evaluate(model=model, accelerator=accelerator, criterion=criterion, 
         data_loader=test_loader,
         print_freq=args.print_freq, logger=_log, print_progress=True, max_iter=-1)
  
