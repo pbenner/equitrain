@@ -12,12 +12,12 @@ import logging
 import h5py
 import torch
 
-from multiprocessing import Pool
 from dataclasses import dataclass
 from typing import Dict, List, Optional, Sequence, Tuple
 
+from equitrain.mace.modules.blocks import AtomicEnergiesBlock
 from equitrain.mace.tools import AtomicNumberTable
-from equitrain.mace.tools import to_numpy
+from equitrain.mace.tools import to_numpy, atomic_numbers_to_indices, to_one_hot
 from equitrain.mace.tools.scatter import scatter_sum
 
 Vector = np.ndarray  # [3,]
@@ -348,10 +348,18 @@ def save_configurations_as_HDF5(configurations: Configurations, i, h5_file) -> N
 def write_value(value):
     return value if value is not None else "None"
 
+def compute_one_hot(z_table, batch):
+    indices = atomic_numbers_to_indices(batch.atomic_numbers, z_table=z_table)
+    one_hot = to_one_hot(
+        torch.tensor(indices, dtype=torch.long).unsqueeze(-1),
+        num_classes=len(z_table),
+    )
+    return one_hot
 
 def compute_statistics(
     data_loader: torch.utils.data.DataLoader,
     atomic_energies: np.ndarray,
+    z_table: AtomicNumberTable
 ) -> Tuple[float, float, float, float]:
     atomic_energies_fn = AtomicEnergiesBlock(atomic_energies=atomic_energies)
 
@@ -360,15 +368,15 @@ def compute_statistics(
     num_neighbors = []
 
     for batch in data_loader:
-        node_e0 = atomic_energies_fn(batch.node_attrs)
+        node_e0 = atomic_energies_fn(compute_one_hot(z_table, batch))
         graph_e0s = scatter_sum(
             src=node_e0, index=batch.batch, dim=-1, dim_size=batch.num_graphs
         )
         graph_sizes = batch.ptr[1:] - batch.ptr[:-1]
         atom_energy_list.append(
-            (batch.energy - graph_e0s) / graph_sizes
+            (batch.y - graph_e0s) / graph_sizes
         )  # {[n_graphs], }
-        forces_list.append(batch.forces)  # {[n_graphs*n_atoms,3], }
+        forces_list.append(batch.force)  # {[n_graphs*n_atoms,3], }
 
         _, receivers = batch.edge_index
         _, counts = torch.unique(receivers, return_counts=True)

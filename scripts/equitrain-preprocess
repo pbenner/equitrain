@@ -12,7 +12,7 @@ import torch_geometric
 from equitrain import get_args_parser_preprocess
 from equitrain.mace import tools
 from equitrain.mace.data import HDF5Dataset
-from equitrain.mace.data.utils import save_configurations_as_HDF5
+from equitrain.mace.data.utils import save_configurations_as_HDF5, compute_statistics
 from equitrain.mace.tools.scripts_utils import get_dataset_from_xyz, get_atomic_energies
 
 def split_array(a: np.ndarray, max_size: int):
@@ -120,14 +120,14 @@ def main():
         )
         logging.info(f"Atomic energies: {atomic_energies.tolist()}")
         train_dataset = HDF5Dataset(args.h5_prefix + "train.h5", z_table=z_table, r_max=args.r_max)
-        train_loader = torch_geometric.dataloader.DataLoader(
+        train_loader = torch_geometric.loader.DataLoader(
             dataset=train_dataset, 
             batch_size=args.batch_size, 
             shuffle=False,
             drop_last=False,
         )
         avg_num_neighbors, mean, std = compute_statistics(
-            train_loader, atomic_energies
+            train_loader, atomic_energies, z_table
         )
         logging.info(f"Average number of neighbors: {avg_num_neighbors}")
         logging.info(f"Mean: {mean}")

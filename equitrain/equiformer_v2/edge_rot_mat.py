@@ -2,6 +2,10 @@ import torch
 
 
 def init_edge_rot_mat(edge_distance_vec):
+
+    if edge_distance_vec.numel() == 0:
+        return torch.empty(0, 3, 3, device=edge_distance_vec.device)
+
     edge_vec_0 = edge_distance_vec
     edge_vec_0_distance = torch.sqrt(torch.sum(edge_vec_0**2, dim=1))
 
@@ -24,10 +28,10 @@ def init_edge_rot_mat(edge_distance_vec):
     # With two 90 degree rotated vectors, at least one should not be aligned with norm_x
     edge_vec_2b = edge_vec_2.clone()
     edge_vec_2b[:, 0] = -edge_vec_2[:, 1]
-    edge_vec_2b[:, 1] = edge_vec_2[:, 0]
+    edge_vec_2b[:, 1] =  edge_vec_2[:, 0]
     edge_vec_2c = edge_vec_2.clone()
     edge_vec_2c[:, 1] = -edge_vec_2[:, 2]
-    edge_vec_2c[:, 2] = edge_vec_2[:, 1]
+    edge_vec_2c[:, 2] =  edge_vec_2[:, 1]
     vec_dot_b = torch.abs(torch.sum(edge_vec_2b * norm_x, dim=1)).view(
         -1, 1
     )
@@ -61,11 +65,11 @@ def init_edge_rot_mat(edge_distance_vec):
     )
 
     # Construct the 3D rotation matrix
-    norm_x = norm_x.view(-1, 3, 1)
+    norm_x =  norm_x.view(-1, 3, 1)
     norm_y = -norm_y.view(-1, 3, 1)
-    norm_z = norm_z.view(-1, 3, 1)
+    norm_z =  norm_z.view(-1, 3, 1)
 
     edge_rot_mat_inv = torch.cat([norm_z, norm_x, norm_y], dim=2)
-    edge_rot_mat = torch.transpose(edge_rot_mat_inv, 1, 2)
+    edge_rot_mat     = torch.transpose(edge_rot_mat_inv, 1, 2)
 
     return edge_rot_mat.detach()

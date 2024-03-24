@@ -5,7 +5,7 @@ from .utils import (
     get_atomic_number_table_from_zs,
 )
 
-from .torch_tools import to_numpy, set_seeds
+from .torch_tools import to_numpy, set_seeds, to_one_hot
 from .scatter import (
     scatter_mean,
     scatter_std,
@@ -20,4 +20,5 @@ __all__ = [
     "scatter_sum",
     "set_seeds",
     "to_numpy",
+    "to_one_hot",
 ]
