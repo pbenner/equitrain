@@ -3,7 +3,7 @@ import h5py
 from ase import Atoms
 from torch.utils.data import Dataset, IterableDataset, ChainDataset
 
-from equitrain.ocpmodels import AtomsToGraphs
+from equitrain.ocpmodels.preprocessing import AtomsToGraphs
 
 class CachedCalc:
 

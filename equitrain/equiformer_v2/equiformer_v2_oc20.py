@@ -3,13 +3,8 @@ import torch
 import torch.nn as nn
 from functools import wraps
 
-from ocpmodels.models.base import BaseModel
-from ocpmodels.models.spinconv import GaussianSmearing
-
-try:
-    from e3nn import o3
-except ImportError:
-    pass
+from equitrain.ocpmodels.models.base import BaseModel
+from equitrain.ocpmodels.models.spinconv import GaussianSmearing
 
 from .gaussian_rbf import GaussianRadialBasisLayer
 from .edge_rot_mat import init_edge_rot_mat
