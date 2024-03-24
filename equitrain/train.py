@@ -521,7 +521,7 @@ def _train(args):
         
         epoch_start_time = time.perf_counter()
 
-        lr_scheduler.step(epoch)
+        lr_scheduler.step(best_metrics['val_epoch'], epoch)
 
         train_loss = train_one_epoch(args=args, model=model, accelerator=accelerator, criterion=criterion,
             data_loader=train_loader, optimizer=optimizer,
@@ -562,8 +562,8 @@ def _train(args):
                         'epochs@{}_e@{:.4f}_f@{:.4f}.pth.tar'.format(epoch, test_loss['energy'].avg, test_loss['force'].avg))
                 )
 
-            info_str = 'Epoch: [{epoch}] Target: [{target}] train_e_loss: {train_e_loss:.5f}, train_f_loss: {train_f_loss:.5f}, '.format(
-                epoch=epoch, target=args.target, train_e_loss=train_loss['energy'].avg, train_f_loss=train_loss['force'].avg)
+            info_str = 'Epoch: [{epoch}] train_e_loss: {train_e_loss:.5f}, train_f_loss: {train_f_loss:.5f}, '.format(
+                epoch=epoch, train_e_loss=train_loss['energy'].avg, train_f_loss=train_loss['force'].avg)
             info_str += 'val_e_loss: {:.5f}, val_f_loss: {:.5f}, '.format(val_loss['energy'].avg, val_loss['force'].avg)
             if (epoch + 1) % args.test_interval == 0:
                 info_str += 'test_e_loss: {:.5f}, test_f_loss: {:.5f}, '.format(test_loss['energy'].avg, test_loss['force'].avg)
