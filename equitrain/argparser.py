@@ -5,6 +5,7 @@ def get_args_parser():
     # required arguments
     parser.add_argument('--train-file', type=str, default=None)
     parser.add_argument('--valid-file', type=str, default=None)
+    parser.add_argument('--test-file', type=str, default=None)
     parser.add_argument('--statistics-file', type=str, default=None)
     parser.add_argument('--output-dir', type=str, default=None)
     # graph options
@@ -63,10 +64,6 @@ def get_args_parser():
     # task and dataset
     parser.add_argument('--compute-stats', action='store_true', dest='compute_stats')
     parser.set_defaults(compute_stats=False)
-    parser.add_argument('--test-interval', type=int, default=10, 
-                        help='epoch interval to evaluate on the testing set')
-    parser.add_argument('--test-max-iter', type=int, default=1000, 
-                        help='max iteration to evaluate on the testing set')
     parser.add_argument('--energy-weight', type=float, default=0.2)
     parser.add_argument('--force-weight', type=float, default=0.8)
     # random
