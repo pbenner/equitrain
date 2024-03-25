@@ -71,8 +71,6 @@ class HDF5IterDataset(IterableDataset):
         return self.length
 
     def __iter__(self):
-        # file = h5py.File(self.file, 'r')
-        # grp = file["config_" + str(index)]
         grp = self.iter_group
         len_subgrp = len(grp.keys())
         grp_list = []
