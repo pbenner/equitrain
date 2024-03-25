@@ -8,8 +8,6 @@ def get_args_parser():
     parser.add_argument('--test-file', type=str, default=None)
     parser.add_argument('--statistics-file', type=str, default=None)
     parser.add_argument('--output-dir', type=str, default=None)
-    # graph options
-    parser.add_argument('--radius', type=float, default=4.5)
     # training hyper-parameters
     parser.add_argument("--epochs", type=int, default=100)
     parser.add_argument("--batch-size", type=int, default=8)

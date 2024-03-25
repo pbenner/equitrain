@@ -42,18 +42,19 @@ def get_dataloaders(args):
 
     zs_list = ast.literal_eval(statistics["atomic_numbers"])
     z_table = get_atomic_number_table_from_zs(zs_list)
+    r_max = float(statistics["r_max"])
 
     train_set = HDF5Dataset(
-        args.train_file, r_max=args.radius, z_table=z_table
+        args.train_file, r_max=r_max, z_table=z_table
     )
     valid_set = HDF5Dataset(
-        args.valid_file, r_max=args.radius, z_table=z_table
+        args.valid_file, r_max=r_max, z_table=z_table
     )
     if args.test_file is None:
         test_set = None
     else:
         valid_set = HDF5Dataset(
-            args.test_file, r_max=args.radius, z_table=z_table
+            args.test_file, r_max=r_max, z_table=z_table
         )
 
     train_loader = torch_geometric.loader.DataLoader(
@@ -84,7 +85,7 @@ def get_dataloaders(args):
             num_workers=args.workers,
         )
 
-    return train_loader, valid_loader, test_loader
+    return train_loader, valid_loader, test_loader, r_max
 
 # %%
 
@@ -471,11 +472,15 @@ def _train(args):
 
     accelerator = Accelerator()
 
+    ''' Data Loader '''
+    train_loader, val_loader, test_loader, r_max = get_dataloaders(args)
+    train_loader, val_loader, test_loader = accelerator.prepare(train_loader, val_loader, test_loader)
+
     ''' Network '''
     model = EquiformerV2_OC20(
         # First three arguments are not used
         None, None, None,
-        max_radius=args.radius,
+        max_radius=r_max,
         max_num_elements=95)
     _log.info(model)
 
@@ -499,10 +504,6 @@ def _train(args):
     criterion = torch.nn.L1Loss() 
 
     model, optimizer, lr_scheduler = accelerator.prepare(model, optimizer, lr_scheduler)
-
-    ''' Data Loader '''
-    train_loader, val_loader, test_loader = get_dataloaders(args)
-    train_loader, val_loader, test_loader = accelerator.prepare(train_loader, val_loader, test_loader)
 
     ''' Compute stats '''
     if args.compute_stats:
