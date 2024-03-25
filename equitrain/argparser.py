@@ -82,8 +82,8 @@ def get_args_parser():
 
 def get_args_parser_preprocess() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser('Equifomer V2 preprocess script', add_help=False)
-    parser.add_argument("--train_file", help="Training set h5 file", type=str, default=None, required=True)
-    parser.add_argument("--valid_file", help="Training set xyz file", type=str, default=None, required=False)
+    parser.add_argument("--train_file", help="Training set xyz file", type=str, default=None, required=False)
+    parser.add_argument("--valid_file", help="Validation set xyz file", type=str, default=None, required=False)
     parser.add_argument(
         "--valid_fraction",
         help="Fraction of training set used for validation",
@@ -99,8 +99,8 @@ def get_args_parser_preprocess() -> argparse.ArgumentParser:
         required=False,
     )
     parser.add_argument(
-        "--h5_prefix",
-        help="Prefix for h5 files when saving",
+        "--output_dir",
+        help="Output directory for h5 files",
         type=str,
         default="",
     )

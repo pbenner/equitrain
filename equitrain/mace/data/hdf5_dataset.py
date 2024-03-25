@@ -66,8 +66,6 @@ class HDF5IterDataset(IterableDataset):
         self.converter = AtomsToGraphs(r_energy=True, r_forces=True, radius=r_max)
         self.r_max = r_max
         self.z_table = z_table
-        # self.file = file
-        # self.length = len(h5py.File(file, 'r').keys())
 
     def __len__(self):
         return self.length
