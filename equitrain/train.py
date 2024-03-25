@@ -76,7 +76,7 @@ def get_dataloaders(args):
         test_loader = None
     else:
         test_loader = torch_geometric.loader.DataLoader(
-            dataset=valid_set,
+            dataset=test_set,
             batch_size=1,
             shuffle=False,
             drop_last=False,
