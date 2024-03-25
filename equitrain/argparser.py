@@ -12,10 +12,6 @@ def get_args_parser():
     parser.add_argument("--epochs", type=int, default=100)
     parser.add_argument("--batch-size", type=int, default=8)
     parser.add_argument("--eval-batch-size", type=int, default=24)
-    parser.add_argument('--model-ema', action='store_true')
-    parser.set_defaults(model_ema=False)
-    parser.add_argument('--model-ema-decay', type=float, default=0.9999, help='')
-    parser.add_argument('--model-ema-force-cpu', action='store_true', default=False, help='')
     # regularization
     parser.add_argument('--drop-path', type=float, default=0.0)
     # optimizer (timm)
@@ -72,7 +68,7 @@ def get_args_parser():
                         help='Pin CPU memory in DataLoader for more efficient (sometimes) transfer to GPU.')
     parser.set_defaults(pin_mem=True)
     # evaluation
-    parser.add_argument('--checkpoint-path', type=str, default=None)
+    parser.add_argument('--load-checkpoint', type=str, default=None)
     parser.add_argument('--evaluate', action='store_true', dest='evaluate')
     parser.set_defaults(evaluate=False)
     return parser

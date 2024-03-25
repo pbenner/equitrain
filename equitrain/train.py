@@ -24,14 +24,11 @@ from timm.optim.radam import RAdam
 from timm.optim.rmsprop_tf import RMSpropTF
 from timm.optim.sgdp import SGDP
 from timm.optim.adabelief import AdaBelief
-from timm.utils import ModelEmaV2, get_state_dict
 from timm.scheduler import create_scheduler
 
 from equitrain.equiformer_v2 import EquiformerV2_OC20
 from equitrain.mace.data.hdf5_dataset import HDF5Dataset
 from equitrain.mace.tools import get_atomic_number_table_from_zs
-
-ModelEma = ModelEmaV2
 
 # %%
 
@@ -410,7 +407,6 @@ def train_one_epoch(args,
                     model: torch.nn.Module, accelerator: Accelerator, criterion: torch.nn.Module,
                     data_loader: Iterable, optimizer: torch.optim.Optimizer,
                     epoch: int, 
-                    model_ema: Optional[ModelEma] = None,  
                     print_freq: int = 100, 
                     logger=None):
 
@@ -439,9 +435,6 @@ def train_one_epoch(args,
         loss_metrics['total' ].update(loss  .item(), n=e_pred.shape[0])
         loss_metrics['energy'].update(loss_e.item(), n=e_pred.shape[0])
         loss_metrics['force' ].update(loss_f.item(), n=f_pred.shape[0])
-
-        if model_ema is not None:
-            model_ema.update(model)
 
         if accelerator.process_index == 0:
 
@@ -483,18 +476,7 @@ def _train(args):
         max_radius=r_max,
         max_num_elements=95)
     _log.info(model)
-
-    if args.checkpoint_path is not None:
-        state_dict = torch.load(args.checkpoint_path, map_location='cpu')
-        model.load_state_dict(state_dict['state_dict'])
     
-    model_ema = None
-    if args.model_ema:
-        model_ema = ModelEma(
-            model,
-            decay=args.model_ema_decay)
-        model_ema = accelerator.prepare(model_ema)
-
     n_parameters = sum(p.numel() for p in model.parameters() if p.requires_grad)
     _log.info('Number of params: {}'.format(n_parameters))
     
@@ -505,6 +487,10 @@ def _train(args):
 
     model, optimizer, lr_scheduler = accelerator.prepare(model, optimizer, lr_scheduler)
 
+    if args.load_checkpoint is not None:
+        _log.info(f'Loading checkpoint {args.load_checkpoint}...')
+        accelerator.load_state(args.load_checkpoint)
+
     ''' Compute stats '''
     if args.compute_stats:
         compute_stats(train_loader, max_radius=args.radius, logger=_log, print_freq=args.print_freq)
@@ -512,9 +498,6 @@ def _train(args):
     
     # record the best validation and testing loss and corresponding epochs
     best_metrics = {'val_epoch': 0, 'test_epoch': 0, 
-         'val_force_loss': float('inf'),  'val_energy_loss': float('inf'), 
-        'test_force_loss': float('inf'), 'test_energy_loss': float('inf')}
-    best_ema_metrics = {'val_epoch': 0, 'test_epoch': 0, 
          'val_force_loss': float('inf'),  'val_energy_loss': float('inf'), 
         'test_force_loss': float('inf'), 'test_energy_loss': float('inf')}
 
@@ -526,8 +509,7 @@ def _train(args):
 
         train_loss = train_one_epoch(args=args, model=model, accelerator=accelerator, criterion=criterion,
             data_loader=train_loader, optimizer=optimizer,
-            epoch=epoch, model_ema=model_ema,
-            print_freq=args.print_freq, logger=_log)
+            epoch=epoch, print_freq=args.print_freq, logger=_log)
         
         val_loss = evaluate(model=model, accelerator=accelerator, criterion=criterion, 
             data_loader=val_loader,
@@ -538,11 +520,10 @@ def _train(args):
 
             update_val_result = update_best_results(args, best_metrics, val_loss, epoch)
             if update_val_result:
-                torch.save(
-                    {'state_dict': model.state_dict()},
+                accelerator.save_state(
                     os.path.join(args.output_dir,
-                        'best_val_epochs@{}_e@{:.4f}_f@{:.4f}.pth.tar'.format(epoch, val_loss['energy'].avg, val_loss['force'].avg))
-                )
+                        'best_val_epochs@{}_e@{:.4f}_f@{:.4f}'.format(epoch, val_loss['energy'].avg, val_loss['force'].avg)),
+                        safe_serialization=False)
 
             info_str = 'Epoch: [{epoch}] train_e_loss: {train_e_loss:.5f}, train_f_loss: {train_f_loss:.5f}, '.format(
                 epoch=epoch, train_e_loss=train_loss['energy'].avg, train_f_loss=train_loss['force'].avg)
@@ -553,32 +534,6 @@ def _train(args):
             info_str  = 'Best -- val_epoch={}, test_epoch={}, '.format(best_metrics['val_epoch'], best_metrics['test_epoch'])
             info_str +=  'val_e_loss: {:.5f}, val_f_loss: {:.5f}, '.format(best_metrics['val_energy_loss'], best_metrics['val_force_loss'])
             _log.info(info_str)
-
-        # evaluation with EMA
-        if model_ema is not None:
-            ema_val_loss = evaluate(model=model_ema.module, accelerator=accelerator, criterion=criterion, 
-                data_loader=val_loader,
-                print_freq=args.print_freq, logger=_log, print_progress=False)
-
-            update_val_result = update_best_results(args, best_ema_metrics, ema_val_loss, epoch)
-
-            if accelerator.process_index == 0:
-
-                if update_val_result:
-                    torch.save(
-                        {'state_dict': get_state_dict(model_ema)}, 
-                        os.path.join(args.output_dir, 
-                            'best_ema_val_epochs@{}_e@{:.4f}_f@{:.4f}.pth.tar'.format(epoch, ema_val_loss['energy'].avg, ema_val_loss['force'].avg))
-                    )
-
-                info_str = 'EMA '
-                info_str += 'val_e_loss: {:.5f}, val_f_loss: {:.5f}, '.format(ema_val_loss['energy'].avg, ema_val_loss['force'].avg)
-                info_str += 'Time: {:.2f}s'.format(time.perf_counter() - epoch_start_time)
-                _log.info(info_str)
-
-                info_str = 'Best EMA -- val_epoch={}, test_epoch={}, '.format(best_ema_metrics['val_epoch'], best_ema_metrics['test_epoch'])
-                info_str += 'val_e_loss: {:.5f}, val_f_loss: {:.5f}, '.format(best_ema_metrics['val_energy_loss'], best_ema_metrics['val_force_loss'])
-                _log.info(info_str)
 
     if test_loader is not None:
         # evaluate on the whole testing set
