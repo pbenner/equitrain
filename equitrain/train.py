@@ -473,8 +473,12 @@ def _train(args):
     model = EquiformerV2_OC20(
         # First three arguments are not used
         None, None, None,
-        max_radius=r_max,
-        max_num_elements=95)
+        max_radius       = r_max,
+        max_num_elements = 95,
+        alpha_drop       = args.alpha_drop,
+        drop_path_rate   = args.drop_path_rate,
+        proj_drop        = args.proj_drop,
+    )
 
     if args.load_checkpoint_model is not None:
         _log.info(f'Loading model checkpoint {args.load_checkpoint_model}...')

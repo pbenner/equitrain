@@ -13,7 +13,9 @@ def get_args_parser():
     parser.add_argument("--batch-size", type=int, default=8)
     parser.add_argument("--eval-batch-size", type=int, default=24)
     # regularization
-    parser.add_argument('--drop-path', type=float, default=0.0)
+    parser.add_argument('--alpha-drop', type=float, default=0.0)
+    parser.add_argument('--proj-drop', type=float, default=0.0)
+    parser.add_argument('--drop-path-rate', type=float, default=0.0)
     # optimizer (timm)
     parser.add_argument('--opt', default='adamw', type=str, metavar='OPTIMIZER',
                         help='Optimizer (default: "adamw"')
