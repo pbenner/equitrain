@@ -475,7 +475,10 @@ def _train(args):
         None, None, None,
         max_radius=r_max,
         max_num_elements=95)
-    _log.info(model)
+
+    if args.load_checkpoint_model is not None:
+        _log.info(f'Loading model checkpoint {args.load_checkpoint_model}...')
+        model.load_state_dict(torch.load(args.load_checkpoint_model))
     
     n_parameters = sum(p.numel() for p in model.parameters() if p.requires_grad)
     _log.info('Number of params: {}'.format(n_parameters))

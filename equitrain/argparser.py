@@ -68,7 +68,10 @@ def get_args_parser():
                         help='Pin CPU memory in DataLoader for more efficient (sometimes) transfer to GPU.')
     parser.set_defaults(pin_mem=True)
     # evaluation
-    parser.add_argument('--load-checkpoint', type=str, default=None)
+    parser.add_argument('--load-checkpoint', type=str, default=None,
+                        help="Load full checkpoint including optimizer and random state (for resuming training exactly where it stopped)")
+    parser.add_argument('--load-checkpoint-model', type=str, default=None,
+                        help="Load model checkpoint")
     parser.add_argument('--evaluate', action='store_true', dest='evaluate')
     parser.set_defaults(evaluate=False)
     return parser
