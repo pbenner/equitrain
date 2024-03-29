@@ -332,7 +332,13 @@ def create_optimizer_v2(
 # %%
 
 def compute_weighted_loss(args, energy_loss, force_loss):
-    return args.energy_weight * energy_loss + args.force_weight * force_loss 
+    result = 0.0
+    # handle initial values correctly when weights are zero, i.e. 0.0*Inf -> NaN
+    if args.energy_weight > 0.0:
+        result += args.energy_weight * energy_loss
+    if args.force_weight > 0.0:
+        result += args.force_weight * force_loss
+    return result
 
 def evaluate(model: torch.nn.Module,
              accelerator: Accelerator,
