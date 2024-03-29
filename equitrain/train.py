@@ -3,6 +3,7 @@ import json
 import logging
 import time
 import torch
+import math
 import numpy as np
 import os
 import torch_geometric
@@ -334,9 +335,9 @@ def create_optimizer_v2(
 def compute_weighted_loss(args, energy_loss, force_loss):
     result = 0.0
     # handle initial values correctly when weights are zero, i.e. 0.0*Inf -> NaN
-    if args.energy_weight > 0.0:
+    if not math.isinf(energy_loss) or args.energy_weight > 0.0:
         result += args.energy_weight * energy_loss
-    if args.force_weight > 0.0:
+    if not math.isinf(force_loss) or args.force_weight > 0.0:
         result += args.force_weight * force_loss
     return result
 
@@ -489,9 +490,11 @@ def _train(args):
     if args.load_checkpoint_model is not None:
         _log.info(f'Loading model checkpoint {args.load_checkpoint_model}...')
         model.load_state_dict(torch.load(args.load_checkpoint_model))
-    
+
     n_parameters = sum(p.numel() for p in model.parameters() if p.requires_grad)
-    _log.info('Number of params: {}'.format(n_parameters))
+
+    if accelerator.process_index == 0:
+        _log.info('Number of params: {}'.format(n_parameters))
     
     ''' Optimizer and LR Scheduler '''
     optimizer = create_optimizer(args, model)
