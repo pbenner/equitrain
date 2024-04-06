@@ -2,24 +2,23 @@ import torch
 
 from typing import List, Optional, Tuple
 
-def compute_stress_virials(
+def compute_stress(
     energy: torch.Tensor,
     displacement: torch.Tensor,
     cell: torch.Tensor,
     training: bool = True,
 ) -> torch.Tensor:
 
-    grad_outputs: List[Optional[torch.Tensor]] = [torch.ones_like(energy)]
+    grad_outputs: List[Optional[torch.Tensor]] = torch.ones_like(energy)
 
     virials = torch.autograd.grad(
-        outputs      = [energy],       # [n_graphs, ]
-        inputs       = [displacement], # [n_nodes, 3]
+        outputs      = energy,       # [n_graphs, ]
+        inputs       = displacement, # [n_nodes, 3]
         grad_outputs = grad_outputs,
         retain_graph = training,       # Make sure the graph is not destroyed during training
         create_graph = training,       # Create graph for second derivative
         allow_unused = True,
-    )
-    stress = torch.zeros_like(displacement)
+    )[0]
 
     cell = cell.view(-1, 3, 3)
     volume = torch.einsum(
@@ -35,6 +34,7 @@ def compute_stress_virials(
 def get_displacement(
     positions: torch.Tensor,
     num_graphs: int,
+    batch: torch.Tensor
 ) -> torch.Tensor:
 
     displacement = torch.zeros(
@@ -44,20 +44,11 @@ def get_displacement(
     )
     displacement.requires_grad_(True)
 
-    return displacement
-
-def compute_stress(data, energy, training=False) -> torch.Tensor:
-
-    displacement = get_displacement(
-        positions=data["positions"],
-        num_graphs=num_graphs,
+    symmetric_displacement = 0.5 * (
+        displacement + displacement.transpose(-1, -2)
+    )  # From https://github.com/mir-group/nequip
+    positions = positions + torch.einsum(
+        "be,bec->bc", positions, symmetric_displacement[batch]
     )
 
-    stress = compute_stress_virials(
-        energy=energy,
-        displacement=displacement,
-        cell=data["cell"],
-        training=training,
-    )
-
-    return stress
+    return positions, displacement

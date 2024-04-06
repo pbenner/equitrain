@@ -2,9 +2,11 @@ import math
 import torch
 import torch.nn as nn
 from functools import wraps
+from copy import copy
 
 from equitrain.ocpmodels.models.base import BaseModel
 from equitrain.ocpmodels.models.spinconv import GaussianSmearing
+from equitrain.stress import compute_stress, get_displacement
 
 from .gaussian_rbf import GaussianRadialBasisLayer
 from .edge_rot_mat import init_edge_rot_mat
@@ -31,24 +33,6 @@ from .transformer_block import (
 )
 from .input_block import EdgeDegreeEmbedding
 
-
-def conditional_grad(dec):
-    "Decorator to enable/disable grad depending on whether force/energy predictions are being made"
-
-    # Adapted from https://stackoverflow.com/questions/60907323/accessing-class-property-as-decorator-argument
-    def decorator(func):
-        @wraps(func)
-        def cls_method(self, *args, **kwargs):
-            f = func
-            if self.regress_forces and not getattr(self, "direct_forces", 0):
-                f = dec(func)
-            return f(self, *args, **kwargs)
-
-        return cls_method
-
-    return decorator
-
-
 # Statistics of IS2RE 100K 
 _AVG_NUM_NODES  = 77.81317
 _AVG_DEGREE     = 23.395238876342773    # IS2RE: 100k, max_radius = 5, max_neighbors = 100
@@ -60,7 +44,6 @@ class EquiformerV2_OC20(BaseModel):
 
     Args:
         use_pbc (bool):         Use periodic boundary conditions
-        regress_forces (bool):  Compute forces
         otf_graph (bool):       Compute graph On The Fly (OTF)
         max_neighbors (int):    Maximum number of neighbors per atom
         max_radius (float):     Maximum distance between nieghboring atoms in Angstroms
@@ -107,7 +90,6 @@ class EquiformerV2_OC20(BaseModel):
         bond_feat_dim,  # not used
         num_targets,    # not used
         use_pbc=True,
-        regress_forces=True,
         otf_graph=True,
         max_neighbors=500,
         max_radius=5.0,
@@ -153,7 +135,6 @@ class EquiformerV2_OC20(BaseModel):
         super().__init__()
 
         self.use_pbc = use_pbc
-        self.regress_forces = regress_forces
         self.otf_graph = otf_graph
         self.max_neighbors = max_neighbors
         self.max_radius = max_radius
@@ -322,40 +303,49 @@ class EquiformerV2_OC20(BaseModel):
             self.use_grid_mlp,
             self.use_sep_s2_act
         )
-        if self.regress_forces:
-            self.force_block = SO2EquivariantGraphAttention(
-                self.sphere_channels,
-                self.attn_hidden_channels,
-                self.num_heads, 
-                self.attn_alpha_channels,
-                self.attn_value_channels, 
-                1,
-                self.lmax_list,
-                self.mmax_list,
-                self.SO3_rotation, 
-                self.mappingReduced, 
-                self.SO3_grid, 
-                self.max_num_elements,
-                self.edge_channels_list,
-                self.block_use_atom_edge_embedding, 
-                self.use_m_share_rad,
-                self.attn_activation, 
-                self.use_s2_act_attn, 
-                self.use_attn_renorm,
-                self.use_gate_act,
-                self.use_sep_s2_act,
-                alpha_drop=0.0
-            )
+        self.force_block = SO2EquivariantGraphAttention(
+            self.sphere_channels,
+            self.attn_hidden_channels,
+            self.num_heads, 
+            self.attn_alpha_channels,
+            self.attn_value_channels, 
+            1,
+            self.lmax_list,
+            self.mmax_list,
+            self.SO3_rotation, 
+            self.mappingReduced, 
+            self.SO3_grid, 
+            self.max_num_elements,
+            self.edge_channels_list,
+            self.block_use_atom_edge_embedding, 
+            self.use_m_share_rad,
+            self.attn_activation, 
+            self.use_s2_act_attn, 
+            self.use_attn_renorm,
+            self.use_gate_act,
+            self.use_sep_s2_act,
+            alpha_drop=0.0
+        )
             
         self.apply(self._init_weights)
         self.apply(self._uniform_init_rad_func_linear_weights)
 
 
-    @conditional_grad(torch.enable_grad())
+    @torch.enable_grad()
     def forward(self, data):
+
+        # create a copy since we override the positions field
+        data = copy(data)
+
         self.batch_size = len(data.natoms)
         self.dtype = data.pos.dtype
         self.device = data.pos.device
+
+        data.pos, displacement = get_displacement(
+            positions=data.pos,
+            num_graphs=data.y.shape[0],
+            batch=data.batch,
+        )
 
         atomic_numbers = data.atomic_numbers.long()
         num_atoms = len(atomic_numbers)
@@ -452,21 +442,30 @@ class EquiformerV2_OC20(BaseModel):
         ###############################################################
         # Force estimation
         ###############################################################
-        if self.regress_forces:
-            if edge_distance_vec.numel() > 0:
-                forces = self.force_block(x,
-                    atomic_numbers,
-                    edge_distance,
-                    edge_index)
-                forces = forces.embedding.narrow(1, 1, 3)
-                forces = forces.view(-1, 3)
-            else:
-                forces = torch.zeros((num_atoms, 3), device=self.device)
-
-        if not self.regress_forces:
-            return energy
+        if edge_distance_vec.numel() > 0:
+            forces = self.force_block(x,
+                atomic_numbers,
+                edge_distance,
+                edge_index)
+            forces = forces.embedding.narrow(1, 1, 3)
+            forces = forces.view(-1, 3)
         else:
-            return energy, forces
+            forces = torch.zeros((num_atoms, 3), device=self.device)
+
+        ###############################################################
+        # Stress estimation
+        ###############################################################
+        if edge_distance_vec.numel() > 0:
+            stress = compute_stress(
+                energy=energy,
+                displacement=displacement,
+                cell=data.cell,
+                training=self.training,
+            )
+        else:
+            stress = torch.zeros((num_atoms, 3, 3), device=self.device)
+
+        return energy, forces, stress
 
 
     # Initialize the edge rotation matrics
