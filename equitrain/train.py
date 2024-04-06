@@ -361,7 +361,7 @@ def evaluate(model: torch.nn.Module,
             
         for step, data in enumerate(data_loader):
 
-            pred_y, pred_dy = model(data)
+            pred_y, pred_dy, _ = model(data)
 
             loss_e = criterion(pred_y, data.y)
             loss_f = criterion(pred_dy, data['force'])
@@ -429,7 +429,7 @@ def train_one_epoch(args,
         e_true = data.y
         f_true = data['force']
 
-        e_pred, f_pred = model(data)
+        e_pred, f_pred, _ = model(data)
 
         loss_e = criterion(e_pred, e_true)
         loss_f = criterion(f_pred, f_true)
@@ -480,6 +480,8 @@ def _train(args):
     model = EquiformerV2_OC20(
         # First three arguments are not used
         None, None, None,
+        compute_forces   = True,
+        compute_stress   = False,
         max_radius       = r_max,
         max_num_elements = 95,
         alpha_drop       = args.alpha_drop,

@@ -89,6 +89,8 @@ class EquiformerV2_OC20(BaseModel):
         num_atoms,      # not used
         bond_feat_dim,  # not used
         num_targets,    # not used
+        compute_forces = True,
+        compute_stress = True,
         use_pbc=True,
         otf_graph=True,
         max_neighbors=500,
@@ -140,6 +142,9 @@ class EquiformerV2_OC20(BaseModel):
         self.max_radius = max_radius
         self.cutoff = max_radius
         self.max_num_elements = max_num_elements
+
+        self.compute_forces = compute_forces
+        self.compute_stress = compute_stress
 
         self.num_layers = num_layers
         self.sphere_channels = sphere_channels
@@ -442,28 +447,34 @@ class EquiformerV2_OC20(BaseModel):
         ###############################################################
         # Force estimation
         ###############################################################
-        if edge_distance_vec.numel() > 0:
-            forces = self.force_block(x,
-                atomic_numbers,
-                edge_distance,
-                edge_index)
-            forces = forces.embedding.narrow(1, 1, 3)
-            forces = forces.view(-1, 3)
+        if self.compute_forces:
+            if edge_distance_vec.numel() > 0:
+                forces = self.force_block(x,
+                    atomic_numbers,
+                    edge_distance,
+                    edge_index)
+                forces = forces.embedding.narrow(1, 1, 3)
+                forces = forces.view(-1, 3)
+            else:
+                forces = torch.zeros((num_atoms, 3), device=self.device)
         else:
-            forces = torch.zeros((num_atoms, 3), device=self.device)
+            forces = None
 
         ###############################################################
         # Stress estimation
         ###############################################################
-        if edge_distance_vec.numel() > 0:
-            stress = compute_stress(
-                energy=energy,
-                displacement=displacement,
-                cell=data.cell,
-                training=self.training,
-            )
+        if self.compute_stress:
+            if edge_distance_vec.numel() > 0:
+                stress = compute_stress(
+                    energy=energy,
+                    displacement=displacement,
+                    cell=data.cell,
+                    training=self.training,
+                )
+            else:
+                stress = torch.zeros((num_atoms, 3, 3), device=self.device)
         else:
-            stress = torch.zeros((num_atoms, 3, 3), device=self.device)
+            stress = None
 
         return energy, forces, stress
 

@@ -7,9 +7,10 @@ from equitrain.ocpmodels.preprocessing import AtomsToGraphs
 
 class CachedCalc:
 
-    def __init__(self, energy, forces):
+    def __init__(self, energy, forces, stress):
         self.energy = energy
         self.forces = forces
+        self.stress = stress
 
     def get_potential_energy(self, apply_constraint=False):
         return self.energy
@@ -17,6 +18,8 @@ class CachedCalc:
     def get_forces(self, apply_constraint=False):
         return self.forces
 
+    def get_stress(self, apply_constraint=False):
+        return self.stress
 
 class HDF5ChainDataset(ChainDataset):
     def __init__(self, file_path, r_max, z_table, **kwargs):
@@ -63,7 +66,7 @@ class HDF5IterDataset(IterableDataset):
         # move opening of file to __getitem__?
         self.iter_group = iter_group
         self.length = len(self.iter_group.keys())
-        self.converter = AtomsToGraphs(r_energy=True, r_forces=True, radius=r_max)
+        self.converter = AtomsToGraphs(r_energy=True, r_forces=True, r_stress=True, radius=r_max)
         self.r_max = r_max
         self.z_table = z_table
 
@@ -85,7 +88,8 @@ class HDF5IterDataset(IterableDataset):
             )
             atoms.calc = CachedCalc(
                 subgrp["energy"][()],
-                subgrp["forces"][()]
+                subgrp["forces"][()],
+                subgrp["stress"][()],
             )
             graphs = self.converter.convert(atoms)
 
@@ -101,7 +105,7 @@ class HDF5Dataset(Dataset):
         batch_key = list(self.file.keys())[0]
         self.batch_size = len(self.file[batch_key].keys())
         self.length = len(self.file.keys()) * self.batch_size
-        self.converter = AtomsToGraphs(r_energy=True, r_forces=True, radius=r_max)
+        self.converter = AtomsToGraphs(r_energy=True, r_forces=True, r_stress=True, radius=r_max)
         self.r_max = r_max
         self.z_table = z_table
         try:
@@ -141,7 +145,8 @@ class HDF5Dataset(Dataset):
         )
         atoms.calc = CachedCalc(
             unpack_value(subgrp["energy"][()]),
-            unpack_value(subgrp["forces"][()])
+            unpack_value(subgrp["forces"][()]),
+            unpack_value(subgrp["stress"][()]),
         )
         graphs = self.converter.convert(atoms)
 
