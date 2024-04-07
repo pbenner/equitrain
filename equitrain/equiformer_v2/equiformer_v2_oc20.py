@@ -37,6 +37,21 @@ from .input_block import EdgeDegreeEmbedding
 _AVG_NUM_NODES  = 77.81317
 _AVG_DEGREE     = 23.395238876342773    # IS2RE: 100k, max_radius = 5, max_neighbors = 100
 
+def conditional_grad(dec):
+    "Decorator to enable/disable grad depending on whether force/energy predictions are being made"
+
+    # Adapted from https://stackoverflow.com/questions/60907323/accessing-class-property-as-decorator-argument
+    def decorator(func):
+        @wraps(func)
+        def cls_method(self, *args, **kwargs):
+            f = func
+            if self.compute_stress:
+                f = dec(func)
+            return f(self, *args, **kwargs)
+
+        return cls_method
+
+    return decorator
 
 class EquiformerV2_OC20(BaseModel):
     """
@@ -336,7 +351,7 @@ class EquiformerV2_OC20(BaseModel):
         self.apply(self._uniform_init_rad_func_linear_weights)
 
 
-    @torch.enable_grad()
+    @conditional_grad(torch.enable_grad())
     def forward(self, data):
 
         # create a copy since we override the positions field
@@ -449,10 +464,11 @@ class EquiformerV2_OC20(BaseModel):
         ###############################################################
         if self.compute_forces:
             if edge_distance_vec.numel() > 0:
-                forces = self.force_block(x,
-                    atomic_numbers,
-                    edge_distance,
-                    edge_index)
+                with torch.no_grad():
+                    forces = self.force_block(x,
+                        atomic_numbers,
+                        edge_distance,
+                        edge_index)
                 forces = forces.embedding.narrow(1, 1, 3)
                 forces = forces.view(-1, 3)
             else:
