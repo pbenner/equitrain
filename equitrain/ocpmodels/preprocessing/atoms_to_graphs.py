@@ -178,7 +178,7 @@ class AtomsToGraphs:
             forces = torch.Tensor(atoms.get_forces(apply_constraint=False))
             data.force = forces
         if self.r_stress:
-            stress = torch.Tensor([atoms.get_stress(voigt=False, apply_constraint=False)])
+            stress = torch.Tensor(np.array([atoms.get_stress(voigt=False, apply_constraint=False)]))
             data.stress = stress
         if self.r_distances and self.r_edges:
             data.distances = edge_distances

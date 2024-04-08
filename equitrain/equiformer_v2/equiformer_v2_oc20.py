@@ -464,11 +464,10 @@ class EquiformerV2_OC20(BaseModel):
         ###############################################################
         if self.compute_forces:
             if edge_distance_vec.numel() > 0:
-                with torch.no_grad():
-                    forces = self.force_block(x,
-                        atomic_numbers,
-                        edge_distance,
-                        edge_index)
+                forces = self.force_block(x,
+                    atomic_numbers,
+                    edge_distance,
+                    edge_index)
                 forces = forces.embedding.narrow(1, 1, 3)
                 forces = forces.view(-1, 3)
             else:
