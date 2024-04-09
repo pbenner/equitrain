@@ -11,6 +11,8 @@ def get_args_parser():
     # training hyper-parameters
     parser.add_argument("--epochs", type=int, default=100)
     parser.add_argument("--batch-size", type=int, default=8)
+    parser.add_argument("--batch-edge-limit", type=int, default=0,
+                        help='Skip batches with too many connections, used to prevent out of memory errors')
     parser.add_argument("--eval-batch-size", type=int, default=24)
     # regularization
     parser.add_argument('--alpha-drop', type=float, default=0.0)
