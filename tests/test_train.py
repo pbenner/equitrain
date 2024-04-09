@@ -18,8 +18,7 @@ def main():
 
     args.epochs     = 2
     args.batch_size = 5
-    args.lr         = 0.001
-    args.warmup_lr  = 0.01
+    args.lr         = 0.01
 
     train(args)
 

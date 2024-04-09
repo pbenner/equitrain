@@ -507,7 +507,11 @@ def _train(args):
     
     ''' Optimizer and LR Scheduler '''
     optimizer = create_optimizer(args, model)
-    lr_scheduler, _ = create_scheduler(args, optimizer)
+    lr_scheduler, _       = create_scheduler(args, optimizer)
+    if args.warmup_epochs == 0:
+        if hasattr(lr_scheduler, 'warmup_t'):
+            # manually disable warmup (timm bugfix)
+            lr_scheduler.warmup_t = -1
     criterion = torch.nn.L1Loss() 
 
     model, optimizer, lr_scheduler = accelerator.prepare(model, optimizer, lr_scheduler)
