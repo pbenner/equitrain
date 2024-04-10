@@ -513,7 +513,7 @@ def train_one_epoch(args,
                 w = time.perf_counter() - start_time
                 e = (step + 1) / len(data_loader)
 
-                info_str_prefix  = 'Epoch [{epoch:>4}][{step:>4}/{length}]\t-- '.format(epoch=epoch, step=step, length=len(data_loader))
+                info_str_prefix  = 'Epoch [{epoch:>4}][{step:>6}/{length}] -- '.format(epoch=epoch, step=step, length=len(data_loader))
                 info_str_postfix = ', time/step={time_per_step:.0f}ms'.format(
                     time_per_step=(1e3 * w / e / len(data_loader))
                 )
@@ -609,12 +609,12 @@ def _train(args):
                         'best_val_epochs@{}_e@{:.4f}'.format(epoch, val_loss['total'].avg)),
                         safe_serialization=False)
 
-            info_str_prefix  = 'Epoch [{epoch:>4}] Test\t-- '.format(epoch=epoch)
+            info_str_prefix  = 'Epoch [{epoch:>4}] Test -- '.format(epoch=epoch)
             info_str_postfix = ', Time: {:.2f}s'.format(time.perf_counter() - epoch_start_time)
 
             log_metrics(args, logger, info_str_prefix, info_str_postfix, train_loss)
 
-            info_str_prefix  = 'Epoch [{epoch:>4}] Val\t-- '.format(epoch=epoch)
+            info_str_prefix  = 'Epoch [{epoch:>4}] Val -- '.format(epoch=epoch)
             info_str_postfix = None
 
             log_metrics(args, logger, info_str_prefix, info_str_postfix, train_loss)
@@ -623,7 +623,7 @@ def _train(args):
         # evaluate on the whole testing set
         test_loss = evaluate(args, model=model, criterion=criterion, data_loader=test_loader)
  
-        info_str_prefix  = 'Test\t-- '
+        info_str_prefix  = 'Test -- '
         info_str_postfix = None
 
         log_metrics(args, logger, info_str_prefix, info_str_postfix, test_loss)
