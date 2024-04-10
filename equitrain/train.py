@@ -360,12 +360,12 @@ def log_metrics(args, logger, prefix, postfix, loss_metrics):
 def compute_weighted_loss(args, energy_loss, force_loss, stress_loss):
     result = 0.0
     # handle initial values correctly when weights are zero, i.e. 0.0*Inf -> NaN
-    if not math.isinf(energy_loss) or args.energy_weight > 0.0:
+    if energy_loss is not None and (not math.isinf(energy_loss) or args.energy_weight > 0.0):
         result += args.energy_weight * energy_loss
-    if not math.isinf(force_loss) or args.force_weight > 0.0:
+    if force_loss is not None and (not math.isinf(force_loss) or args.force_weight > 0.0):
         result += args.force_weight * force_loss
-    if not math.isinf(stress_loss) or args.stress_weight > 0.0:
-        result += args.force_weight * force_loss
+    if stress_loss is not None and (not math.isinf(stress_loss) or args.stress_weight > 0.0):
+        result += args.stress_weight * stress_loss
 
     return result
 
@@ -513,7 +513,7 @@ def train_one_epoch(args,
                 w = time.perf_counter() - start_time
                 e = (step + 1) / len(data_loader)
 
-                info_str_prefix  = 'Epoch [{epoch}][{step}/{length}]:\t'.format(epoch=epoch, step=step, length=len(data_loader))
+                info_str_prefix  = 'Epoch [{epoch:>4}][{step:>4}/{length}]\t-- '.format(epoch=epoch, step=step, length=len(data_loader))
                 info_str_postfix = 'time/step={time_per_step:.0f}ms, '.format(
                     time_per_step=(1e3 * w / e / len(data_loader))
                 )
@@ -596,7 +596,7 @@ def _train(args):
             data_loader=train_loader, optimizer=optimizer,
             epoch=epoch, print_freq=args.print_freq, logger=logger)
         
-        val_loss = evaluate(model=model, criterion=criterion, data_loader=val_loader)
+        val_loss = evaluate(args, model=model, criterion=criterion, data_loader=val_loader)
         
         # Only main process should save model
         if accelerator.process_index == 0:
@@ -609,21 +609,21 @@ def _train(args):
                         'best_val_epochs@{}_e@{:.4f}'.format(epoch, val_loss['total'].avg)),
                         safe_serialization=False)
 
-            info_str_prefix  = 'Epoch: [{epoch}] Test:\t'.format(epoch=epoch)
-            info_str_postfix = 'Time: {:.2f}s'.format(time.perf_counter() - epoch_start_time)
+            info_str_prefix  = 'Epoch [{epoch:>4}] Test\t-- '.format(epoch=epoch)
+            info_str_postfix = ', Time: {:.2f}s'.format(time.perf_counter() - epoch_start_time)
 
             log_metrics(args, logger, info_str_prefix, info_str_postfix, train_loss)
 
-            info_str_prefix  = 'Epoch: [{epoch}] Val :\t'.format(epoch=epoch)
+            info_str_prefix  = 'Epoch [{epoch:>4}] Val\t-- '.format(epoch=epoch)
             info_str_postfix = None
 
             log_metrics(args, logger, info_str_prefix, info_str_postfix, train_loss)
 
     if test_loader is not None:
         # evaluate on the whole testing set
-        test_loss = evaluate(model=model, criterion=criterion, data_loader=test_loader)
+        test_loss = evaluate(args, model=model, criterion=criterion, data_loader=test_loader)
  
-        info_str_prefix  = 'Test:\t'
+        info_str_prefix  = 'Test\t-- '
         info_str_postfix = None
 
         log_metrics(args, logger, info_str_prefix, info_str_postfix, test_loss)
