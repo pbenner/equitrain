@@ -514,10 +514,10 @@ def train_one_epoch(args,
                 e = (step + 1) / len(data_loader)
 
                 info_str_prefix  = 'Epoch [{epoch:>4}][{step:>4}/{length}]\t-- '.format(epoch=epoch, step=step, length=len(data_loader))
-                info_str_postfix = 'time/step={time_per_step:.0f}ms, '.format(
+                info_str_postfix = ', time/step={time_per_step:.0f}ms'.format(
                     time_per_step=(1e3 * w / e / len(data_loader))
                 )
-                info_str_postfix += 'lr={:.2e}'.format(optimizer.param_groups[0]["lr"])
+                info_str_postfix += ', lr={:.2e}'.format(optimizer.param_groups[0]["lr"])
 
                 log_metrics(args, logger, info_str_prefix, info_str_postfix, loss_metrics)
 
