@@ -609,15 +609,15 @@ def _train(args):
                         'best_val_epochs@{}_e@{:.4f}'.format(epoch, val_loss['total'].avg)),
                         safe_serialization=False)
 
-            info_str_prefix  = 'Epoch [{epoch:>4}] Test -- '.format(epoch=epoch)
+            info_str_prefix  = 'Epoch [{epoch:>4}] Train -- '.format(epoch=epoch)
             info_str_postfix = ', Time: {:.2f}s'.format(time.perf_counter() - epoch_start_time)
 
             log_metrics(args, logger, info_str_prefix, info_str_postfix, train_loss)
 
-            info_str_prefix  = 'Epoch [{epoch:>4}] Val -- '.format(epoch=epoch)
+            info_str_prefix  = 'Epoch [{epoch:>4}] Val   -- '.format(epoch=epoch)
             info_str_postfix = None
 
-            log_metrics(args, logger, info_str_prefix, info_str_postfix, train_loss)
+            log_metrics(args, logger, info_str_prefix, info_str_postfix, val_loss)
 
     if test_loader is not None:
         # evaluate on the whole testing set
