@@ -604,10 +604,14 @@ def _train(args):
             update_val_result = update_best_results(args, best_metrics, val_loss, epoch)
 
             if update_val_result:
+
+                filename = 'best_val_epochs@{}_e@{:.4f}'.format(epoch, val_loss['total'].avg)
+
+                logger.info(f'Validation error decreased. Saving model to `{filename}`...')
+
                 accelerator.save_state(
-                    os.path.join(args.output_dir,
-                        'best_val_epochs@{}_e@{:.4f}'.format(epoch, val_loss['total'].avg)),
-                        safe_serialization=False)
+                    os.path.join(args.output_dir, filename),
+                    safe_serialization=False)
 
             info_str_prefix  = 'Epoch [{epoch:>4}] Train -- '.format(epoch=epoch)
             info_str_postfix = ', Time: {:.2f}s'.format(time.perf_counter() - epoch_start_time)
