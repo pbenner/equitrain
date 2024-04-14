@@ -493,6 +493,10 @@ def train_one_epoch(args,
 
         loss = compute_weighted_loss(args, loss_e, loss_f, loss_s)
 
+        if torch.isnan(loss):
+            logger.info(f'Nan value detected. Skipping batch...')
+            continue
+
         optimizer.zero_grad()
         accelerator.backward(loss)
         optimizer.step()
