@@ -6,6 +6,7 @@ from copy import copy
 
 from equitrain.ocpmodels.models.base import BaseModel
 from equitrain.ocpmodels.models.spinconv import GaussianSmearing
+from equitrain.force  import compute_force
 from equitrain.stress import compute_stress, get_displacement
 
 from .gaussian_rbf import GaussianRadialBasisLayer
@@ -104,8 +105,9 @@ class EquiformerV2_OC20(BaseModel):
         num_atoms,      # not used
         bond_feat_dim,  # not used
         num_targets,    # not used
-        compute_forces = True,
-        compute_stress = True,
+        compute_forces               = True,
+        compute_forces_by_derivative = False,
+        compute_stress               = True,
         use_pbc=True,
         otf_graph=True,
         max_neighbors=500,
@@ -158,8 +160,9 @@ class EquiformerV2_OC20(BaseModel):
         self.cutoff = max_radius
         self.max_num_elements = max_num_elements
 
-        self.compute_forces = compute_forces
-        self.compute_stress = compute_stress
+        self.compute_forces               = compute_forces
+        self.compute_forces_by_derivative = compute_forces_by_derivative
+        self.compute_stress               = compute_stress
 
         self.num_layers = num_layers
         self.sphere_channels = sphere_channels
@@ -326,21 +329,21 @@ class EquiformerV2_OC20(BaseModel):
         self.force_block = SO2EquivariantGraphAttention(
             self.sphere_channels,
             self.attn_hidden_channels,
-            self.num_heads, 
+            self.num_heads,
             self.attn_alpha_channels,
-            self.attn_value_channels, 
+            self.attn_value_channels,
             1,
             self.lmax_list,
             self.mmax_list,
-            self.SO3_rotation, 
-            self.mappingReduced, 
-            self.SO3_grid, 
+            self.SO3_rotation,
+            self.mappingReduced,
+            self.SO3_grid,
             self.max_num_elements,
             self.edge_channels_list,
-            self.block_use_atom_edge_embedding, 
+            self.block_use_atom_edge_embedding,
             self.use_m_share_rad,
-            self.attn_activation, 
-            self.use_s2_act_attn, 
+            self.attn_activation,
+            self.use_s2_act_attn,
             self.use_attn_renorm,
             self.use_gate_act,
             self.use_sep_s2_act,
@@ -351,7 +354,8 @@ class EquiformerV2_OC20(BaseModel):
         self.apply(self._uniform_init_rad_func_linear_weights)
 
 
-    @conditional_grad(torch.enable_grad())
+    #@conditional_grad(torch.enable_grad())
+    @torch.enable_grad()
     def forward(self, data):
 
         # create a copy since we override the positions field
@@ -361,11 +365,15 @@ class EquiformerV2_OC20(BaseModel):
         self.dtype = data.pos.dtype
         self.device = data.pos.device
 
-        data.pos, displacement = get_displacement(
-            positions=data.pos,
-            num_graphs=data.y.shape[0],
-            batch=data.batch,
-        )
+        if self.compute_stress:
+            data.pos, displacement = get_displacement(
+                positions=data.pos,
+                num_graphs=data.y.shape[0],
+                batch=data.batch,
+            )
+        else:
+            if self.compute_forces and self.compute_forces_by_derivative:
+                data.pos = data.pos.requires_grad_(True)
 
         atomic_numbers = data.atomic_numbers.long()
         num_atoms = len(atomic_numbers)
@@ -375,7 +383,7 @@ class EquiformerV2_OC20(BaseModel):
             edge_distance,
             edge_distance_vec,
             _, _, _,
-        ) = self.generate_graph(data)
+        ) = self.generate_graph(data, use_pbc=True)
 
         ###############################################################
         # Initialize data structures
@@ -463,15 +471,26 @@ class EquiformerV2_OC20(BaseModel):
         # Force estimation
         ###############################################################
         if self.compute_forces:
-            if edge_distance_vec.numel() > 0:
-                forces = self.force_block(x,
-                    atomic_numbers,
-                    edge_distance,
-                    edge_index)
-                forces = forces.embedding.narrow(1, 1, 3)
-                forces = forces.view(-1, 3)
+
+            if self.compute_forces_by_derivative:
+
+                forces = compute_force(
+                    energy=energy,
+                    positions=data.pos,
+                    training=self.training)
+
             else:
-                forces = torch.zeros((num_atoms, 3), device=self.device)
+
+                if edge_distance_vec.numel() > 0:
+                    forces = self.force_block(x,
+                        atomic_numbers,
+                        edge_distance,
+                        edge_index)
+                    forces = forces.embedding.narrow(1, 1, 3)
+                    forces = forces.view(-1, 3)
+                else:
+                    forces = torch.zeros((num_atoms, 3), device=self.device)
+
         else:
             forces = None
 
