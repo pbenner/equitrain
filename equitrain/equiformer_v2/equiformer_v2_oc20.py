@@ -46,7 +46,7 @@ def conditional_grad(dec):
         @wraps(func)
         def cls_method(self, *args, **kwargs):
             f = func
-            if self.compute_stress:
+            if self.compute_stress or (self.compute_forces and self.compute_forces_by_derivative):
                 f = dec(func)
             return f(self, *args, **kwargs)
 
@@ -354,8 +354,7 @@ class EquiformerV2_OC20(BaseModel):
         self.apply(self._uniform_init_rad_func_linear_weights)
 
 
-    #@conditional_grad(torch.enable_grad())
-    @torch.enable_grad()
+    @conditional_grad(torch.enable_grad())
     def forward(self, data):
 
         # create a copy since we override the positions field
