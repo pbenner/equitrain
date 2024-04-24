@@ -63,7 +63,8 @@ def get_args_parser():
     parser.add_argument('--compute-stats', action='store_true', dest='compute_stats')
     parser.set_defaults(compute_stats=False)
     parser.add_argument('--energy-weight', type=float, default=0.2)
-    parser.add_argument('--force-weight', type=float, default=0.8)
+    parser.add_argument('--force-weight' , type=float, default=0.8)
+    parser.add_argument('--stress-weight', type=float, default=0.0)
     # random
     parser.add_argument("--seed", type=int, default=1)
     # data loader config
