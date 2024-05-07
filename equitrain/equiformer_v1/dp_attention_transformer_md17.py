@@ -220,6 +220,8 @@ class DotProductAttentionTransformerMD17(torch.nn.Module):
         pos       = data.pos
         batch     = data.batch
 
+        num_atoms = len(node_atom)
+
         if self.compute_stress:
             pos, displacement = get_displacement(
                 positions=data.pos,
@@ -266,10 +268,15 @@ class DotProductAttentionTransformerMD17(torch.nn.Module):
         ###############################################################
         if self.compute_forces:
 
-            forces = compute_force(
-                energy=energy,
-                positions=pos,
-                training=self.training)
+            if edge_vec.numel() > 0:
+
+                forces = compute_force(
+                    energy=energy,
+                    positions=pos,
+                    training=self.training)
+
+            else:
+                forces = torch.zeros((num_atoms, 3), device=pos.device)
 
         else:
 
@@ -280,12 +287,16 @@ class DotProductAttentionTransformerMD17(torch.nn.Module):
         ###############################################################
         if self.compute_stress:
 
-            stress = compute_stress(
-                energy=energy,
-                displacement=displacement,
-                cell=data.cell,
-                training=self.training,
-            )
+            if edge_vec.numel() > 0:
+
+                stress = compute_stress(
+                    energy=energy,
+                    displacement=displacement,
+                    cell=data.cell,
+                    training=self.training)
+
+            else:
+                stress = torch.zeros((num_atoms, 3, 3), device=pos.device)
 
         else:
             stress = None

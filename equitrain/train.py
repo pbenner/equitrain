@@ -26,7 +26,7 @@ from timm.optim.sgdp import SGDP
 from timm.optim.adabelief import AdaBelief
 from timm.scheduler import create_scheduler
 
-from equitrain.equiformer_v1 import DotProductAttentionTransformerMD17
+from equitrain.equiformer_v1 import DotProductAttentionTransformerOC20
 from equitrain.equiformer_v2 import EquiformerV2_OC20
 
 from equitrain.mace.data.hdf5_dataset import HDF5Dataset
@@ -540,9 +540,12 @@ def _train(args):
 
     ''' Network '''
     if True:
-        model = DotProductAttentionTransformerMD17(
+        model = DotProductAttentionTransformerOC20(
+            # First three arguments are not used
+            None, None, None,
             compute_forces   = args. force_weight > 0.0,
             compute_stress   = args.stress_weight > 0.0,
+            max_radius       = r_max,
             max_num_elements = 95,
         )
     else:

@@ -10,6 +10,8 @@
     5. Not using one-hot encoded atom type as node attributes since there are much more
         atom types than QM9.
 '''
+from functools import wraps
+from copy import copy
 
 import torch
 from torch_cluster import radius_graph
@@ -49,6 +51,8 @@ from equitrain.ocpmodels.common.utils import (
     radius_graph_pbc,
 )
 
+from equitrain.force  import compute_force
+from equitrain.stress import compute_stress, get_displacement
 
 _RESCALE = True
 _USE_BIAS = True
@@ -68,7 +72,22 @@ _AVG_DEGREE = 23.395238876342773
 #_AVG_NUM_NODES = 77.74773422429224
 #_AVG_DEGREE = 36.5836296081543
 
-       
+def conditional_grad(dec):
+    "Decorator to enable/disable grad depending on whether force/energy predictions are being made"
+
+    # Adapted from https://stackoverflow.com/questions/60907323/accessing-class-property-as-decorator-argument
+    def decorator(func):
+        @wraps(func)
+        def cls_method(self, *args, **kwargs):
+            f = func
+            if self.compute_stress or self.compute_forces:
+                f = dec(func)
+            return f(self, *args, **kwargs)
+
+        return cls_method
+
+    return decorator
+
 class GraphAttentionTransformerOC20(torch.nn.Module):
     '''
         Differences from GraphAttentionTransformer:
@@ -83,7 +102,10 @@ class GraphAttentionTransformerOC20(torch.nn.Module):
     def __init__(self,
         num_atoms,
         bond_feat_dim,
-        num_targets, 
+        num_targets,
+        compute_forces = True,
+        compute_stress = True,
+        max_num_elements = _MAX_ATOM_TYPE,
         irreps_node_embedding='256x0e+128x1e', num_layers=6,
         irreps_node_attr='1x0e', use_node_attr=False,
         irreps_sh='1x0e+1x1e',
@@ -102,6 +124,9 @@ class GraphAttentionTransformerOC20(torch.nn.Module):
         
         
         super().__init__()
+
+        self.compute_forces = compute_forces
+        self.compute_stress = compute_stress
 
         self.max_radius = max_radius
         self.number_of_basis = number_of_basis
@@ -299,8 +324,23 @@ class GraphAttentionTransformerOC20(torch.nn.Module):
             offsets = None
         return edge_index, edge_vec, dist, offsets
         
-
+    @conditional_grad(torch.enable_grad())
     def forward(self, data):
+
+        data = copy(data)
+
+        if self.compute_stress:
+            data.pos, displacement = get_displacement(
+                positions=data.pos,
+                num_graphs=data.y.shape[0],
+                batch=data.batch,
+            )
+        else:
+            if self.compute_forces and self.compute_forces_by_derivative:
+                data.pos = data.pos.requires_grad_(True)
+
+        num_atoms = len(data.atomic_numbers)
+
         # Following OC20 models
         data = self._forward_otf_graph(data)
         edge_index, edge_vec, edge_length, offsets = self._forward_use_pbc(data)
@@ -366,16 +406,49 @@ class GraphAttentionTransformerOC20(torch.nn.Module):
         # FFN for energy prediction
         outputs = self.head(outputs)
         outputs = self.scale_scatter(outputs, batch, dim=0)
-        
-        # auxiliary IS2RS
-        if self.use_auxiliary_task:
-            outputs_aux = self.auxiliary_head(node_input=node_features, 
-                node_attr=node_attr, edge_src=edge_src, edge_dst=edge_dst, 
-                edge_attr=edge_sh, edge_scalars=edge_length_embedding, 
-                batch=batch)
-                
-            return outputs, outputs_aux
-        
+
+        energy = outputs[:,0]
+
+        ###############################################################
+        # Force estimation
+        ###############################################################
+        if self.compute_forces:
+
+            if edge_vec.numel() > 0:
+
+                forces = compute_force(
+                    energy=energy,
+                    positions=pos,
+                    training=self.training)
+
+            else:
+                forces = torch.zeros((num_atoms, 3), device=data.pos.device)
+
+        else:
+
+            forces = None
+
+        ###############################################################
+        # Stress estimation
+        ###############################################################
+        if self.compute_stress:
+
+            if edge_vec.numel() > 0:
+
+                stress = compute_stress(
+                    energy=energy,
+                    displacement=displacement,
+                    cell=data.cell,
+                    training=self.training)
+
+            else:
+                stress = torch.zeros((num_atoms, 3, 3), device=data.pos.device)
+
+        else:
+            stress = None
+
+        return energy, forces, stress
+
         return outputs
 
     
