@@ -20,15 +20,15 @@ from timm.optim.adahessian import Adahessian
 from timm.optim.adamp import AdamP
 from timm.optim.lookahead import Lookahead
 from timm.optim.nadam import Nadam
-from timm.optim.novograd import NovoGrad
-from timm.optim.nvnovograd import NvNovoGrad
 from timm.optim.radam import RAdam
 from timm.optim.rmsprop_tf import RMSpropTF
 from timm.optim.sgdp import SGDP
 from timm.optim.adabelief import AdaBelief
 from timm.scheduler import create_scheduler
 
+from equitrain.equiformer_v1 import DotProductAttentionTransformerMD17
 from equitrain.equiformer_v2 import EquiformerV2_OC20
+
 from equitrain.mace.data.hdf5_dataset import HDF5Dataset
 from equitrain.mace.tools import get_atomic_number_table_from_zs
 
@@ -318,10 +318,6 @@ def create_optimizer_v2(
         optimizer = torch.optim.RMSprop(parameters, alpha=0.9, momentum=momentum, **opt_args)
     elif opt_lower == 'rmsproptf':
         optimizer = RMSpropTF(parameters, alpha=0.9, momentum=momentum, **opt_args)
-    elif opt_lower == 'novograd':
-        optimizer = NovoGrad(parameters, **opt_args)
-    elif opt_lower == 'nvnovograd':
-        optimizer = NvNovoGrad(parameters, **opt_args)
     else:
         assert False and "Invalid optimizer"
 
@@ -543,17 +539,24 @@ def _train(args):
     train_loader, val_loader, test_loader = accelerator.prepare(train_loader, val_loader, test_loader)
 
     ''' Network '''
-    model = EquiformerV2_OC20(
-        # First three arguments are not used
-        None, None, None,
-        compute_forces   = args. force_weight > 0.0,
-        compute_stress   = args.stress_weight > 0.0,
-        max_radius       = r_max,
-        max_num_elements = 95,
-        alpha_drop       = args.alpha_drop,
-        drop_path_rate   = args.drop_path_rate,
-        proj_drop        = args.proj_drop,
-    )
+    if True:
+        model = DotProductAttentionTransformerMD17(
+            compute_forces   = args. force_weight > 0.0,
+            compute_stress   = args.stress_weight > 0.0,
+            max_num_elements = 95,
+        )
+    else:
+        model = EquiformerV2_OC20(
+            # First three arguments are not used
+            None, None, None,
+            compute_forces   = args. force_weight > 0.0,
+            compute_stress   = args.stress_weight > 0.0,
+            max_radius       = r_max,
+            max_num_elements = 95,
+            alpha_drop       = args.alpha_drop,
+            drop_path_rate   = args.drop_path_rate,
+            proj_drop        = args.proj_drop,
+        )
 
     if args.load_checkpoint_model is not None:
         logger.info(f'Loading model checkpoint {args.load_checkpoint_model}...')
