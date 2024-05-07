@@ -25,6 +25,7 @@ setup(name='equitrain',
           'tqdm',
           'timm',
           'accelerate',
+          'e3nn',
         ],
       python_requires='>=3.8',
       scripts=[
