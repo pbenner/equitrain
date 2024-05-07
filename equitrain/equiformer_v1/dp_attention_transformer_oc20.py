@@ -46,6 +46,7 @@ from .graph_attention_transformer import (get_norm_layer,
 from .dp_attention_transformer import DotProductAttention, DPTransBlock
 from .gaussian_rbf import GaussianRadialBasisLayer
 
+from equitrain.ocpmodels.models.base import BaseModel
 from equitrain.ocpmodels.common.utils import (
     conditional_grad,
     get_pbc_distances,
@@ -89,7 +90,7 @@ def conditional_grad(dec):
 
     return decorator    
        
-class DotProductAttentionTransformerOC20(torch.nn.Module):
+class DotProductAttentionTransformerOC20(BaseModel):
     '''
         Differences from GraphAttentionTransformer:
             1. Use `otf_graph` and `use_pbc`. `otf_graph` corresponds to whether to 
@@ -120,14 +121,14 @@ class DotProductAttentionTransformerOC20(torch.nn.Module):
         norm_layer='layer',
         alpha_drop=0.2, proj_drop=0.0, out_drop=0.0, drop_path_rate=0.0,
         use_auxiliary_task=False,
-        otf_graph=False, use_pbc=True, max_neighbors=50):
+        otf_graph=True, use_pbc=True, max_neighbors=50):
         
         super().__init__()
 
         self.compute_forces = compute_forces
         self.compute_stress = compute_stress
 
-        self.max_radius = max_radius
+        self.cutoff = max_radius
         self.number_of_basis = number_of_basis
         self.alpha_drop = alpha_drop
         self.proj_drop = proj_drop
@@ -171,7 +172,7 @@ class DotProductAttentionTransformerOC20(torch.nn.Module):
         self.attr_embed = None
         if self.use_node_attr:
             self.attr_embed = NodeEmbeddingNetwork(self.irreps_node_attr, max_num_elements)
-        self.rbf = GaussianRadialBasisLayer(self.number_of_basis, cutoff=self.max_radius)
+        self.rbf = GaussianRadialBasisLayer(self.number_of_basis, cutoff=self.cutoff)
         self.edge_deg_embed = EdgeDegreeEmbeddingNetwork(self.irreps_node_embedding, 
             self.irreps_edge_attr, self.fc_neurons, _AVG_DEGREE)
         
@@ -268,44 +269,6 @@ class DotProductAttentionTransformerOC20(torch.nn.Module):
         
         return set(no_wd_list)
         
-
-    def _forward_otf_graph(self, data):
-        if self.otf_graph:
-            edge_index, cell_offsets, neighbors = radius_graph_pbc(
-                data, self.max_radius, self.max_neighbors
-            )
-            data.edge_index = edge_index
-            data.cell_offsets = cell_offsets
-            data.neighbors = neighbors
-            return data
-        else:
-            return data
-    
-    
-    def _forward_use_pbc(self, data):
-        pos = data.pos
-        batch = data.batch
-        if self.use_pbc:
-            out = get_pbc_distances(pos,
-                data.edge_index,
-                data.cell, data.cell_offsets,
-                data.neighbors,
-                return_offsets=True)
-            edge_index = out["edge_index"]
-            #dist = out["distances"]
-            offsets = out["offsets"]
-            edge_src, edge_dst = edge_index
-            edge_vec = pos.index_select(0, edge_src) - pos.index_select(0, edge_dst) + offsets
-            dist = edge_vec.norm(dim=1)
-        else:
-            edge_index = radius_graph(pos, r=self.max_radius, 
-                batch=batch, max_num_neighbors=self.max_neighbors)
-            edge_src, edge_dst = edge_index
-            edge_vec = pos.index_select(0, edge_src) - pos.index_select(0, edge_dst)
-            dist = edge_vec.norm(dim=1)
-            offsets = None
-        return edge_index, edge_vec, dist, offsets
-        
     @conditional_grad(torch.enable_grad())
     def forward(self, data):
 
@@ -325,10 +288,15 @@ class DotProductAttentionTransformerOC20(torch.nn.Module):
         num_atoms = len(data.atomic_numbers)
 
         # Following OC20 models
-        data = self._forward_otf_graph(data)
-        edge_index, edge_vec, edge_length, offsets = self._forward_use_pbc(data)
         batch = data.batch 
-        
+
+        (
+            edge_index,
+            edge_length,
+            edge_vec,
+            _, _, _,
+        ) = self.generate_graph(data, use_pbc=True)
+
         edge_src, edge_dst = edge_index[0], edge_index[1]
         edge_sh = o3.spherical_harmonics(l=self.irreps_edge_attr,
             x=edge_vec, normalize=True, normalization='component')

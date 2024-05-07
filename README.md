@@ -1,8 +1,8 @@
 ## Installation
 
 ```sh
-pip install --force-reinstall torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
-pip install torch-cluster -f https://data.pyg.org/whl/torch-2.3.0+cu121.html
+pip install torch==2.3.0 torchvision torchaudio -f https://download.pytorch.org/whl/cu121
+pip install torch-cluster torch-scatter -f https://data.pyg.org/whl/torch-2.3.0+cu121.html
 pip install -e .
 ```
 
