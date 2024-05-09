@@ -270,7 +270,9 @@ class Vec2AttnHeads(torch.nn.Module):
     
     
     def forward(self, x):
-        N, _ = x.shape
+        N, m = x.shape
+        if N == 0:
+            return torch.empty(N, self.num_heads, int(m / self.num_heads), device=x.device)
         out = []
         for ir_idx, (start_idx, end_idx) in enumerate(self.mid_in_indices):
             temp = x.narrow(1, start_idx, end_idx - start_idx)

@@ -66,7 +66,7 @@ def get_dataloaders(args):
     )
     valid_loader = torch_geometric.loader.DataLoader(
         dataset=valid_set,
-        batch_size=1,
+        batch_size=args.batch_size,
         shuffle=True,
         drop_last=False,
         pin_memory=args.pin_mem,
@@ -77,7 +77,7 @@ def get_dataloaders(args):
     else:
         test_loader = torch_geometric.loader.DataLoader(
             dataset=test_set,
-            batch_size=1,
+            batch_size=args.batch_size,
             shuffle=False,
             drop_last=False,
             pin_memory=args.pin_mem,
@@ -596,7 +596,21 @@ def _train(args):
         'test_energy_loss': float('inf'), 'test_forces_loss': float('inf'), 'test_stress_loss': float('inf'),
     }
 
-    for epoch in range(args.epochs):
+    # Evaluate model before training
+    if True:
+
+        val_loss = evaluate(args, model=model, criterion=criterion, data_loader=val_loader)
+
+        # Print validation loss
+        if accelerator.process_index == 0:
+
+            info_str_prefix  = 'Epoch [{epoch:>4}] Val   -- '.format(epoch=0)
+            info_str_postfix = None
+
+            log_metrics(args, logger, info_str_prefix, info_str_postfix, val_loss)
+
+
+    for epoch in range(1, args.epochs+1):
         
         epoch_start_time = time.perf_counter()
 

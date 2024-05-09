@@ -350,7 +350,7 @@ class DotProductAttentionTransformerOC20(BaseModel):
                 forces = compute_force(
                     energy=energy,
                     positions=data.pos,
-                    training=self.training)
+                    training=True)
 
             else:
                 forces = torch.zeros((num_atoms, 3), device=data.pos.device)
@@ -370,7 +370,7 @@ class DotProductAttentionTransformerOC20(BaseModel):
                     energy=energy,
                     displacement=displacement,
                     cell=data.cell,
-                    training=self.training)
+                    training=True)
 
             else:
                 stress = torch.zeros((num_atoms, 3, 3), device=data.pos.device)
