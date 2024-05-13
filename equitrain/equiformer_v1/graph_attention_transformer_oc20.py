@@ -442,15 +442,12 @@ class GraphAttentionTransformerOC20(torch.nn.Module):
                     training=self.training)
 
             else:
-                stress = torch.zeros((num_atoms, 3, 3), device=data.pos.device)
+                stress = torch.zeros((batch.num_graphs, 3, 3), device=data.pos.device)
 
         else:
             stress = None
 
         return energy, forces, stress
-
-        return outputs
-
     
     @property
     def num_params(self):

@@ -281,9 +281,6 @@ class DotProductAttentionTransformerOC20(BaseModel):
                 num_graphs=data.y.shape[0],
                 batch=data.batch,
             )
-        else:
-            if self.compute_forces and self.compute_forces_by_derivative:
-                data.pos = data.pos.requires_grad_(True)
 
         num_atoms = len(data.atomic_numbers)
 
@@ -373,7 +370,7 @@ class DotProductAttentionTransformerOC20(BaseModel):
                     training=True)
 
             else:
-                stress = torch.zeros((num_atoms, 3, 3), device=data.pos.device)
+                stress = torch.zeros((batch.num_graphs, 3, 3), device=data.pos.device)
 
         else:
             stress = None

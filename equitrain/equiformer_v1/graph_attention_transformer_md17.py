@@ -1,3 +1,6 @@
+from functools import wraps
+from copy import copy
+
 import torch
 from torch_cluster import radius_graph
 from torch_scatter import scatter
@@ -25,6 +28,9 @@ from .gaussian_rbf import GaussianRadialBasisLayer
 # for bessel radial basis
 from equitrain.ocpmodels.models.gemnet.layers.radial_basis import RadialBasis
 
+from equitrain.force  import compute_force
+from equitrain.stress import compute_stress, get_displacement
+
 from .graph_attention_transformer import (get_norm_layer, 
     FullyConnectedTensorProductRescaleNorm, 
     FullyConnectedTensorProductRescaleNormSwishGate, 
@@ -47,6 +53,22 @@ _MAX_ATOM_TYPE = 64 # Set to some large value
 _AVG_NUM_NODES = 18.03065905448718
 _AVG_DEGREE = 15.57930850982666
       
+
+def conditional_grad(dec):
+    "Decorator to enable/disable grad depending on whether force/energy predictions are being made"
+
+    # Adapted from https://stackoverflow.com/questions/60907323/accessing-class-property-as-decorator-argument
+    def decorator(func):
+        @wraps(func)
+        def cls_method(self, *args, **kwargs):
+            f = func
+            if self.compute_stress or self.compute_forces:
+                f = dec(func)
+            return f(self, *args, **kwargs)
+
+        return cls_method
+
+    return decorator
 
 class CosineCutoff(torch.nn.Module):
     def __init__(self, cutoff_lower=0.0, cutoff_upper=5.0):
@@ -126,6 +148,8 @@ class ExpNormalSmearing(torch.nn.Module):
 
 class GraphAttentionTransformerMD17(torch.nn.Module):
     def __init__(self,
+        compute_forces = True,
+        compute_stress = True,
         irreps_in='64x0e',
         irreps_node_embedding='128x0e+64x1e+32x2e', num_layers=6,
         irreps_node_attr='1x0e', irreps_sh='1x0e+1x1e+1x2e',
@@ -140,7 +164,11 @@ class GraphAttentionTransformerMD17(torch.nn.Module):
         alpha_drop=0.2, proj_drop=0.0, out_drop=0.0,
         drop_path_rate=0.0,
         mean=None, std=None, scale=None, atomref=None):
+
         super().__init__()
+
+        self.compute_forces = compute_forces
+        self.compute_stress = compute_stress
 
         self.max_radius = max_radius
         self.number_of_basis = number_of_basis
@@ -273,10 +301,24 @@ class GraphAttentionTransformerMD17(torch.nn.Module):
 
     # the gradient of energy is following the implementation here:
     # https://github.com/Open-Catalyst-Project/ocp/blob/main/ocpmodels/models/spinconv.py#L186
-    @torch.enable_grad()
-    def forward(self, node_atom, pos, batch):
+    @conditional_grad(torch.enable_grad())
+    def forward(self, data):
 
-        pos = pos.requires_grad_(True)
+        # create a copy since we override the positions field
+        data = copy(data)
+
+        node_atom = data.atomic_numbers.long()
+        pos       = data.pos
+        batch     = data.batch
+
+        num_atoms = len(node_atom)
+
+        if self.compute_stress:
+            pos, displacement = get_displacement(
+                positions=data.pos,
+                num_graphs=data.y.shape[0],
+                batch=data.batch,
+            )
 
         edge_src, edge_dst = radius_graph(pos, r=self.max_radius, batch=batch,
             max_num_neighbors=1000)
@@ -313,18 +355,47 @@ class GraphAttentionTransformerMD17(torch.nn.Module):
         if self.scale is not None:
             outputs = self.scale * outputs
 
-        energy = outputs
-        # https://github.com/Open-Catalyst-Project/ocp/blob/main/ocpmodels/models/spinconv.py#L321-L328
-        forces = -1 * (
-                    torch.autograd.grad(
-                        energy,
-                        pos,
-                        grad_outputs=torch.ones_like(energy),
-                        create_graph=True,
-                    )[0]
-                )
+        energy = outputs[:,0]
 
-        return energy, forces
+        ###############################################################
+        # Force estimation
+        ###############################################################
+        if self.compute_forces:
+
+            if edge_vec.numel() > 0:
+
+                forces = compute_force(
+                    energy=energy,
+                    positions=pos,
+                    training=self.training)
+
+            else:
+                forces = torch.zeros((num_atoms, 3), device=data.pos.device)
+
+        else:
+
+            forces = None
+
+        ###############################################################
+        # Stress estimation
+        ###############################################################
+        if self.compute_stress:
+
+            if edge_vec.numel() > 0:
+
+                stress = compute_stress(
+                    energy=energy,
+                    displacement=displacement,
+                    cell=data.cell,
+                    training=self.training)
+
+            else:
+                stress = torch.zeros((batch.num_graphs, 3, 3), device=data.pos.device)
+
+        else:
+            stress = None
+
+        return energy, forces, stress
 
 
 @register_model

@@ -228,9 +228,6 @@ class DotProductAttentionTransformerMD17(torch.nn.Module):
                 num_graphs=data.y.shape[0],
                 batch=data.batch,
             )
-        else:
-            if self.compute_forces and self.compute_forces_by_derivative:
-                pos = data.pos.requires_grad_(True)
 
         edge_src, edge_dst = radius_graph(pos, r=self.max_radius, batch=batch,
             max_num_neighbors=1000)
@@ -296,7 +293,7 @@ class DotProductAttentionTransformerMD17(torch.nn.Module):
                     training=self.training)
 
             else:
-                stress = torch.zeros((num_atoms, 3, 3), device=pos.device)
+                stress = torch.zeros((batch.num_graphs, 3, 3), device=pos.device)
 
         else:
             stress = None
