@@ -275,6 +275,9 @@ class DotProductAttentionTransformerOC20(BaseModel):
         # create a copy since we override the positions field
         data = copy(data)
 
+        if self.compute_forces:
+            data.pos.requires_grad_(True)
+
         if self.compute_stress:
             data.pos, displacement = get_displacement(
                 positions=data.pos,
@@ -285,7 +288,7 @@ class DotProductAttentionTransformerOC20(BaseModel):
         num_atoms = len(data.atomic_numbers)
 
         # Following OC20 models
-        batch = data.batch 
+        batch = data.batch
 
         (
             edge_index,

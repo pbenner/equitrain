@@ -313,6 +313,9 @@ class GraphAttentionTransformerMD17(torch.nn.Module):
 
         num_atoms = len(node_atom)
 
+        if self.compute_forces:
+            data.pos.requires_grad_(True)
+
         if self.compute_stress:
             pos, displacement = get_displacement(
                 positions=data.pos,
@@ -390,7 +393,7 @@ class GraphAttentionTransformerMD17(torch.nn.Module):
                     training=self.training)
 
             else:
-                stress = torch.zeros((batch.num_graphs, 3, 3), device=data.pos.device)
+                stress = torch.zeros((batch.num_graphs, 3, 3), device=pos.device)
 
         else:
             stress = None
