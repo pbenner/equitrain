@@ -9,6 +9,7 @@ import os
 import torch_geometric
 
 from accelerate import Accelerator
+from accelerate import DistributedDataParallelKwargs
 
 from pathlib import Path
 from typing  import Iterable, Optional
@@ -532,14 +533,19 @@ def _train(args):
     torch.manual_seed(args.seed)
     np.random.seed(args.seed)
 
-    accelerator = Accelerator()
+    if args.energy_weight == 0.0:
+        ddp_kwargs = DistributedDataParallelKwargs(find_unused_parameters=True)
+    else:
+        ddp_kwargs = DistributedDataParallelKwargs()
+
+    accelerator = Accelerator(kwargs_handlers=[ddp_kwargs])
 
     ''' Data Loader '''
     train_loader, val_loader, test_loader, r_max = get_dataloaders(args)
     train_loader, val_loader, test_loader = accelerator.prepare(train_loader, val_loader, test_loader)
 
     ''' Network '''
-    if True:
+    if args.model == "v1":
         model = DotProductAttentionTransformerOC20(
             # First three arguments are not used
             None, None, None,
@@ -547,8 +553,12 @@ def _train(args):
             compute_stress   = args.stress_weight > 0.0,
             max_radius       = r_max,
             max_num_elements = 95,
+            alpha_drop       = args.alpha_drop,
+            proj_drop        = args.proj_drop,
+            drop_path_rate   = args.drop_path_rate,
+            out_drop         = args.out_drop,
         )
-    else:
+    elif args.model == "v2":
         model = EquiformerV2_OC20(
             # First three arguments are not used
             None, None, None,
@@ -560,6 +570,8 @@ def _train(args):
             drop_path_rate   = args.drop_path_rate,
             proj_drop        = args.proj_drop,
         )
+    else:
+        raise ValueError("Invalid model argument")
 
     if args.load_checkpoint_model is not None:
         logger.info(f'Loading model checkpoint {args.load_checkpoint_model}...')
