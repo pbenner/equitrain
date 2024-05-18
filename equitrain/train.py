@@ -33,6 +33,9 @@ from equitrain.equiformer_v2 import EquiformerV2_OC20
 from equitrain.mace.data.hdf5_dataset import HDF5Dataset
 from equitrain.mace.tools import get_atomic_number_table_from_zs
 
+import warnings
+warnings.filterwarnings("ignore", message=r".*TorchScript type system.*")
+
 # %%
 
 def get_dataloaders(args):
