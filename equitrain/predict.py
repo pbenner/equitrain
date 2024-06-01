@@ -1,29 +1,47 @@
 import numpy as np
 import torch
 
-from pymatgen import Structure
+from typing import List
+
+from torch_geometric.data.collate import collate
+
+from pymatgen.core import Structure
+from pymatgen.io.ase import AseAtomsAdaptor
 
 from equitrain.model       import get_model
 from equitrain.dataloaders import get_dataloader
+from equitrain.ocpmodels.preprocessing import AtomsToGraphs
 
 # %%
 
-def predict_structure(model: torch.nn.Module, struct: Structure):
+def predict_structure(model: torch.nn.Module, structure: Structure, max_neighbors=200, r_max = None, device = None) -> List[torch.Tensor]:
     """Predict energy, forces, and stress of a structure"""
+
+    if hasattr(model, 'cutoff'):
+        r_max = model.cutoff
+    if hasattr(model, 'max_radius'):
+        r_max = model.max_radius
+
+    if r_max is None:
+        raise ValueError('Could not determine r_max value')
+
     atoms_to_graphs = AtomsToGraphs(
-        max_neigh=200,
-        radius=6,
-        r_energy=True,
-        r_forces=True,
-        r_stress=True,
+        max_neigh=max_neighbors,
+        radius=r_max,
+        r_energy=False,
+        r_forces=False,
+        r_stress=False,
         r_distances=True,
         r_edges=True,
-        r_fixed=True,
-        r_pbc=False,
+        r_fixed=False,
+        r_pbc=True,
     )
-    atoms = struct.to_ase_atoms()
+
+    atoms = AseAtomsAdaptor.get_atoms(structure)
     data = atoms_to_graphs.convert(atoms)
     data = data.to(device)
+
+    data, _, _ = collate(data.__class__, [data])
 
     return model(data)
 

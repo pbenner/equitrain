@@ -307,9 +307,10 @@ class GraphAttentionTransformerMD17(torch.nn.Module):
         # create a copy since we override the positions field
         data = copy(data)
 
-        node_atom = data.atomic_numbers.long()
-        pos       = data.pos
-        batch     = data.batch
+        node_atom  = data.atomic_numbers.long()
+        pos        = data.pos
+        batch      = data.batch
+        num_graphs = data.natoms.shape[0]
 
         num_atoms = len(node_atom)
 
@@ -319,7 +320,7 @@ class GraphAttentionTransformerMD17(torch.nn.Module):
         if self.compute_stress:
             pos, displacement = get_displacement(
                 positions=data.pos,
-                num_graphs=data.y.shape[0],
+                num_graphs=num_graphs,
                 batch=data.batch,
             )
 
@@ -393,7 +394,7 @@ class GraphAttentionTransformerMD17(torch.nn.Module):
                     training=self.training)
 
             else:
-                stress = torch.zeros((batch.num_graphs, 3, 3), device=pos.device)
+                stress = torch.zeros((num_graphs, 3, 3), device=pos.device)
 
         else:
             stress = None

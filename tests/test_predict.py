@@ -15,7 +15,6 @@ def main():
 
     args.predict_file    = f'data/valid.h5'
     args.statistics_file = f'data/statistics.json'
-    args.output_dir      = 'result'
 
     args.batch_size = 5
 

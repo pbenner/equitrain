@@ -275,20 +275,19 @@ class DotProductAttentionTransformerOC20(BaseModel):
         # create a copy since we override the positions field
         data = copy(data)
 
+        num_graphs = data.natoms.shape[0]
+
         if self.compute_forces:
             data.pos.requires_grad_(True)
 
         if self.compute_stress:
             data.pos, displacement = get_displacement(
                 positions=data.pos,
-                num_graphs=data.y.shape[0],
+                num_graphs=num_graphs,
                 batch=data.batch,
             )
 
         num_atoms = len(data.atomic_numbers)
-
-        # Following OC20 models
-        batch = data.batch
 
         (
             edge_index,
@@ -315,7 +314,7 @@ class DotProductAttentionTransformerOC20(BaseModel):
             edge_length_embedding = torch.cat((src_attr[edge_src], 
                 dst_attr[edge_dst], edge_length_embedding), dim=1)
         edge_degree_embedding = self.edge_deg_embed(atom_embedding, edge_sh, 
-            edge_length_embedding, edge_src, edge_dst, batch)
+            edge_length_embedding, edge_src, edge_dst, data.batch)
         node_features = atom_embedding + tag_embedding + edge_degree_embedding
         
         if self.attr_embed is not None:
@@ -327,16 +326,16 @@ class DotProductAttentionTransformerOC20(BaseModel):
             node_features = blk(node_input=node_features, node_attr=node_attr, 
                 edge_src=edge_src, edge_dst=edge_dst, edge_attr=edge_sh, 
                 edge_scalars=edge_length_embedding, 
-                batch=batch)
+                batch=data.batch)
         
-        node_features = self.norm(node_features, batch=batch)
+        node_features = self.norm(node_features, batch=data.batch)
         
         if self.out_dropout is not None:
             outputs = self.out_dropout(node_features)
         else:
             outputs = node_features
         outputs = self.head(outputs)
-        outputs = self.scale_scatter(outputs, batch, dim=0)
+        outputs = self.scale_scatter(outputs, data.batch, dim=0)
         
         energy = outputs[:,0]
 
@@ -373,7 +372,7 @@ class DotProductAttentionTransformerOC20(BaseModel):
                     training=True)
 
             else:
-                stress = torch.zeros((batch.num_graphs, 3, 3), device=data.pos.device)
+                stress = torch.zeros((num_graphs, 3, 3), device=data.pos.device)
 
         else:
             stress = None

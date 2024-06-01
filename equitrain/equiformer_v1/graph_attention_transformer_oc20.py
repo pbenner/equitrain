@@ -329,13 +329,15 @@ class GraphAttentionTransformerOC20(torch.nn.Module):
 
         data = copy(data)
 
+        num_graphs = data.natoms.shape[0]
+
         if self.compute_forces and self.compute_forces_by_derivative:
             data.pos.requires_grad_(True)
 
         if self.compute_stress:
             data.pos, displacement = get_displacement(
                 positions=data.pos,
-                num_graphs=data.y.shape[0],
+                num_graphs=num_graphs,
                 batch=data.batch,
             )
 
@@ -442,7 +444,7 @@ class GraphAttentionTransformerOC20(torch.nn.Module):
                     training=self.training)
 
             else:
-                stress = torch.zeros((batch.num_graphs, 3, 3), device=data.pos.device)
+                stress = torch.zeros((num_graphs, 3, 3), device=data.pos.device)
 
         else:
             stress = None
