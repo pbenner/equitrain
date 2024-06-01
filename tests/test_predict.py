@@ -22,6 +22,8 @@ def main():
     energy_pred, forces_pred, stress_pred = predict(args)
 
     print(energy_pred)
+    print(forces_pred)
+    print(stress_pred)
 
 # %%
 if __name__ == "__main__":

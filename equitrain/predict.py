@@ -1,3 +1,4 @@
+import numpy as np
 import torch
 
 from pymatgen import Structure
@@ -60,7 +61,7 @@ def _predict(args):
 
                     stress_pred[k].extend([ s[i][j].item() for s in s_pred ])
 
-    return energy_pred, forces_pred, stress_pred
+    return np.array(energy_pred), np.array(forces_pred), np.array(stress_pred)
 
 def predict(args):
 
