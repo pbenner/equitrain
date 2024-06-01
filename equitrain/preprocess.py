@@ -78,9 +78,6 @@ def _preprocess(args):
         energy_key=args.energy_key,
         forces_key=args.forces_key,
         stress_key=args.stress_key,
-        virials_key=args.virials_key,
-        dipole_key=args.dipole_key,
-        charges_key=args.charges_key,
     )
 
     # Atomic number table
@@ -99,8 +96,6 @@ def _preprocess(args):
         z_table = tools.get_atomic_number_table_from_zs(zs_list)
 
     logging.info("Preparing training set")
-    if args.shuffle:
-        random.shuffle(collections.train)
 
     with h5py.File(os.path.join(args.output_dir, "train.h5"), "w") as f:
         # split collections.train into batches and save them to hdf5
@@ -148,8 +143,6 @@ def _preprocess(args):
             json.dump(statistics, f)
     
     logging.info("Preparing validation set")
-    if args.shuffle:
-        random.shuffle(collections.valid)
 
     with h5py.File(os.path.join(args.output_dir, "valid.h5"), "w") as f:    
         split_valid, drop_last = split_array(collections.valid, args.batch_size)

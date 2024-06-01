@@ -1,5 +1,3 @@
-import ast
-import json
 import logging
 import time
 import torch
@@ -27,68 +25,11 @@ from timm.optim.sgdp import SGDP
 from timm.optim.adabelief import AdaBelief
 from timm.scheduler import create_scheduler
 
-from equitrain.equiformer_v1 import DotProductAttentionTransformerOC20
-from equitrain.equiformer_v2 import EquiformerV2_OC20
-
-from equitrain.mace.data.hdf5_dataset import HDF5Dataset
-from equitrain.mace.tools import get_atomic_number_table_from_zs
+from equitrain.dataloaders   import get_dataloaders
+from equitrain.model         import get_model
 
 import warnings
 warnings.filterwarnings("ignore", message=r".*TorchScript type system.*")
-
-# %%
-
-def get_dataloaders(args):
-
-    with open(args.statistics_file, "r") as f:
-        statistics = json.load(f)
-
-    zs_list = ast.literal_eval(statistics["atomic_numbers"])
-    z_table = get_atomic_number_table_from_zs(zs_list)
-    r_max = float(statistics["r_max"])
-
-    train_set = HDF5Dataset(
-        args.train_file, r_max=r_max, z_table=z_table
-    )
-    valid_set = HDF5Dataset(
-        args.valid_file, r_max=r_max, z_table=z_table
-    )
-    if args.test_file is None:
-        test_set = None
-    else:
-        valid_set = HDF5Dataset(
-            args.test_file, r_max=r_max, z_table=z_table
-        )
-
-    train_loader = torch_geometric.loader.DataLoader(
-        dataset=train_set,
-        batch_size=args.batch_size,
-        shuffle=True,
-        drop_last=False,
-        pin_memory=args.pin_mem,
-        num_workers=args.workers,
-    )
-    valid_loader = torch_geometric.loader.DataLoader(
-        dataset=valid_set,
-        batch_size=args.batch_size,
-        shuffle=True,
-        drop_last=False,
-        pin_memory=args.pin_mem,
-        num_workers=args.workers,
-    )
-    if args.test_file is None:
-        test_loader = None
-    else:
-        test_loader = torch_geometric.loader.DataLoader(
-            dataset=test_set,
-            batch_size=args.batch_size,
-            shuffle=False,
-            drop_last=False,
-            pin_memory=args.pin_mem,
-            num_workers=args.workers,
-        )
-
-    return train_loader, valid_loader, test_loader, r_max
 
 # %%
 
@@ -544,45 +485,19 @@ def _train(args):
     accelerator = Accelerator(kwargs_handlers=[ddp_kwargs])
 
     ''' Data Loader '''
-    train_loader, val_loader, test_loader, r_max = get_dataloaders(args)
+    train_loader, val_loader, test_loader, r_max = get_dataloaders(args, logger=logger)
     train_loader, val_loader, test_loader = accelerator.prepare(train_loader, val_loader, test_loader)
 
     ''' Network '''
-    if args.model == "v1":
-        model = DotProductAttentionTransformerOC20(
-            # First three arguments are not used
-            None, None, None,
-            compute_forces   = args. force_weight > 0.0,
-            compute_stress   = args.stress_weight > 0.0,
-            max_radius       = r_max,
-            max_num_elements = 95,
-            alpha_drop       = args.alpha_drop,
-            proj_drop        = args.proj_drop,
-            drop_path_rate   = args.drop_path_rate,
-            out_drop         = args.out_drop,
-        )
-    elif args.model == "v2":
-        model = EquiformerV2_OC20(
-            # First three arguments are not used
-            None, None, None,
-            compute_forces   = args. force_weight > 0.0,
-            compute_stress   = args.stress_weight > 0.0,
-            max_radius       = r_max,
-            max_num_elements = 95,
-            alpha_drop       = args.alpha_drop,
-            drop_path_rate   = args.drop_path_rate,
-            proj_drop        = args.proj_drop,
-        )
-    else:
-        raise ValueError("Invalid model argument")
-
-    if args.load_checkpoint_model is not None:
-        logger.info(f'Loading model checkpoint {args.load_checkpoint_model}...')
-        model.load_state_dict(torch.load(args.load_checkpoint_model))
-
-    n_parameters = sum(p.numel() for p in model.parameters() if p.requires_grad)
+    model = get_model(r_max, args,
+        compute_force=args.force_weight > 0.0,
+        compute_stress=args.stress_weight > 0.0,
+        logger=logger)
 
     if accelerator.process_index == 0:
+
+        n_parameters = sum(p.numel() for p in model.parameters() if p.requires_grad)
+
         logger.info('Number of params: {}'.format(n_parameters))
     
     ''' Optimizer and LR Scheduler '''
@@ -599,11 +514,6 @@ def _train(args):
     if args.load_checkpoint is not None:
         logger.info(f'Loading checkpoint {args.load_checkpoint}...')
         accelerator.load_state(args.load_checkpoint)
-
-    ''' Compute stats '''
-    if args.compute_stats:
-        compute_stats(train_loader, max_radius=args.radius, logger=logger, print_freq=args.print_freq)
-        return
     
     # record the best validation and testing loss and corresponding epochs
     best_metrics = {'val_epoch': 0, 'test_epoch': 0, 

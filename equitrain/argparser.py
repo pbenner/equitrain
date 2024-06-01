@@ -1,7 +1,7 @@
 import argparse
 
-def get_args_parser():
-    parser = argparse.ArgumentParser('Equifomer V2 training script', add_help=False)
+def get_args_parser_train():
+    parser = argparse.ArgumentParser('Equitrain training script', add_help=False)
     # required arguments
     parser.add_argument('--train-file', type=str, default=None)
     parser.add_argument('--valid-file', type=str, default=None)
@@ -62,9 +62,7 @@ def get_args_parser():
                         help='LR decay rate (default: 0.5)')
     # logging
     parser.add_argument("--print-freq", type=int, default=100)
-    # task and dataset
-    parser.add_argument('--compute-stats', action='store_true', dest='compute_stats')
-    parser.set_defaults(compute_stats=False)
+    # weights
     parser.add_argument('--energy-weight', type=float, default=0.2)
     parser.add_argument('--force-weight' , type=float, default=0.8)
     parser.add_argument('--stress-weight', type=float, default=0.0)
@@ -75,6 +73,7 @@ def get_args_parser():
     parser.add_argument('--pin-mem', action='store_true',
                         help='Pin CPU memory in DataLoader for more efficient (sometimes) transfer to GPU.')
     parser.set_defaults(pin_mem=True)
+    parser.add_argument("--shuffle", help="Shuffle the training dataset", type=bool, default=True)
     # evaluation
     parser.add_argument('--load-checkpoint', type=str, default=None,
                         help="Load full checkpoint including optimizer and random state (for resuming training exactly where it stopped)")
@@ -86,7 +85,7 @@ def get_args_parser():
 
 
 def get_args_parser_preprocess() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser('Equifomer V2 preprocess script', add_help=False)
+    parser = argparse.ArgumentParser('Equitrain preprocess script', add_help=False)
     parser.add_argument("--train_file", help="Training set xyz file", type=str, default=None, required=False)
     parser.add_argument("--valid_file", help="Validation set xyz file", type=str, default=None, required=False)
     parser.add_argument(
@@ -110,15 +109,61 @@ def get_args_parser_preprocess() -> argparse.ArgumentParser:
         default="",
     )
     parser.add_argument(
-        "--r_max", help="distance cutoff (in Ang)", 
-        type=float, 
-        default=5.0
+        "--energy_key",
+        help="Key of reference energies in training xyz",
+        type=str,
+        default="energy",
     )
     parser.add_argument(
-        "--config_type_weights",
-        help="String of dictionary containing the weights for each config type",
+        "--forces_key",
+        help="Key of reference forces in training xyz",
         type=str,
-        default='{"Default":1.0}',
+        default="forces",
+    )
+    parser.add_argument(
+        "--stress_key",
+        help="Key of reference stress in training xyz",
+        type=str,
+        default="stress",
+    )
+    parser.add_argument(
+        "--atomic_numbers",
+        help="List of atomic numbers",
+        type=str,
+        default=None,
+        required=False,
+    )
+    parser.add_argument(
+        "--batch_size", 
+        help="batch size to compute average number of neighbours", 
+        type=int, 
+        default=16,
+    )
+    parser.add_argument(
+        "--E0s",
+        help="Dictionary of isolated atom energies",
+        type=str,
+        default=None,
+        required=False,
+    )
+    parser.add_argument(
+        "--seed",
+        help="Random seed for splitting training and validation sets",
+        type=int,
+        default=123,
+    )
+    return parser
+
+def get_args_parser_test() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser('Equitrain test script', add_help=False)
+    # model type parameter
+    parser.add_argument('--model', type=str, default="v1")
+    parser.add_argument("--test_file", help="File on which to make predictions", type=str, default=None, required=False)
+    parser.add_argument(
+        "--output_dir",
+        help="Output directory for h5 files",
+        type=str,
+        default="",
     )
     parser.add_argument(
         "--energy_key",
@@ -133,41 +178,10 @@ def get_args_parser_preprocess() -> argparse.ArgumentParser:
         default="forces",
     )
     parser.add_argument(
-        "--virials_key",
-        help="Key of reference virials in training xyz",
-        type=str,
-        default="virials",
-    )
-    parser.add_argument(
         "--stress_key",
         help="Key of reference stress in training xyz",
         type=str,
         default="stress",
-    )
-    parser.add_argument(
-        "--dipole_key",
-        help="Key of reference dipoles in training xyz",
-        type=str,
-        default="dipole",
-    )
-    parser.add_argument(
-        "--charges_key",
-        help="Key of atomic charges in training xyz",
-        type=str,
-        default="charges",
-    )
-    parser.add_argument(
-        "--atomic_numbers",
-        help="List of atomic numbers",
-        type=str,
-        default=None,
-        required=False,
-    )
-    parser.add_argument(
-        "--compute_statistics",
-        help="Compute statistics for the dataset",
-        action="store_true",
-        default=False,
     )
     parser.add_argument(
         "--batch_size", 
@@ -175,31 +189,39 @@ def get_args_parser_preprocess() -> argparse.ArgumentParser:
         type=int, 
         default=16,
     )
+    # regularization
+    parser.add_argument('--alpha-drop', type=float, default=0.0)
+    parser.add_argument('--proj-drop', type=float, default=0.0)
+    parser.add_argument('--out_drop', type=float, default=0.0)
+    parser.add_argument('--drop-path-rate', type=float, default=0.0)
+    # data loader config
+    parser.add_argument("--workers", type=int, default=4)
+    parser.add_argument('--pin-mem', action='store_true',
+                        help='Pin CPU memory in DataLoader for more efficient (sometimes) transfer to GPU.')
+    parser.set_defaults(pin_mem=True)
 
+    return parser
+
+def get_args_parser_predict() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser('Equitrain predict script', add_help=False)
+    # model type parameter
+    parser.add_argument('--model', type=str, default="v1")
+    parser.add_argument("--predict_file", help="File on which to make predictions", type=str, default=None, required=False)
     parser.add_argument(
-        "--scaling",
-        help="type of scaling to the output",
-        type=str,
-        default="rms_forces_scaling",
-        choices=["std_scaling", "rms_forces_scaling", "no_scaling"],
+        "--batch_size", 
+        help="batch size to compute average number of neighbours", 
+        type=int, 
+        default=16,
     )
-    parser.add_argument(
-        "--E0s",
-        help="Dictionary of isolated atom energies",
-        type=str,
-        default=None,
-        required=False,
-    )
-    parser.add_argument(
-        "--shuffle",
-        help="Shuffle the training dataset",
-        type=bool,
-        default=True,
-    )
-    parser.add_argument(
-        "--seed",
-        help="Random seed for splitting training and validation sets",
-        type=int,
-        default=123,
-    )
+    # regularization
+    parser.add_argument('--alpha-drop', type=float, default=0.0)
+    parser.add_argument('--proj-drop', type=float, default=0.0)
+    parser.add_argument('--out_drop', type=float, default=0.0)
+    parser.add_argument('--drop-path-rate', type=float, default=0.0)
+    # data loader config
+    parser.add_argument("--workers", type=int, default=4)
+    parser.add_argument('--pin-mem', action='store_true',
+                        help='Pin CPU memory in DataLoader for more efficient (sometimes) transfer to GPU.')
+    parser.set_defaults(pin_mem=True)
+
     return parser

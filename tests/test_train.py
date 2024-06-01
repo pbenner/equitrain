@@ -1,6 +1,6 @@
 # %%
         
-from equitrain import get_args_parser
+from equitrain import get_args_parser_train
 from equitrain import train
 
 # %%
@@ -9,7 +9,7 @@ def main():
 
     r = 4.5
 
-    args = get_args_parser().parse_args()
+    args = get_args_parser_train().parse_args()
 
     args.train_file      = f'data/train.h5'
     args.valid_file      = f'data/valid.h5'
