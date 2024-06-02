@@ -7,7 +7,7 @@ from pymatgen.io.ase import AseAtomsAdaptor
 
 from equitrain import get_args_parser_predict
 from equitrain import get_model
-from equitrain import predict_structure
+from equitrain import predict_atoms
 
 # %%
 
@@ -23,15 +23,10 @@ def main():
 
     atoms_list = ase.io.read('data.xyz', index=":")
 
-    for atom in atoms_list:
+    energy, force, stress = predict_atoms(model, atoms_list)
 
-        structure = AseAtomsAdaptor.get_structure(atom)
-
-        energy, force, stress = predict_structure(model, structure)
-
-        print(structure)
-        print(energy)
-        print()
+    print(energy)
+    print()
 
 
 # %%
