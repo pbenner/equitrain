@@ -1,0 +1,765 @@
+2024-10-09 13:34:12,169 - train.py:82 - Namespace(train_file='tests/data/train.h5', valid_file='tests/data/valid.h5', test_file=None, statistics_file='tests/data/statistics.json', output_dir='tests/result', epochs=2, batch_size=5, batch_edge_limit=0, eval_batch_size=24, model='v1', alpha_drop=0.0, proj_drop=0.0, out_drop=0.0, drop_path_rate=0.0, opt='adamw', opt_eps=1e-08, opt_betas=None, clip_grad=None, momentum=0.9, weight_decay=0.005, sched='plateau', lr=0.01, lr_noise=None, lr_noise_pct=0.67, lr_noise_std=1.0, warmup_lr=0.01, min_lr=1e-06, decay_epochs=30, warmup_epochs=0, cooldown_epochs=0, patience_epochs=2, decay_rate=0.5, print_freq=100, energy_weight=0.2, force_weight=0.8, stress_weight=0.0, seed=1, workers=4, pin_mem=True, shuffle=True, load_checkpoint=None, load_checkpoint_model=None, evaluate=False)
+2024-10-09 13:34:12,332 - train.py:82 - Using r_max=4.5 from statistics file `tests/data/statistics.json`
+2024-10-09 13:34:18,463 - train.py:82 - Number of params: 8725251
+2024-10-09 13:34:31,905 - train.py:82 - Epoch [   0] Val   -- loss: 10381.63119, loss_e: 0.61182, loss_f: 11494.82759
+2024-10-09 13:34:33,106 - train.py:82 - Epoch [   1][     0/13] -- loss: 12944.18389, loss_e: 0.45556, loss_f: 16180.11621, time/step=1195ms, lr=1.00e-02
+2024-10-09 13:34:43,844 - train.py:82 - Epoch [   1][    12/13] -- loss: 81759.33599, loss_e: 14.58040, loss_f: 95032.89704, time/step=918ms, lr=1.00e-02
+2024-10-09 13:34:51,784 - train.py:82 - Validation error decreased. Saving model to `best_val_epochs@1_e@149529.0683`...
+2024-10-09 13:34:52,001 - train.py:82 - Epoch [   1] Train -- loss: 81759.33599, loss_e: 14.58040, loss_f: 95032.89704, Time: 20.09s
+2024-10-09 13:34:52,001 - train.py:82 - Epoch [   1] Val   -- loss: 149529.06834, loss_e: 13.23309, loss_f: 176328.84842
+2024-10-09 13:34:53,192 - train.py:82 - Epoch [   2][     0/13] -- loss: 660013.97864, loss_e: 10.83068, loss_f: 825014.75000, time/step=1186ms, lr=1.00e-02
+2024-10-09 13:35:03,244 - train.py:82 - Epoch [   2][    12/13] -- loss: 136654.29229, loss_e: 11.96943, loss_f: 148579.54487, time/step=865ms, lr=1.00e-02
+2024-10-09 13:35:11,507 - train.py:82 - Validation error decreased. Saving model to `best_val_epochs@2_e@90051.1624`...
+2024-10-09 13:35:11,746 - train.py:82 - Epoch [   2] Train -- loss: 136654.29229, loss_e: 11.96943, loss_f: 148579.54487, Time: 19.74s
+2024-10-09 13:35:11,746 - train.py:82 - Epoch [   2] Val   -- loss: 90051.16242, loss_e: 17.07078, loss_f: 113420.69827
+2024-10-09 14:02:25,957 - train.py:82 - Namespace(train_file='tests/data/train.h5', valid_file='tests/data/valid.h5', test_file=None, statistics_file='tests/data/statistics.json', output_dir='tests/result', epochs=2, batch_size=5, batch_edge_limit=0, eval_batch_size=24, model='v1', alpha_drop=0.0, proj_drop=0.0, out_drop=0.0, drop_path_rate=0.0, opt='adamw', opt_eps=1e-08, opt_betas=None, clip_grad=None, momentum=0.9, weight_decay=0.005, sched='plateau', lr=0.01, lr_noise=None, lr_noise_pct=0.67, lr_noise_std=1.0, warmup_lr=0.01, min_lr=1e-06, decay_epochs=30, warmup_epochs=0, cooldown_epochs=0, patience_epochs=2, decay_rate=0.5, print_freq=100, energy_weight=0.2, force_weight=0.8, stress_weight=0.0, seed=1, workers=4, pin_mem=True, shuffle=True, load_checkpoint=None, load_checkpoint_model=None, evaluate=False)
+2024-10-09 14:02:26,104 - train.py:82 - Using r_max=4.5 from statistics file `tests/data/statistics.json`
+2024-10-09 14:02:32,042 - train.py:82 - Number of params: 8725251
+2024-10-09 14:02:39,889 - train.py:82 - Epoch [   0] Val   -- loss: 9133.63135, loss_e: 0.61214, loss_f: 10446.97985
+2024-10-09 14:03:00,765 - train.py:82 - Namespace(train_file='tests/data/train.h5', valid_file='tests/data/valid.h5', test_file=None, statistics_file='tests/data/statistics.json', output_dir='tests/result', epochs=2, batch_size=5, batch_edge_limit=0, eval_batch_size=24, model='v1', alpha_drop=0.0, proj_drop=0.0, out_drop=0.0, drop_path_rate=0.0, opt='adamw', opt_eps=1e-08, opt_betas=None, clip_grad=None, momentum=0.9, weight_decay=0.005, sched='plateau', lr=0.01, lr_noise=None, lr_noise_pct=0.67, lr_noise_std=1.0, warmup_lr=0.01, min_lr=1e-06, decay_epochs=30, warmup_epochs=0, cooldown_epochs=0, patience_epochs=2, decay_rate=0.5, print_freq=100, energy_weight=0.2, force_weight=0.8, stress_weight=0.0, seed=1, workers=4, pin_mem=True, shuffle=True, load_checkpoint=None, load_checkpoint_model=None, evaluate=False)
+2024-10-09 14:03:00,955 - train.py:82 - Using r_max=4.5 from statistics file `tests/data/statistics.json`
+2024-10-09 14:03:07,564 - train.py:82 - Number of params: 8725251
+2024-10-09 14:03:20,900 - train.py:82 - Epoch [   0] Val   -- loss: 10218.05448, loss_e: 0.61222, loss_f: 11530.33551
+2024-10-09 14:03:21,971 - train.py:82 - Epoch [   1][     0/13] -- loss: 12768.12241, loss_e: 0.45582, loss_f: 15960.03906, time/step=1055ms, lr=1.00e-02
+2024-10-09 14:03:26,492 - train.py:82 - Epoch [   1][    12/13] -- loss: 200256.36197, loss_e: 10.83953, loss_f: 255913.73825, time/step=429ms, lr=1.00e-02
+2024-10-09 14:03:28,509 - train.py:82 - Validation error decreased. Saving model to `best_val_epochs@1_e@225033.3359`...
+2024-10-09 14:03:28,646 - train.py:82 - Epoch [   1] Train -- loss: 200256.36197, loss_e: 10.83953, loss_f: 255913.73825, Time: 7.74s
+2024-10-09 14:03:28,646 - train.py:82 - Epoch [   1] Val   -- loss: 225033.33592, loss_e: 8.99496, loss_f: 257064.53905
+2024-10-09 14:03:29,337 - train.py:82 - Epoch [   2][     0/13] -- loss: 501115.21460, loss_e: 7.32299, loss_f: 626392.18750, time/step=685ms, lr=1.00e-02
+2024-10-09 14:03:32,345 - train.py:82 - Epoch [   2][    12/13] -- loss: 3362887.33848, loss_e: 87.47123, loss_f: 5024100.75285, time/step=284ms, lr=1.00e-02
+2024-10-09 14:03:34,246 - train.py:82 - Epoch [   2] Train -- loss: 3362887.33848, loss_e: 87.47123, loss_f: 5024100.75285, Time: 5.60s
+2024-10-09 14:03:34,248 - train.py:82 - Epoch [   2] Val   -- loss: 640564.47633, loss_e: 254.31599, loss_f: 923575.43959
+2024-10-09 14:03:52,792 - train.py:82 - Namespace(train_file='tests/data/train.h5', valid_file='tests/data/valid.h5', test_file=None, statistics_file='tests/data/statistics.json', output_dir='tests/result', epochs=100, batch_size=5, batch_edge_limit=0, eval_batch_size=24, model='v1', alpha_drop=0.0, proj_drop=0.0, out_drop=0.0, drop_path_rate=0.0, opt='adamw', opt_eps=1e-08, opt_betas=None, clip_grad=None, momentum=0.9, weight_decay=0.005, sched='plateau', lr=0.01, lr_noise=None, lr_noise_pct=0.67, lr_noise_std=1.0, warmup_lr=0.01, min_lr=1e-06, decay_epochs=30, warmup_epochs=0, cooldown_epochs=0, patience_epochs=2, decay_rate=0.5, print_freq=100, energy_weight=0.2, force_weight=0.8, stress_weight=0.0, seed=1, workers=4, pin_mem=True, shuffle=True, load_checkpoint=None, load_checkpoint_model=None, evaluate=False)
+2024-10-09 14:03:52,953 - train.py:82 - Using r_max=4.5 from statistics file `tests/data/statistics.json`
+2024-10-09 14:03:59,522 - train.py:82 - Number of params: 8725251
+2024-10-09 14:04:13,274 - train.py:82 - Epoch [   0] Val   -- loss: 10007.44559, loss_e: 0.61185, loss_f: 11210.58670
+2024-10-09 14:04:14,281 - train.py:82 - Epoch [   1][     0/13] -- loss: 13092.38304, loss_e: 0.45524, loss_f: 16365.36523, time/step=989ms, lr=1.00e-02
+2024-10-09 14:04:19,428 - train.py:82 - Epoch [   1][    12/13] -- loss: 269215.67649, loss_e: 27.24422, loss_f: 336136.99271, time/step=472ms, lr=1.00e-02
+2024-10-09 14:04:21,492 - train.py:82 - Validation error decreased. Saving model to `best_val_epochs@1_e@5905779.3639`...
+2024-10-09 14:04:21,631 - train.py:82 - Epoch [   1] Train -- loss: 269215.67649, loss_e: 27.24422, loss_f: 336136.99271, Time: 8.35s
+2024-10-09 14:04:21,631 - train.py:82 - Epoch [   1] Val   -- loss: 5905779.36391, loss_e: 41.61144, loss_f: 8982762.70953
+2024-10-09 14:04:22,251 - train.py:82 - Epoch [   2][     0/13] -- loss: 70978.50018, loss_e: 33.71184, loss_f: 88714.69531, time/step=612ms, lr=1.00e-02
+2024-10-09 14:04:25,408 - train.py:82 - Epoch [   2][    12/13] -- loss: 348886.25558, loss_e: 21.73560, loss_f: 456735.18655, time/step=290ms, lr=1.00e-02
+2024-10-09 14:04:27,458 - train.py:82 - Validation error decreased. Saving model to `best_val_epochs@2_e@2389001.3284`...
+2024-10-09 14:04:27,601 - train.py:82 - Epoch [   2] Train -- loss: 348886.25558, loss_e: 21.73560, loss_f: 456735.18655, Time: 5.97s
+2024-10-09 14:04:27,602 - train.py:82 - Epoch [   2] Val   -- loss: 2389001.32841, loss_e: 18.73113, loss_f: 2838483.88033
+2024-10-09 14:04:28,339 - train.py:82 - Epoch [   3][     0/13] -- loss: 217891.27465, loss_e: 16.21698, loss_f: 272360.03125, time/step=731ms, lr=1.00e-02
+2024-10-09 14:04:31,561 - train.py:82 - Epoch [   3][    12/13] -- loss: 781303.36756, loss_e: 5.46223, loss_f: 1119946.40217, time/step=304ms, lr=1.00e-02
+2024-10-09 14:04:33,604 - train.py:82 - Epoch [   3] Train -- loss: 781303.36756, loss_e: 5.46223, loss_f: 1119946.40217, Time: 6.00s
+2024-10-09 14:04:33,606 - train.py:82 - Epoch [   3] Val   -- loss: 5519282.01940, loss_e: 7.72983, loss_f: 5855849.89111
+2024-10-09 14:04:34,245 - train.py:82 - Epoch [   4][     0/13] -- loss: 477606.98123, loss_e: 7.87490, loss_f: 597006.75000, time/step=632ms, lr=1.00e-02
+2024-10-09 14:04:37,500 - train.py:82 - Epoch [   4][    12/13] -- loss: 172090.82270, loss_e: 16.18780, loss_f: 244599.67717, time/step=299ms, lr=1.00e-02
+2024-10-09 14:04:39,629 - train.py:82 - Validation error decreased. Saving model to `best_val_epochs@4_e@50965.8024`...
+2024-10-09 14:04:39,770 - train.py:82 - Epoch [   4] Train -- loss: 172090.82270, loss_e: 16.18780, loss_f: 244599.67717, Time: 6.16s
+2024-10-09 14:04:39,770 - train.py:82 - Epoch [   4] Val   -- loss: 50965.80238, loss_e: 6.72314, loss_f: 66885.71046
+2024-10-09 14:04:40,356 - train.py:82 - Epoch [   5][     0/13] -- loss: 163606.48107, loss_e: 7.40534, loss_f: 204506.25000, time/step=580ms, lr=1.00e-02
+2024-10-09 14:04:43,676 - train.py:82 - Epoch [   5][    12/13] -- loss: 90641.31824, loss_e: 15.14137, loss_f: 109156.61492, time/step=300ms, lr=1.00e-02
+2024-10-09 14:04:45,691 - train.py:82 - Epoch [   5] Train -- loss: 90641.31824, loss_e: 15.14137, loss_f: 109156.61492, Time: 5.92s
+2024-10-09 14:04:45,693 - train.py:82 - Epoch [   5] Val   -- loss: 157209.40861, loss_e: 32.98400, loss_f: 181417.11779
+2024-10-09 14:04:46,534 - train.py:82 - Epoch [   6][     0/13] -- loss: 554802.14399, loss_e: 34.46994, loss_f: 693494.06250, time/step=834ms, lr=1.00e-02
+2024-10-09 14:04:49,691 - train.py:82 - Epoch [   6][    12/13] -- loss: 993539.64529, loss_e: 32.57140, loss_f: 1685886.99590, time/step=307ms, lr=1.00e-02
+2024-10-09 14:04:51,776 - train.py:82 - Epoch [   6] Train -- loss: 993539.64529, loss_e: 32.57140, loss_f: 1685886.99590, Time: 6.08s
+2024-10-09 14:04:51,778 - train.py:82 - Epoch [   6] Val   -- loss: 624518.48283, loss_e: 5.79304, loss_f: 800592.38476
+2024-10-09 14:04:52,343 - train.py:82 - Epoch [   7][     0/13] -- loss: 227195.41063, loss_e: 6.50629, loss_f: 283992.62500, time/step=559ms, lr=1.00e-02
+2024-10-09 14:04:55,417 - train.py:82 - Epoch [   7][    12/13] -- loss: 11998069.33246, loss_e: 32.01476, loss_f: 13430312.33900, time/step=279ms, lr=1.00e-02
+2024-10-09 14:04:57,305 - train.py:82 - Epoch [   7] Train -- loss: 11998069.33246, loss_e: 32.01476, loss_f: 13430312.33900, Time: 5.53s
+2024-10-09 14:04:57,307 - train.py:82 - Epoch [   7] Val   -- loss: 56782160.91291, loss_e: 45.70222, loss_f: 60130805.86281
+2024-10-09 14:04:57,873 - train.py:82 - Epoch [   8][     0/13] -- loss: 60885940.65861, loss_e: 43.29304, loss_f: 76107416.00000, time/step=560ms, lr=1.00e-02
+2024-10-09 14:05:00,904 - train.py:82 - Epoch [   8][    12/13] -- loss: 6274143.07375, loss_e: 60.50241, loss_f: 7776835.34416, time/step=276ms, lr=1.00e-02
+2024-10-09 14:05:02,845 - train.py:82 - Epoch [   8] Train -- loss: 6274143.07375, loss_e: 60.50241, loss_f: 7776835.34416, Time: 5.54s
+2024-10-09 14:05:02,846 - train.py:82 - Epoch [   8] Val   -- loss: 1060783.96863, loss_e: 84.16442, loss_f: 1146551.58707
+2024-10-09 14:05:03,427 - train.py:82 - Epoch [   9][     0/13] -- loss: 27171.30013, loss_e: 75.56314, loss_f: 33945.23438, time/step=574ms, lr=1.00e-02
+2024-10-09 14:05:06,575 - train.py:82 - Epoch [   9][    12/13] -- loss: 2586167.07359, loss_e: 76.55295, loss_f: 4393378.03059, time/step=286ms, lr=1.00e-02
+2024-10-09 14:05:09,118 - train.py:82 - Epoch [   9] Train -- loss: 2586167.07359, loss_e: 76.55295, loss_f: 4393378.03059, Time: 6.27s
+2024-10-09 14:05:09,122 - train.py:82 - Epoch [   9] Val   -- loss: 223343082.61940, loss_e: 68.29231, loss_f: 228141373.79748
+2024-10-09 14:05:09,856 - train.py:82 - Epoch [  10][     0/13] -- loss: 2743794.02864, loss_e: 52.64320, loss_f: 3429729.25000, time/step=726ms, lr=1.00e-02
+2024-10-09 14:05:14,190 - train.py:82 - Epoch [  10][    12/13] -- loss: 5523049.42547, loss_e: 136.82431, loss_f: 5964827.33766, time/step=389ms, lr=1.00e-02
+2024-10-09 14:05:16,284 - train.py:82 - Epoch [  10] Train -- loss: 5523049.42547, loss_e: 136.82431, loss_f: 5964827.33766, Time: 7.16s
+2024-10-09 14:05:16,287 - train.py:82 - Epoch [  10] Val   -- loss: 2156289.18814, loss_e: 149.87016, loss_f: 2859270.51339
+2024-10-09 14:05:16,940 - train.py:82 - Epoch [  11][     0/13] -- loss: 384158.04833, loss_e: 122.89788, loss_f: 480166.81250, time/step=647ms, lr=1.00e-02
+2024-10-09 14:05:20,379 - train.py:82 - Epoch [  11][    12/13] -- loss: 3671649.81794, loss_e: 137.57273, loss_f: 4069459.39677, time/step=314ms, lr=1.00e-02
+2024-10-09 14:05:22,613 - train.py:82 - Epoch [  11] Train -- loss: 3671649.81794, loss_e: 137.57273, loss_f: 4069459.39677, Time: 6.33s
+2024-10-09 14:05:22,616 - train.py:82 - Epoch [  11] Val   -- loss: 1236919.61309, loss_e: 125.87917, loss_f: 1717472.84790
+2024-10-09 14:05:23,322 - train.py:82 - Epoch [  12][     0/13] -- loss: 1016894.86613, loss_e: 106.20563, loss_f: 1271092.00000, time/step=699ms, lr=1.00e-02
+2024-10-09 14:05:27,771 - train.py:82 - Epoch [  12][    12/13] -- loss: 630442.19155, loss_e: 48.70942, loss_f: 836371.29267, time/step=396ms, lr=1.00e-02
+2024-10-09 14:05:30,623 - train.py:82 - Epoch [  12] Train -- loss: 630442.19155, loss_e: 48.70942, loss_f: 836371.29267, Time: 8.01s
+2024-10-09 14:05:30,627 - train.py:82 - Epoch [  12] Val   -- loss: 156543.01253, loss_e: 8.37265, loss_f: 176404.64939
+2024-10-09 14:05:31,439 - train.py:82 - Epoch [  13][     0/13] -- loss: 876.32419, loss_e: 8.97140, loss_f: 1093.16235, time/step=803ms, lr=1.00e-02
+2024-10-09 14:05:35,590 - train.py:82 - Epoch [  13][    12/13] -- loss: 324271.78873, loss_e: 9.91692, loss_f: 354291.04257, time/step=381ms, lr=1.00e-02
+2024-10-09 14:05:38,324 - train.py:82 - Epoch [  13] Train -- loss: 324271.78873, loss_e: 9.91692, loss_f: 354291.04257, Time: 7.70s
+2024-10-09 14:05:38,328 - train.py:82 - Epoch [  13] Val   -- loss: 545641.30796, loss_e: 36.24576, loss_f: 685507.23886
+2024-10-09 14:05:39,142 - train.py:82 - Epoch [  14][     0/13] -- loss: 259532.29465, loss_e: 37.80138, loss_f: 324405.90625, time/step=805ms, lr=1.00e-02
+2024-10-09 14:05:43,568 - train.py:82 - Epoch [  14][    12/13] -- loss: 422013.91419, loss_e: 20.43506, loss_f: 519625.59039, time/step=402ms, lr=1.00e-02
+2024-10-09 14:05:45,965 - train.py:82 - Epoch [  14] Train -- loss: 422013.91419, loss_e: 20.43506, loss_f: 519625.59039, Time: 7.64s
+2024-10-09 14:05:45,968 - train.py:82 - Epoch [  14] Val   -- loss: 540965.12144, loss_e: 9.22444, loss_f: 689150.23285
+2024-10-09 14:05:46,731 - train.py:82 - Epoch [  15][     0/13] -- loss: 297702.13376, loss_e: 9.41879, loss_f: 372125.31250, time/step=756ms, lr=1.00e-02
+2024-10-09 14:05:51,253 - train.py:82 - Epoch [  15][    12/13] -- loss: 309771.66532, loss_e: 27.36790, loss_f: 388595.86005, time/step=406ms, lr=1.00e-02
+2024-10-09 14:05:54,352 - train.py:82 - Epoch [  15] Train -- loss: 309771.66532, loss_e: 27.36790, loss_f: 388595.86005, Time: 8.38s
+2024-10-09 14:05:54,356 - train.py:82 - Epoch [  15] Val   -- loss: 4899358.76250, loss_e: 48.03493, loss_f: 7244384.02850
+2024-10-09 14:05:55,289 - train.py:82 - Epoch [  16][     0/13] -- loss: 61463.30572, loss_e: 47.11452, loss_f: 76817.35156, time/step=925ms, lr=1.00e-02
+2024-10-09 14:05:59,187 - train.py:82 - Epoch [  16][    12/13] -- loss: 283937.68971, loss_e: 48.56236, loss_f: 371450.08239, time/step=371ms, lr=1.00e-02
+2024-10-09 14:06:01,284 - train.py:82 - Epoch [  16] Train -- loss: 283937.68971, loss_e: 48.56236, loss_f: 371450.08239, Time: 6.93s
+2024-10-09 14:06:01,287 - train.py:82 - Epoch [  16] Val   -- loss: 348400.35469, loss_e: 39.98195, loss_f: 393349.59304
+2024-10-09 14:06:01,874 - train.py:82 - Epoch [  17][     0/13] -- loss: 283234.56494, loss_e: 45.32470, loss_f: 354031.87500, time/step=580ms, lr=1.00e-02
+2024-10-09 14:06:05,559 - train.py:82 - Epoch [  17][    12/13] -- loss: 1706832.72795, loss_e: 32.42700, loss_f: 2242795.17294, time/step=328ms, lr=1.00e-02
+2024-10-09 14:06:08,304 - train.py:82 - Epoch [  17] Train -- loss: 1706832.72795, loss_e: 32.42700, loss_f: 2242795.17294, Time: 7.02s
+2024-10-09 14:06:08,308 - train.py:82 - Epoch [  17] Val   -- loss: 260141.00052, loss_e: 39.14092, loss_f: 306992.63538
+2024-10-09 14:06:09,130 - train.py:82 - Epoch [  18][     0/13] -- loss: 76069.90167, loss_e: 36.42243, loss_f: 95078.26562, time/step=814ms, lr=1.00e-02
+2024-10-09 14:06:13,516 - train.py:82 - Epoch [  18][    12/13] -- loss: 3434879.46277, loss_e: 70.91922, loss_f: 3990777.39569, time/step=400ms, lr=1.00e-02
+2024-10-09 14:06:16,357 - train.py:82 - Epoch [  18] Train -- loss: 3434879.46277, loss_e: 70.91922, loss_f: 3990777.39569, Time: 8.05s
+2024-10-09 14:06:16,360 - train.py:82 - Epoch [  18] Val   -- loss: 47221380.34985, loss_e: 17.60620, loss_f: 52811377.40542
+2024-10-09 14:06:17,173 - train.py:82 - Epoch [  19][     0/13] -- loss: 645411.21171, loss_e: 28.87105, loss_f: 806756.75000, time/step=805ms, lr=1.00e-02
+2024-10-09 14:06:21,419 - train.py:82 - Epoch [  19][    12/13] -- loss: 1797991.71316, loss_e: 25.72525, loss_f: 2167857.21668, time/step=389ms, lr=1.00e-02
+2024-10-09 14:06:24,217 - train.py:82 - Epoch [  19] Train -- loss: 1797991.71316, loss_e: 25.72525, loss_f: 2167857.21668, Time: 7.86s
+2024-10-09 14:06:24,220 - train.py:82 - Epoch [  19] Val   -- loss: 2124924.84529, loss_e: 45.89654, loss_f: 3242652.66820
+2024-10-09 14:06:25,023 - train.py:82 - Epoch [  20][     0/13] -- loss: 637281.16301, loss_e: 57.06505, loss_f: 796587.18750, time/step=796ms, lr=1.00e-02
+2024-10-09 14:06:29,484 - train.py:82 - Epoch [  20][    12/13] -- loss: 2567594.52504, loss_e: 39.54573, loss_f: 3345785.89975, time/step=404ms, lr=1.00e-02
+2024-10-09 14:06:32,375 - train.py:82 - Epoch [  20] Train -- loss: 2567594.52504, loss_e: 39.54573, loss_f: 3345785.89975, Time: 8.15s
+2024-10-09 14:06:32,380 - train.py:82 - Epoch [  20] Val   -- loss: 1965401.68531, loss_e: 41.16017, loss_f: 2392927.73192
+2024-10-09 14:06:33,332 - train.py:82 - Epoch [  21][     0/13] -- loss: 53200.59205, loss_e: 40.55790, loss_f: 66490.60156, time/step=937ms, lr=1.00e-02
+2024-10-09 14:06:37,918 - train.py:82 - Epoch [  21][    12/13] -- loss: 2247928.10821, loss_e: 32.78283, loss_f: 3174789.06536, time/step=425ms, lr=1.00e-02
+2024-10-09 14:06:40,909 - train.py:82 - Epoch [  21] Train -- loss: 2247928.10821, loss_e: 32.78283, loss_f: 3174789.06536, Time: 8.53s
+2024-10-09 14:06:40,914 - train.py:82 - Epoch [  21] Val   -- loss: 192535.08587, loss_e: 8.98168, loss_f: 294335.24279
+2024-10-09 14:06:41,594 - train.py:82 - Epoch [  22][     0/13] -- loss: 140409.89327, loss_e: 7.27887, loss_f: 175510.54688, time/step=672ms, lr=1.00e-02
+2024-10-09 14:06:45,238 - train.py:82 - Epoch [  22][    12/13] -- loss: 272544.31027, loss_e: 5.99447, loss_f: 310969.78927, time/step=332ms, lr=1.00e-02
+2024-10-09 14:06:47,716 - train.py:82 - Epoch [  22] Train -- loss: 272544.31027, loss_e: 5.99447, loss_f: 310969.78927, Time: 6.80s
+2024-10-09 14:06:47,719 - train.py:82 - Epoch [  22] Val   -- loss: 4356481.43461, loss_e: 1.43225, loss_f: 5074675.20872
+2024-10-09 14:06:48,482 - train.py:82 - Epoch [  23][     0/13] -- loss: 541313.17839, loss_e: 1.20444, loss_f: 676641.18750, time/step=754ms, lr=1.00e-02
+2024-10-09 14:06:52,706 - train.py:82 - Epoch [  23][    12/13] -- loss: 95493.12250, loss_e: 9.89257, loss_f: 122122.12489, time/step=383ms, lr=1.00e-02
+2024-10-09 14:06:54,790 - train.py:82 - Epoch [  23] Train -- loss: 95493.12250, loss_e: 9.89257, loss_f: 122122.12489, Time: 7.07s
+2024-10-09 14:06:54,792 - train.py:82 - Epoch [  23] Val   -- loss: 91321.05967, loss_e: 18.42149, loss_f: 98200.51410
+2024-10-09 14:06:55,349 - train.py:82 - Epoch [  24][     0/13] -- loss: 7532.33019, loss_e: 19.20955, loss_f: 9410.61035, time/step=550ms, lr=1.00e-02
+2024-10-09 14:06:58,846 - train.py:82 - Epoch [  24][    12/13] -- loss: 193735.26850, loss_e: 18.77749, loss_f: 239283.62929, time/step=311ms, lr=1.00e-02
+2024-10-09 14:07:01,220 - train.py:82 - Epoch [  24] Train -- loss: 193735.26850, loss_e: 18.77749, loss_f: 239283.62929, Time: 6.43s
+2024-10-09 14:07:01,222 - train.py:82 - Epoch [  24] Val   -- loss: 198224.73256, loss_e: 14.31270, loss_f: 250070.25091
+2024-10-09 14:07:01,865 - train.py:82 - Epoch [  25][     0/13] -- loss: 13496.29061, loss_e: 15.72551, loss_f: 16866.43164, time/step=637ms, lr=1.00e-02
+2024-10-09 14:07:05,423 - train.py:82 - Epoch [  25][    12/13] -- loss: 131545.49066, loss_e: 17.82560, loss_f: 154827.51460, time/step=323ms, lr=1.00e-02
+2024-10-09 14:07:07,567 - train.py:82 - Epoch [  25] Train -- loss: 131545.49066, loss_e: 17.82560, loss_f: 154827.51460, Time: 6.35s
+2024-10-09 14:07:07,570 - train.py:82 - Epoch [  25] Val   -- loss: 3071021.47655, loss_e: 24.88634, loss_f: 3541806.80374
+2024-10-09 14:07:08,179 - train.py:82 - Epoch [  26][     0/13] -- loss: 144498.49692, loss_e: 20.14085, loss_f: 180618.07812, time/step=602ms, lr=1.00e-02
+2024-10-09 14:07:11,478 - train.py:82 - Epoch [  26][    12/13] -- loss: 692059.35335, loss_e: 19.52787, loss_f: 799619.22197, time/step=300ms, lr=1.00e-02
+2024-10-09 14:07:13,612 - train.py:82 - Epoch [  26] Train -- loss: 692059.35335, loss_e: 19.52787, loss_f: 799619.22197, Time: 6.04s
+2024-10-09 14:07:13,615 - train.py:82 - Epoch [  26] Val   -- loss: 193435.28153, loss_e: 19.60910, loss_f: 213099.46427
+2024-10-09 14:07:14,245 - train.py:82 - Epoch [  27][     0/13] -- loss: 89360.71185, loss_e: 18.75459, loss_f: 111696.20312, time/step=623ms, lr=1.00e-02
+2024-10-09 14:07:18,565 - train.py:82 - Epoch [  27][    12/13] -- loss: 181718.78060, loss_e: 21.64345, loss_f: 210823.18419, time/step=380ms, lr=1.00e-02
+2024-10-09 14:07:21,442 - train.py:82 - Epoch [  27] Train -- loss: 181718.78060, loss_e: 21.64345, loss_f: 210823.18419, Time: 7.83s
+2024-10-09 14:07:21,444 - train.py:82 - Epoch [  27] Val   -- loss: 133161.66512, loss_e: 26.93993, loss_f: 186167.66878
+2024-10-09 14:07:22,286 - train.py:82 - Epoch [  28][     0/13] -- loss: 4409.34784, loss_e: 25.80415, loss_f: 5505.23340, time/step=833ms, lr=1.00e-02
+2024-10-09 14:07:26,702 - train.py:82 - Epoch [  28][    12/13] -- loss: 98794.41080, loss_e: 27.70621, loss_f: 130305.02475, time/step=404ms, lr=1.00e-02
+2024-10-09 14:07:29,289 - train.py:82 - Epoch [  28] Train -- loss: 98794.41080, loss_e: 27.70621, loss_f: 130305.02475, Time: 7.84s
+2024-10-09 14:07:29,292 - train.py:82 - Epoch [  28] Val   -- loss: 97591.40424, loss_e: 25.73505, loss_f: 130620.73316
+2024-10-09 14:07:29,907 - train.py:82 - Epoch [  29][     0/13] -- loss: 39878.98951, loss_e: 26.13898, loss_f: 49842.20312, time/step=609ms, lr=1.00e-02
+2024-10-09 14:07:33,958 - train.py:82 - Epoch [  29][    12/13] -- loss: 30386.93873, loss_e: 22.93429, loss_f: 40770.92244, time/step=358ms, lr=1.00e-02
+2024-10-09 14:07:36,811 - train.py:82 - Validation error decreased. Saving model to `best_val_epochs@29_e@26682.6889`...
+2024-10-09 14:07:37,014 - train.py:82 - Epoch [  29] Train -- loss: 30386.93873, loss_e: 22.93429, loss_f: 40770.92244, Time: 7.72s
+2024-10-09 14:07:37,014 - train.py:82 - Epoch [  29] Val   -- loss: 26682.68888, loss_e: 20.43920, loss_f: 28566.68267
+2024-10-09 14:07:37,808 - train.py:82 - Epoch [  30][     0/13] -- loss: 79913.84710, loss_e: 17.20423, loss_f: 99888.00781, time/step=786ms, lr=1.00e-02
+2024-10-09 14:07:42,655 - train.py:82 - Epoch [  30][    12/13] -- loss: 28558.24804, loss_e: 18.44557, loss_f: 34867.44531, time/step=433ms, lr=1.00e-02
+2024-10-09 14:07:45,016 - train.py:82 - Epoch [  30] Train -- loss: 28558.24804, loss_e: 18.44557, loss_f: 34867.44531, Time: 8.00s
+2024-10-09 14:07:45,019 - train.py:82 - Epoch [  30] Val   -- loss: 52182.74183, loss_e: 16.21020, loss_f: 59068.55036
+2024-10-09 14:07:45,597 - train.py:82 - Epoch [  31][     0/13] -- loss: 192543.91137, loss_e: 14.63497, loss_f: 240676.21875, time/step=571ms, lr=1.00e-02
+2024-10-09 14:07:48,793 - train.py:82 - Epoch [  31][    12/13] -- loss: 47582.62077, loss_e: 21.36561, loss_f: 55900.01290, time/step=290ms, lr=1.00e-02
+2024-10-09 14:07:50,859 - train.py:82 - Validation error decreased. Saving model to `best_val_epochs@31_e@21208.0099`...
+2024-10-09 14:07:50,992 - train.py:82 - Epoch [  31] Train -- loss: 47582.62077, loss_e: 21.36561, loss_f: 55900.01290, Time: 5.97s
+2024-10-09 14:07:50,993 - train.py:82 - Epoch [  31] Val   -- loss: 21208.00989, loss_e: 27.94735, loss_f: 24081.24255
+2024-10-09 14:07:51,562 - train.py:82 - Epoch [  32][     0/13] -- loss: 1213.54079, loss_e: 29.99215, loss_f: 1509.42798, time/step=563ms, lr=1.00e-02
+2024-10-09 14:07:54,838 - train.py:82 - Epoch [  32][    12/13] -- loss: 48324.29210, loss_e: 30.24773, loss_f: 66024.01541, time/step=295ms, lr=1.00e-02
+2024-10-09 14:07:57,082 - train.py:82 - Validation error decreased. Saving model to `best_val_epochs@32_e@9505.8095`...
+2024-10-09 14:07:57,220 - train.py:82 - Epoch [  32] Train -- loss: 48324.29210, loss_e: 30.24773, loss_f: 66024.01541, Time: 6.23s
+2024-10-09 14:07:57,221 - train.py:82 - Epoch [  32] Val   -- loss: 9505.80952, loss_e: 28.78082, loss_f: 12226.35229
+2024-10-09 14:07:57,772 - train.py:82 - Epoch [  33][     0/13] -- loss: 2661.48693, loss_e: 30.90754, loss_f: 3319.13184, time/step=546ms, lr=1.00e-02
+2024-10-09 14:08:01,137 - train.py:82 - Epoch [  33][    12/13] -- loss: 30327.08969, loss_e: 27.12130, loss_f: 35557.81633, time/step=301ms, lr=1.00e-02
+2024-10-09 14:08:03,259 - train.py:82 - Epoch [  33] Train -- loss: 30327.08969, loss_e: 27.12130, loss_f: 35557.81633, Time: 6.04s
+2024-10-09 14:08:03,261 - train.py:82 - Epoch [  33] Val   -- loss: 35851.84062, loss_e: 29.17466, loss_f: 46417.80694
+2024-10-09 14:08:04,409 - train.py:82 - Epoch [  34][     0/13] -- loss: 337700.43239, loss_e: 24.50571, loss_f: 422119.40625, time/step=1142ms, lr=1.00e-02
+2024-10-09 14:08:07,878 - train.py:82 - Epoch [  34][    12/13] -- loss: 64944.47115, loss_e: 26.34759, loss_f: 80450.55909, time/step=355ms, lr=1.00e-02
+2024-10-09 14:08:10,789 - train.py:82 - Epoch [  34] Train -- loss: 64944.47115, loss_e: 26.34759, loss_f: 80450.55909, Time: 7.53s
+2024-10-09 14:08:10,793 - train.py:82 - Epoch [  34] Val   -- loss: 18390.49245, loss_e: 22.74776, loss_f: 25018.52556
+2024-10-09 14:08:11,556 - train.py:82 - Epoch [  35][     0/13] -- loss: 759.42270, loss_e: 18.48315, loss_f: 944.65759, time/step=754ms, lr=1.00e-02
+2024-10-09 14:08:15,812 - train.py:82 - Epoch [  35][    12/13] -- loss: 19942.93357, loss_e: 20.92604, loss_f: 24899.31355, time/step=385ms, lr=1.00e-02
+2024-10-09 14:08:17,924 - train.py:82 - Epoch [  35] Train -- loss: 19942.93357, loss_e: 20.92604, loss_f: 24899.31355, Time: 7.13s
+2024-10-09 14:08:17,928 - train.py:82 - Epoch [  35] Val   -- loss: 17626.77679, loss_e: 20.02293, loss_f: 22185.98419
+2024-10-09 14:08:18,567 - train.py:82 - Epoch [  36][     0/13] -- loss: 724.89086, loss_e: 20.95149, loss_f: 900.87567, time/step=631ms, lr=1.00e-02
+2024-10-09 14:08:23,131 - train.py:82 - Epoch [  36][    12/13] -- loss: 3320554.10273, loss_e: 115.81837, loss_f: 4110144.24074, time/step=400ms, lr=1.00e-02
+2024-10-09 14:08:26,092 - train.py:82 - Epoch [  36] Train -- loss: 3320554.10273, loss_e: 115.81837, loss_f: 4110144.24074, Time: 8.16s
+2024-10-09 14:08:26,096 - train.py:82 - Epoch [  36] Val   -- loss: 1426656.90712, loss_e: 295.74289, loss_f: 1810434.70422
+2024-10-09 14:08:26,983 - train.py:82 - Epoch [  37][     0/13] -- loss: 11929586.03036, loss_e: 255.15180, loss_f: 14911918.00000, time/step=878ms, lr=1.00e-02
+2024-10-09 14:08:30,969 - train.py:82 - Epoch [  37][    12/13] -- loss: 8564394.72232, loss_e: 409.93640, loss_f: 11098832.81158, time/step=374ms, lr=1.00e-02
+2024-10-09 14:08:33,767 - train.py:82 - Epoch [  37] Train -- loss: 8564394.72232, loss_e: 409.93640, loss_f: 11098832.81158, Time: 7.67s
+2024-10-09 14:08:33,771 - train.py:82 - Epoch [  37] Val   -- loss: 139926.07520, loss_e: 556.64414, loss_f: 152478.55331
+2024-10-09 14:08:34,566 - train.py:82 - Epoch [  38][     0/13] -- loss: 8809.46270, loss_e: 726.96681, loss_f: 10830.08594, time/step=786ms, lr=1.00e-02
+2024-10-09 14:08:39,008 - train.py:82 - Epoch [  38][    12/13] -- loss: 5888049.55637, loss_e: 658.66834, loss_f: 6210210.36785, time/step=402ms, lr=1.00e-02
+2024-10-09 14:08:42,018 - train.py:82 - Epoch [  38] Train -- loss: 5888049.55637, loss_e: 658.66834, loss_f: 6210210.36785, Time: 8.25s
+2024-10-09 14:08:42,023 - train.py:82 - Epoch [  38] Val   -- loss: 180204.60695, loss_e: 754.99672, loss_f: 228908.73721
+2024-10-09 14:08:42,781 - train.py:82 - Epoch [  39][     0/13] -- loss: 23348.17573, loss_e: 810.72241, loss_f: 28982.53906, time/step=749ms, lr=1.00e-02
+2024-10-09 14:08:47,294 - train.py:82 - Epoch [  39][    12/13] -- loss: 301378.53046, loss_e: 693.52265, loss_f: 392665.71104, time/step=405ms, lr=1.00e-02
+2024-10-09 14:08:49,948 - train.py:82 - Epoch [  39] Train -- loss: 301378.53046, loss_e: 693.52265, loss_f: 392665.71104, Time: 7.93s
+2024-10-09 14:08:49,953 - train.py:82 - Epoch [  39] Val   -- loss: 649190.80681, loss_e: 637.70235, loss_f: 908704.93521
+2024-10-09 14:08:50,912 - train.py:82 - Epoch [  40][     0/13] -- loss: 50943.40532, loss_e: 666.30393, loss_f: 63512.67969, time/step=950ms, lr=1.00e-02
+2024-10-09 14:08:55,246 - train.py:82 - Epoch [  40][    12/13] -- loss: 1820321.55967, loss_e: 571.48717, loss_f: 2272478.95031, time/step=406ms, lr=1.00e-02
+2024-10-09 14:08:58,036 - train.py:82 - Epoch [  40] Train -- loss: 1820321.55967, loss_e: 571.48717, loss_f: 2272478.95031, Time: 8.08s
+2024-10-09 14:08:58,039 - train.py:82 - Epoch [  40] Val   -- loss: 7372543.16778, loss_e: 405.96342, loss_f: 9811968.59283
+2024-10-09 14:08:58,786 - train.py:82 - Epoch [  41][     0/13] -- loss: 9575765.12363, loss_e: 360.61813, loss_f: 11969616.00000, time/step=738ms, lr=1.00e-02
+2024-10-09 14:09:03,403 - train.py:82 - Epoch [  41][    12/13] -- loss: 20090918.74538, loss_e: 324.49228, loss_f: 23641521.72364, time/step=412ms, lr=1.00e-02
+2024-10-09 14:09:06,482 - train.py:82 - Epoch [  41] Train -- loss: 20090918.74538, loss_e: 324.49228, loss_f: 23641521.72364, Time: 8.44s
+2024-10-09 14:09:06,485 - train.py:82 - Epoch [  41] Val   -- loss: 17211389.62885, loss_e: 847.05479, loss_f: 19326631.65976
+2024-10-09 14:09:07,544 - train.py:82 - Epoch [  42][     0/13] -- loss: 249990.04138, loss_e: 936.06630, loss_f: 312253.53125, time/step=1048ms, lr=1.00e-02
+2024-10-09 14:09:12,014 - train.py:82 - Epoch [  42][    12/13] -- loss: 4876967207.77505, loss_e: 343.86650, loss_f: 7077576501.66224, time/step=425ms, lr=1.00e-02
+2024-10-09 14:09:14,548 - train.py:82 - Epoch [  42] Train -- loss: 4876967207.77505, loss_e: 343.86650, loss_f: 7077576501.66224, Time: 8.06s
+2024-10-09 14:09:14,551 - train.py:82 - Epoch [  42] Val   -- loss: 120760.96124, loss_e: 237.61307, loss_f: 141357.12251
+2024-10-09 14:09:15,382 - train.py:82 - Epoch [  43][     0/13] -- loss: 8243.18999, loss_e: 199.68530, loss_f: 10254.06641, time/step=822ms, lr=1.00e-02
+2024-10-09 14:09:19,696 - train.py:82 - Epoch [  43][    12/13] -- loss: 86890.82264, loss_e: 293.84779, loss_f: 104821.74367, time/step=395ms, lr=1.00e-02
+2024-10-09 14:09:22,610 - train.py:82 - Epoch [  43] Train -- loss: 86890.82264, loss_e: 293.84779, loss_f: 104821.74367, Time: 8.06s
+2024-10-09 14:09:22,614 - train.py:82 - Epoch [  43] Val   -- loss: 225516.08575, loss_e: 331.45664, loss_f: 264600.40326
+2024-10-09 14:09:23,433 - train.py:82 - Epoch [  44][     0/13] -- loss: 31848.28850, loss_e: 338.06361, loss_f: 39725.84375, time/step=810ms, lr=1.00e-02
+2024-10-09 14:09:27,633 - train.py:82 - Epoch [  44][    12/13] -- loss: 211164.96887, loss_e: 346.35557, loss_f: 246129.32693, time/step=385ms, lr=1.00e-02
+2024-10-09 14:09:30,362 - train.py:82 - Epoch [  44] Train -- loss: 211164.96887, loss_e: 346.35557, loss_f: 246129.32693, Time: 7.75s
+2024-10-09 14:09:30,364 - train.py:82 - Epoch [  44] Val   -- loss: 564910.77334, loss_e: 359.78579, loss_f: 607442.28971
+2024-10-09 14:09:30,980 - train.py:82 - Epoch [  45][     0/13] -- loss: 140421.50075, loss_e: 354.92563, loss_f: 175438.14062, time/step=609ms, lr=1.00e-02
+2024-10-09 14:09:34,327 - train.py:82 - Epoch [  45][    12/13] -- loss: 169364.06183, loss_e: 366.51887, loss_f: 196293.80464, time/step=304ms, lr=1.00e-02
+2024-10-09 14:09:36,365 - train.py:82 - Epoch [  45] Train -- loss: 169364.06183, loss_e: 366.51887, loss_f: 196293.80464, Time: 6.00s
+2024-10-09 14:09:36,367 - train.py:82 - Epoch [  45] Val   -- loss: 119001.18007, loss_e: 372.31730, loss_f: 148226.57446
+2024-10-09 14:09:36,939 - train.py:82 - Epoch [  46][     0/13] -- loss: 177262.16982, loss_e: 334.83347, loss_f: 221494.00000, time/step=565ms, lr=1.00e-02
+2024-10-09 14:09:39,917 - train.py:82 - Epoch [  46][    12/13] -- loss: 140117.76022, loss_e: 374.91929, loss_f: 166474.33724, time/step=273ms, lr=1.00e-02
+2024-10-09 14:09:41,950 - train.py:82 - Epoch [  46] Train -- loss: 140117.76022, loss_e: 374.91929, loss_f: 166474.33724, Time: 5.58s
+2024-10-09 14:09:41,952 - train.py:82 - Epoch [  46] Val   -- loss: 226218.52160, loss_e: 377.55398, loss_f: 283571.45657
+2024-10-09 14:09:42,615 - train.py:82 - Epoch [  47][     0/13] -- loss: 118285.34640, loss_e: 459.85701, loss_f: 147741.71875, time/step=656ms, lr=1.00e-02
+2024-10-09 14:09:45,851 - train.py:82 - Epoch [  47][    12/13] -- loss: 478908.70464, loss_e: 381.49979, loss_f: 583078.58339, time/step=299ms, lr=1.00e-02
+2024-10-09 14:09:47,934 - train.py:82 - Epoch [  47] Train -- loss: 478908.70464, loss_e: 381.49979, loss_f: 583078.58339, Time: 5.98s
+2024-10-09 14:09:47,936 - train.py:82 - Epoch [  47] Val   -- loss: 177796.04002, loss_e: 388.20313, loss_f: 212022.34865
+2024-10-09 14:09:48,497 - train.py:82 - Epoch [  48][     0/13] -- loss: 6892.67444, loss_e: 394.00939, loss_f: 8517.34082, time/step=555ms, lr=1.00e-02
+2024-10-09 14:09:51,424 - train.py:82 - Epoch [  48][    12/13] -- loss: 183496.30073, loss_e: 392.10976, loss_f: 240092.19186, time/step=268ms, lr=1.00e-02
+2024-10-09 14:09:53,380 - train.py:82 - Epoch [  48] Train -- loss: 183496.30073, loss_e: 392.10976, loss_f: 240092.19186, Time: 5.44s
+2024-10-09 14:09:53,382 - train.py:82 - Epoch [  48] Val   -- loss: 327189.28709, loss_e: 397.22388, loss_f: 387871.46240
+2024-10-09 14:09:53,948 - train.py:82 - Epoch [  49][     0/13] -- loss: 1084314.03371, loss_e: 333.91854, loss_f: 1355309.00000, time/step=559ms, lr=1.00e-02
+2024-10-09 14:09:56,858 - train.py:82 - Epoch [  49][    12/13] -- loss: 968530.51042, loss_e: 403.19405, loss_f: 1210666.31505, time/step=267ms, lr=1.00e-02
+2024-10-09 14:09:58,803 - train.py:82 - Epoch [  49] Train -- loss: 968530.51042, loss_e: 403.19405, loss_f: 1210666.31505, Time: 5.42s
+2024-10-09 14:09:58,805 - train.py:82 - Epoch [  49] Val   -- loss: 104425.71656, loss_e: 416.78485, loss_f: 129166.72323
+2024-10-09 14:09:59,366 - train.py:82 - Epoch [  50][     0/13] -- loss: 29688.92375, loss_e: 459.70663, loss_f: 36996.22656, time/step=553ms, lr=1.00e-02
+2024-10-09 14:10:02,321 - train.py:82 - Epoch [  50][    12/13] -- loss: 122425.42003, loss_e: 425.88458, loss_f: 138752.30329, time/step=270ms, lr=1.00e-02
+2024-10-09 14:10:04,285 - train.py:82 - Epoch [  50] Train -- loss: 122425.42003, loss_e: 425.88458, loss_f: 138752.30329, Time: 5.48s
+2024-10-09 14:10:04,287 - train.py:82 - Epoch [  50] Val   -- loss: 427394.50076, loss_e: 434.36268, loss_f: 455411.73098
+2024-10-09 14:10:04,878 - train.py:82 - Epoch [  51][     0/13] -- loss: 72624.07733, loss_e: 390.42573, loss_f: 90682.48438, time/step=584ms, lr=1.00e-02
+2024-10-09 14:10:07,918 - train.py:82 - Epoch [  51][    12/13] -- loss: 274042.34021, loss_e: 440.59649, loss_f: 333039.25814, time/step=279ms, lr=1.00e-02
+2024-10-09 14:10:09,797 - train.py:82 - Epoch [  51] Train -- loss: 274042.34021, loss_e: 440.59649, loss_f: 333039.25814, Time: 5.51s
+2024-10-09 14:10:09,799 - train.py:82 - Epoch [  51] Val   -- loss: 179590.21753, loss_e: 446.86075, loss_f: 201954.15749
+2024-10-09 14:10:10,341 - train.py:82 - Epoch [  52][     0/13] -- loss: 175050.81273, loss_e: 389.21991, loss_f: 218716.20312, time/step=535ms, lr=1.00e-02
+2024-10-09 14:10:13,367 - train.py:82 - Epoch [  52][    12/13] -- loss: 139674.31559, loss_e: 450.87856, loss_f: 170674.09413, time/step=274ms, lr=1.00e-02
+2024-10-09 14:10:15,294 - train.py:82 - Epoch [  52] Train -- loss: 139674.31559, loss_e: 450.87856, loss_f: 170674.09413, Time: 5.49s
+2024-10-09 14:10:15,296 - train.py:82 - Epoch [  52] Val   -- loss: 218072.31502, loss_e: 455.24347, loss_f: 247531.93148
+2024-10-09 14:10:15,902 - train.py:82 - Epoch [  53][     0/13] -- loss: 88103.15895, loss_e: 674.31035, loss_f: 109960.36719, time/step=599ms, lr=1.00e-02
+2024-10-09 14:10:18,884 - train.py:82 - Epoch [  53][    12/13] -- loss: 196849.48704, loss_e: 457.95570, loss_f: 233967.21274, time/step=276ms, lr=1.00e-02
+2024-10-09 14:10:20,952 - train.py:82 - Epoch [  53] Train -- loss: 196849.48704, loss_e: 457.95570, loss_f: 233967.21274, Time: 5.66s
+2024-10-09 14:10:20,954 - train.py:82 - Epoch [  53] Val   -- loss: 139785.46641, loss_e: 462.61908, loss_f: 174915.82108
+2024-10-09 14:10:21,643 - train.py:82 - Epoch [  54][     0/13] -- loss: 84927.34265, loss_e: 362.33823, loss_f: 106068.59375, time/step=683ms, lr=1.00e-02
+2024-10-09 14:10:24,685 - train.py:82 - Epoch [  54][    12/13] -- loss: 81577.54136, loss_e: 466.50931, loss_f: 103761.48899, time/step=286ms, lr=1.00e-02
+2024-10-09 14:10:27,007 - train.py:82 - Epoch [  54] Train -- loss: 81577.54136, loss_e: 466.50931, loss_f: 103761.48899, Time: 6.05s
+2024-10-09 14:10:27,010 - train.py:82 - Epoch [  54] Val   -- loss: 88976.54412, loss_e: 470.11955, loss_f: 100559.07587
+2024-10-09 14:10:27,765 - train.py:82 - Epoch [  55][     0/13] -- loss: 116109.62006, loss_e: 600.32687, loss_f: 144986.93750, time/step=747ms, lr=1.00e-02
+2024-10-09 14:10:30,884 - train.py:82 - Epoch [  55][    12/13] -- loss: 107463.53801, loss_e: 472.21659, loss_f: 128695.43413, time/step=297ms, lr=1.00e-02
+2024-10-09 14:10:33,027 - train.py:82 - Epoch [  55] Train -- loss: 107463.53801, loss_e: 472.21659, loss_f: 128695.43413, Time: 6.02s
+2024-10-09 14:10:33,028 - train.py:82 - Epoch [  55] Val   -- loss: 10541416.73773, loss_e: 474.96934, loss_f: 11497684.79844
+2024-10-09 14:10:33,663 - train.py:82 - Epoch [  56][     0/13] -- loss: 14462458.74760, loss_e: 468.73799, loss_f: 18077956.00000, time/step=628ms, lr=1.00e-02
+2024-10-09 14:10:36,893 - train.py:82 - Epoch [  56][    12/13] -- loss: 1936044.75322, loss_e: 496.51269, loss_f: 2318615.82605, time/step=297ms, lr=1.00e-02
+2024-10-09 14:10:38,890 - train.py:82 - Epoch [  56] Train -- loss: 1936044.75322, loss_e: 496.51269, loss_f: 2318615.82605, Time: 5.86s
+2024-10-09 14:10:38,892 - train.py:82 - Epoch [  56] Val   -- loss: 84532.33331, loss_e: 519.18174, loss_f: 100386.99763
+2024-10-09 14:10:39,559 - train.py:82 - Epoch [  57][     0/13] -- loss: 58085.73288, loss_e: 497.51205, loss_f: 72482.78906, time/step=660ms, lr=1.00e-02
+2024-10-09 14:10:42,511 - train.py:82 - Epoch [  57][    12/13] -- loss: 50564.74217, loss_e: 525.94432, loss_f: 62711.92992, time/step=278ms, lr=1.00e-02
+2024-10-09 14:10:44,563 - train.py:82 - Epoch [  57] Train -- loss: 50564.74217, loss_e: 525.94432, loss_f: 62711.92992, Time: 5.67s
+2024-10-09 14:10:44,565 - train.py:82 - Epoch [  57] Val   -- loss: 121095.00376, loss_e: 528.06474, loss_f: 138961.19231
+2024-10-09 14:10:45,131 - train.py:82 - Epoch [  58][     0/13] -- loss: 19074.29762, loss_e: 630.30645, loss_f: 23685.29492, time/step=560ms, lr=1.00e-02
+2024-10-09 14:10:48,913 - train.py:82 - Epoch [  58][    12/13] -- loss: 224546.81591, loss_e: 522.46379, loss_f: 298564.70507, time/step=334ms, lr=1.00e-02
+2024-10-09 14:10:51,490 - train.py:82 - Epoch [  58] Train -- loss: 224546.81591, loss_e: 522.46379, loss_f: 298564.70507, Time: 6.92s
+2024-10-09 14:10:51,493 - train.py:82 - Epoch [  58] Val   -- loss: 59240.61935, loss_e: 506.40203, loss_f: 73816.86707
+2024-10-09 14:10:52,264 - train.py:82 - Epoch [  59][     0/13] -- loss: 36498.38876, loss_e: 410.88912, loss_f: 45520.26172, time/step=763ms, lr=1.00e-02
+2024-10-09 14:10:56,292 - train.py:82 - Epoch [  59][    12/13] -- loss: 238639.86971, loss_e: 496.21139, loss_f: 266355.13812, time/step=369ms, lr=1.00e-02
+2024-10-09 14:10:58,941 - train.py:82 - Epoch [  59] Train -- loss: 238639.86971, loss_e: 496.21139, loss_f: 266355.13812, Time: 7.45s
+2024-10-09 14:10:58,945 - train.py:82 - Epoch [  59] Val   -- loss: 80656.74546, loss_e: 511.91075, loss_f: 98380.78571
+2024-10-09 14:10:59,714 - train.py:82 - Epoch [  60][     0/13] -- loss: 34889.51556, loss_e: 595.33173, loss_f: 43463.06250, time/step=761ms, lr=1.00e-02
+2024-10-09 14:11:03,403 - train.py:82 - Epoch [  60][    12/13] -- loss: 541601.67886, loss_e: 537.83858, loss_f: 657947.46694, time/step=342ms, lr=1.00e-02
+2024-10-09 14:11:06,100 - train.py:82 - Epoch [  60] Train -- loss: 541601.67886, loss_e: 537.83858, loss_f: 657947.46694, Time: 7.15s
+2024-10-09 14:11:06,103 - train.py:82 - Epoch [  60] Val   -- loss: 280374.72866, loss_e: 554.27106, loss_f: 338643.65883
+2024-10-09 14:11:07,052 - train.py:82 - Epoch [  61][     0/13] -- loss: 437219.39418, loss_e: 628.68967, loss_f: 546367.06250, time/step=940ms, lr=1.00e-02
+2024-10-09 14:11:10,963 - train.py:82 - Epoch [  61][    12/13] -- loss: 274362.21353, loss_e: 549.14186, loss_f: 363399.30797, time/step=373ms, lr=1.00e-02
+2024-10-09 14:11:13,723 - train.py:82 - Epoch [  61] Train -- loss: 274362.21353, loss_e: 549.14186, loss_f: 363399.30797, Time: 7.62s
+2024-10-09 14:11:13,726 - train.py:82 - Epoch [  61] Val   -- loss: 323563.20308, loss_e: 538.14467, loss_f: 334602.07585
+2024-10-09 14:11:14,506 - train.py:82 - Epoch [  62][     0/13] -- loss: 287675.87406, loss_e: 516.08906, loss_f: 359465.81250, time/step=771ms, lr=1.00e-02
+2024-10-09 14:11:18,514 - train.py:82 - Epoch [  62][    12/13] -- loss: 156865.31530, loss_e: 529.37794, loss_f: 208992.07875, time/step=368ms, lr=1.00e-02
+2024-10-09 14:11:21,276 - train.py:82 - Epoch [  62] Train -- loss: 156865.31530, loss_e: 529.37794, loss_f: 208992.07875, Time: 7.55s
+2024-10-09 14:11:21,279 - train.py:82 - Epoch [  62] Val   -- loss: 72653.26052, loss_e: 533.73926, loss_f: 91243.42572
+2024-10-09 14:11:22,034 - train.py:82 - Epoch [  63][     0/13] -- loss: 94336.85914, loss_e: 542.57693, loss_f: 117785.42969, time/step=746ms, lr=1.00e-02
+2024-10-09 14:11:25,587 - train.py:82 - Epoch [  63][    12/13] -- loss: 87964.72663, loss_e: 542.52964, loss_f: 108658.19111, time/step=331ms, lr=1.00e-02
+2024-10-09 14:11:28,321 - train.py:82 - Epoch [  63] Train -- loss: 87964.72663, loss_e: 542.52964, loss_f: 108658.19111, Time: 7.04s
+2024-10-09 14:11:28,324 - train.py:82 - Epoch [  63] Val   -- loss: 50508.88194, loss_e: 552.81392, loss_f: 58587.50623
+2024-10-09 14:11:29,093 - train.py:82 - Epoch [  64][     0/13] -- loss: 32884.54443, loss_e: 497.46824, loss_f: 40981.31250, time/step=760ms, lr=1.00e-02
+2024-10-09 14:11:32,966 - train.py:82 - Epoch [  64][    12/13] -- loss: 34412.86724, loss_e: 558.49996, loss_f: 39962.55850, time/step=356ms, lr=1.00e-02
+2024-10-09 14:11:35,459 - train.py:82 - Epoch [  64] Train -- loss: 34412.86724, loss_e: 558.49996, loss_f: 39962.55850, Time: 7.13s
+2024-10-09 14:11:35,462 - train.py:82 - Epoch [  64] Val   -- loss: 24199.34037, loss_e: 560.26108, loss_f: 29673.54026
+2024-10-09 14:11:36,052 - train.py:82 - Epoch [  65][     0/13] -- loss: 43047.36862, loss_e: 536.74542, loss_f: 53675.02344, time/step=583ms, lr=1.00e-02
+2024-10-09 14:11:39,869 - train.py:82 - Epoch [  65][    12/13] -- loss: 303504.00841, loss_e: 562.57061, loss_f: 416671.11593, time/step=339ms, lr=1.00e-02
+2024-10-09 14:11:42,490 - train.py:82 - Epoch [  65] Train -- loss: 303504.00841, loss_e: 562.57061, loss_f: 416671.11593, Time: 7.03s
+2024-10-09 14:11:42,494 - train.py:82 - Epoch [  65] Val   -- loss: 269122.59048, loss_e: 571.62681, loss_f: 328729.28719
+2024-10-09 14:11:43,352 - train.py:82 - Epoch [  66][     0/13] -- loss: 123621.81062, loss_e: 564.60000, loss_f: 154386.10938, time/step=846ms, lr=1.00e-02
+2024-10-09 14:11:47,365 - train.py:82 - Epoch [  66][    12/13] -- loss: 86274.03925, loss_e: 580.69337, loss_f: 113663.34711, time/step=374ms, lr=1.00e-02
+2024-10-09 14:11:50,074 - train.py:82 - Epoch [  66] Train -- loss: 86274.03925, loss_e: 580.69337, loss_f: 113663.34711, Time: 7.58s
+2024-10-09 14:11:50,078 - train.py:82 - Epoch [  66] Val   -- loss: 39327.87205, loss_e: 589.51334, loss_f: 47597.60920
+2024-10-09 14:11:50,679 - train.py:82 - Epoch [  67][     0/13] -- loss: 136406.45072, loss_e: 718.65984, loss_f: 170328.39062, time/step=593ms, lr=1.00e-02
+2024-10-09 14:11:54,658 - train.py:82 - Epoch [  67][    12/13] -- loss: 146289.87639, loss_e: 594.60838, loss_f: 175418.12187, time/step=352ms, lr=1.00e-02
+2024-10-09 14:11:57,443 - train.py:82 - Epoch [  67] Train -- loss: 146289.87639, loss_e: 594.60838, loss_f: 175418.12187, Time: 7.36s
+2024-10-09 14:11:57,446 - train.py:82 - Epoch [  67] Val   -- loss: 386437.97313, loss_e: 579.39113, loss_f: 430988.99388
+2024-10-09 14:11:58,422 - train.py:82 - Epoch [  68][     0/13] -- loss: 38593.28701, loss_e: 504.34519, loss_f: 48115.52344, time/step=968ms, lr=1.00e-02
+2024-10-09 14:12:02,001 - train.py:82 - Epoch [  68][    12/13] -- loss: 607009.38878, loss_e: 538.68494, loss_f: 688793.79204, time/step=350ms, lr=1.00e-02
+2024-10-09 14:12:03,932 - train.py:82 - Epoch [  68] Train -- loss: 607009.38878, loss_e: 538.68494, loss_f: 688793.79204, Time: 6.49s
+2024-10-09 14:12:03,935 - train.py:82 - Epoch [  68] Val   -- loss: 700715.23591, loss_e: 516.29934, loss_f: 785654.78977
+2024-10-09 14:12:04,493 - train.py:82 - Epoch [  69][     0/13] -- loss: 21532.54585, loss_e: 480.23900, loss_f: 26795.62109, time/step=552ms, lr=1.00e-02
+2024-10-09 14:12:07,712 - train.py:82 - Epoch [  69][    12/13] -- loss: 885801.21551, loss_e: 539.02221, loss_f: 1243592.66552, time/step=290ms, lr=1.00e-02
+2024-10-09 14:12:09,701 - train.py:82 - Epoch [  69] Train -- loss: 885801.21551, loss_e: 539.02221, loss_f: 1243592.66552, Time: 5.77s
+2024-10-09 14:12:09,704 - train.py:82 - Epoch [  69] Val   -- loss: 198873.27236, loss_e: 569.09755, loss_f: 240358.63800
+2024-10-09 14:12:10,274 - train.py:82 - Epoch [  70][     0/13] -- loss: 91429.20484, loss_e: 561.57110, loss_f: 114146.10938, time/step=564ms, lr=1.00e-02
+2024-10-09 14:12:13,726 - train.py:82 - Epoch [  70][    12/13] -- loss: 2111548.22453, loss_e: 507.61910, loss_f: 2328908.93891, time/step=309ms, lr=1.00e-02
+2024-10-09 14:12:15,617 - train.py:82 - Epoch [  70] Train -- loss: 2111548.22453, loss_e: 507.61910, loss_f: 2328908.93891, Time: 5.91s
+2024-10-09 14:12:15,620 - train.py:82 - Epoch [  70] Val   -- loss: 324114.18754, loss_e: 378.28085, loss_f: 358664.47108
+2024-10-09 14:12:16,149 - train.py:82 - Epoch [  71][     0/13] -- loss: 117416.17563, loss_e: 331.38595, loss_f: 146687.37500, time/step=522ms, lr=1.00e-02
+2024-10-09 14:12:19,228 - train.py:82 - Epoch [  71][    12/13] -- loss: 292558.03913, loss_e: 327.22294, loss_f: 376729.83902, time/step=277ms, lr=1.00e-02
+2024-10-09 14:12:21,200 - train.py:82 - Epoch [  71] Train -- loss: 292558.03913, loss_e: 327.22294, loss_f: 376729.83902, Time: 5.58s
+2024-10-09 14:12:21,202 - train.py:82 - Epoch [  71] Val   -- loss: 214641.60731, loss_e: 283.20984, loss_f: 255239.02775
+2024-10-09 14:12:21,729 - train.py:82 - Epoch [  72][     0/13] -- loss: 387530.78886, loss_e: 272.38180, loss_f: 484345.37500, time/step=520ms, lr=1.00e-02
+2024-10-09 14:12:24,715 - train.py:82 - Epoch [  72][    12/13] -- loss: 162813.11280, loss_e: 268.71997, loss_f: 191016.90319, time/step=270ms, lr=1.00e-02
+2024-10-09 14:12:26,647 - train.py:82 - Epoch [  72] Train -- loss: 162813.11280, loss_e: 268.71997, loss_f: 191016.90319, Time: 5.44s
+2024-10-09 14:12:26,649 - train.py:82 - Epoch [  72] Val   -- loss: 534146.67865, loss_e: 258.90824, loss_f: 579035.10737
+2024-10-09 14:12:27,192 - train.py:82 - Epoch [  73][     0/13] -- loss: 170682.87084, loss_e: 227.24484, loss_f: 213296.76562, time/step=536ms, lr=1.00e-02
+2024-10-09 14:12:30,484 - train.py:82 - Epoch [  73][    12/13] -- loss: 247702.50962, loss_e: 256.31627, loss_f: 341166.43937, time/step=294ms, lr=1.00e-02
+2024-10-09 14:12:32,405 - train.py:82 - Epoch [  73] Train -- loss: 247702.50962, loss_e: 256.31627, loss_f: 341166.43937, Time: 5.76s
+2024-10-09 14:12:32,408 - train.py:82 - Epoch [  73] Val   -- loss: 693966.46281, loss_e: 254.40756, loss_f: 1079137.98877
+2024-10-09 14:12:32,999 - train.py:82 - Epoch [  74][     0/13] -- loss: 420799.26945, loss_e: 286.34725, loss_f: 525927.50000, time/step=584ms, lr=1.00e-02
+2024-10-09 14:12:36,528 - train.py:82 - Epoch [  74][    12/13] -- loss: 218305.12156, loss_e: 254.34609, loss_f: 300881.62208, time/step=316ms, lr=1.00e-02
+2024-10-09 14:12:38,551 - train.py:82 - Epoch [  74] Train -- loss: 218305.12156, loss_e: 254.34609, loss_f: 300881.62208, Time: 6.14s
+2024-10-09 14:12:38,553 - train.py:82 - Epoch [  74] Val   -- loss: 266516326.34332, loss_e: 254.89895, loss_f: 270879780.12282
+2024-10-09 14:12:39,249 - train.py:82 - Epoch [  75][     0/13] -- loss: 234534.03347, loss_e: 215.40174, loss_f: 293113.68750, time/step=690ms, lr=1.00e-02
+2024-10-09 14:12:42,243 - train.py:82 - Epoch [  75][    12/13] -- loss: 193782.93490, loss_e: 255.78929, loss_f: 243223.24582, time/step=283ms, lr=1.00e-02
+2024-10-09 14:12:44,333 - train.py:82 - Epoch [  75] Train -- loss: 193782.93490, loss_e: 255.78929, loss_f: 243223.24582, Time: 5.78s
+2024-10-09 14:12:44,335 - train.py:82 - Epoch [  75] Val   -- loss: 148784.28480, loss_e: 257.00874, loss_f: 183236.32962
+2024-10-09 14:12:44,917 - train.py:82 - Epoch [  76][     0/13] -- loss: 607439.26869, loss_e: 232.59344, loss_f: 759240.93750, time/step=575ms, lr=1.00e-02
+2024-10-09 14:12:47,879 - train.py:82 - Epoch [  76][    12/13] -- loss: 314766.35432, loss_e: 258.95149, loss_f: 355384.85946, time/step=272ms, lr=1.00e-02
+2024-10-09 14:12:49,820 - train.py:82 - Epoch [  76] Train -- loss: 314766.35432, loss_e: 258.95149, loss_f: 355384.85946, Time: 5.49s
+2024-10-09 14:12:49,822 - train.py:82 - Epoch [  76] Val   -- loss: 439529.65409, loss_e: 261.13209, loss_f: 569695.45450
+2024-10-09 14:12:50,379 - train.py:82 - Epoch [  77][     0/13] -- loss: 321666.13057, loss_e: 242.68412, loss_f: 402022.00000, time/step=550ms, lr=1.00e-02
+2024-10-09 14:12:53,388 - train.py:82 - Epoch [  77][    12/13] -- loss: 992371.06257, loss_e: 264.26457, loss_f: 1108699.30499, time/step=274ms, lr=1.00e-02
+2024-10-09 14:12:55,331 - train.py:82 - Epoch [  77] Train -- loss: 992371.06257, loss_e: 264.26457, loss_f: 1108699.30499, Time: 5.51s
+2024-10-09 14:12:55,333 - train.py:82 - Epoch [  77] Val   -- loss: 44315617.69187, loss_e: 271.48702, loss_f: 47412610.51307
+2024-10-09 14:12:55,963 - train.py:82 - Epoch [  78][     0/13] -- loss: 2674.84234, loss_e: 307.19145, loss_f: 3266.75513, time/step=623ms, lr=1.00e-02
+2024-10-09 14:12:58,999 - train.py:82 - Epoch [  78][    12/13] -- loss: 429419.86998, loss_e: 276.98930, loss_f: 547131.52738, time/step=281ms, lr=1.00e-02
+2024-10-09 14:13:00,973 - train.py:82 - Epoch [  78] Train -- loss: 429419.86998, loss_e: 276.98930, loss_f: 547131.52738, Time: 5.64s
+2024-10-09 14:13:00,975 - train.py:82 - Epoch [  78] Val   -- loss: 208494.16314, loss_e: 283.50706, loss_f: 262616.45226
+2024-10-09 14:13:01,561 - train.py:82 - Epoch [  79][     0/13] -- loss: 36714.96428, loss_e: 247.59485, loss_f: 45831.80469, time/step=578ms, lr=1.00e-02
+2024-10-09 14:13:05,392 - train.py:82 - Epoch [  79][    12/13] -- loss: 181909.59445, loss_e: 290.06619, loss_f: 251100.41876, time/step=339ms, lr=1.00e-02
+2024-10-09 14:13:08,012 - train.py:82 - Epoch [  79] Train -- loss: 181909.59445, loss_e: 290.06619, loss_f: 251100.41876, Time: 7.04s
+2024-10-09 14:13:08,015 - train.py:82 - Epoch [  79] Val   -- loss: 274438.11594, loss_e: 295.60135, loss_f: 350494.19759
+2024-10-09 14:13:08,652 - train.py:82 - Epoch [  80][     0/13] -- loss: 85006.21945, loss_e: 248.79255, loss_f: 106195.57812, time/step=630ms, lr=1.00e-02
+2024-10-09 14:13:12,477 - train.py:82 - Epoch [  80][    12/13] -- loss: 291446.29837, loss_e: 298.57650, loss_f: 369750.07802, time/step=343ms, lr=1.00e-02
+2024-10-09 14:13:14,948 - train.py:82 - Epoch [  80] Train -- loss: 291446.29837, loss_e: 298.57650, loss_f: 369750.07802, Time: 6.93s
+2024-10-09 14:13:14,951 - train.py:82 - Epoch [  80] Val   -- loss: 163954.43622, loss_e: 301.95513, loss_f: 186602.41488
+2024-10-09 14:13:15,720 - train.py:82 - Epoch [  81][     0/13] -- loss: 11382.02981, loss_e: 289.00645, loss_f: 14155.28516, time/step=761ms, lr=1.00e-02
+2024-10-09 14:13:19,423 - train.py:82 - Epoch [  81][    12/13] -- loss: 206697.49358, loss_e: 303.93272, loss_f: 276379.22801, time/step=343ms, lr=1.00e-02
+2024-10-09 14:13:22,247 - train.py:82 - Epoch [  81] Train -- loss: 206697.49358, loss_e: 303.93272, loss_f: 276379.22801, Time: 7.30s
+2024-10-09 14:13:22,251 - train.py:82 - Epoch [  81] Val   -- loss: 283307.04844, loss_e: 305.91571, loss_f: 316475.91992
+2024-10-09 14:13:23,284 - train.py:82 - Epoch [  82][     0/13] -- loss: 471964.56545, loss_e: 276.26477, loss_f: 589886.62500, time/step=1024ms, lr=1.00e-02
+2024-10-09 14:13:26,267 - train.py:82 - Epoch [  82][    12/13] -- loss: 236330.62852, loss_e: 307.92700, loss_f: 283432.58727, time/step=308ms, lr=1.00e-02
+2024-10-09 14:13:28,405 - train.py:82 - Epoch [  82] Train -- loss: 236330.62852, loss_e: 307.92700, loss_f: 283432.58727, Time: 6.15s
+2024-10-09 14:13:28,408 - train.py:82 - Epoch [  82] Val   -- loss: 103608.28358, loss_e: 309.91997, loss_f: 123538.59535
+2024-10-09 14:13:29,011 - train.py:82 - Epoch [  83][     0/13] -- loss: 60179.27851, loss_e: 270.10347, loss_f: 75156.57031, time/step=595ms, lr=1.00e-02
+2024-10-09 14:13:32,085 - train.py:82 - Epoch [  83][    12/13] -- loss: 178680.45628, loss_e: 311.29750, loss_f: 213137.59150, time/step=282ms, lr=1.00e-02
+2024-10-09 14:13:34,032 - train.py:82 - Epoch [  83] Train -- loss: 178680.45628, loss_e: 311.29750, loss_f: 213137.59150, Time: 5.62s
+2024-10-09 14:13:34,034 - train.py:82 - Epoch [  83] Val   -- loss: 111301.19782, loss_e: 312.89806, loss_f: 128911.63669
+2024-10-09 14:13:34,620 - train.py:82 - Epoch [  84][     0/13] -- loss: 56594.02398, loss_e: 272.89332, loss_f: 70674.30469, time/step=578ms, lr=1.00e-02
+2024-10-09 14:13:37,563 - train.py:82 - Epoch [  84][    12/13] -- loss: 128427.58143, loss_e: 313.96429, loss_f: 168210.79556, time/step=271ms, lr=1.00e-02
+2024-10-09 14:13:39,545 - train.py:82 - Epoch [  84] Train -- loss: 128427.58143, loss_e: 313.96429, loss_f: 168210.79556, Time: 5.51s
+2024-10-09 14:13:39,546 - train.py:82 - Epoch [  84] Val   -- loss: 305452.77363, loss_e: 315.13476, loss_f: 352195.08445
+2024-10-09 14:13:40,099 - train.py:82 - Epoch [  85][     0/13] -- loss: 175425.36133, loss_e: 274.46289, loss_f: 219213.07812, time/step=545ms, lr=1.00e-02
+2024-10-09 14:13:43,861 - train.py:82 - Epoch [  85][    12/13] -- loss: 999903.34371, loss_e: 322.66541, loss_f: 1158921.74246, time/step=331ms, lr=1.00e-02
+2024-10-09 14:13:46,343 - train.py:82 - Epoch [  85] Train -- loss: 999903.34371, loss_e: 322.66541, loss_f: 1158921.74246, Time: 6.80s
+2024-10-09 14:13:46,346 - train.py:82 - Epoch [  85] Val   -- loss: 115974.76454, loss_e: 337.60780, loss_f: 144329.77225
+2024-10-09 14:13:47,144 - train.py:82 - Epoch [  86][     0/13] -- loss: 215362.06722, loss_e: 352.28925, loss_f: 269114.50000, time/step=789ms, lr=1.00e-02
+2024-10-09 14:13:51,017 - train.py:82 - Epoch [  86][    12/13] -- loss: 143165.73050, loss_e: 345.58983, loss_f: 164457.32685, time/step=359ms, lr=1.00e-02
+2024-10-09 14:13:53,605 - train.py:82 - Epoch [  86] Train -- loss: 143165.73050, loss_e: 345.58983, loss_f: 164457.32685, Time: 7.26s
+2024-10-09 14:13:53,608 - train.py:82 - Epoch [  86] Val   -- loss: 209844.08437, loss_e: 352.57339, loss_f: 242315.93615
+2024-10-09 14:13:54,415 - train.py:82 - Epoch [  87][     0/13] -- loss: 164080.63881, loss_e: 501.39718, loss_f: 204975.45312, time/step=798ms, lr=1.00e-02
+2024-10-09 14:13:58,396 - train.py:82 - Epoch [  87][    12/13] -- loss: 124123.82948, loss_e: 355.37694, loss_f: 154465.80679, time/step=368ms, lr=1.00e-02
+2024-10-09 14:14:01,117 - train.py:82 - Epoch [  87] Train -- loss: 124123.82948, loss_e: 355.37694, loss_f: 154465.80679, Time: 7.51s
+2024-10-09 14:14:01,121 - train.py:82 - Epoch [  87] Val   -- loss: 114783.66571, loss_e: 357.80075, loss_f: 130901.86759
+2024-10-09 14:14:01,896 - train.py:82 - Epoch [  88][     0/13] -- loss: 64615.47794, loss_e: 291.19830, loss_f: 80696.54688, time/step=767ms, lr=1.00e-02
+2024-10-09 14:14:05,971 - train.py:82 - Epoch [  88][    12/13] -- loss: 206691.80188, loss_e: 359.33443, loss_f: 248237.51155, time/step=372ms, lr=1.00e-02
+2024-10-09 14:14:08,807 - train.py:82 - Epoch [  88] Train -- loss: 206691.80188, loss_e: 359.33443, loss_f: 248237.51155, Time: 7.69s
+2024-10-09 14:14:08,810 - train.py:82 - Epoch [  88] Val   -- loss: 131555.99194, loss_e: 361.53727, loss_f: 169559.46555
+2024-10-09 14:14:09,762 - train.py:82 - Epoch [  89][     0/13] -- loss: 2343830.79381, loss_e: 420.21907, loss_f: 2929683.25000, time/step=944ms, lr=1.00e-02
+2024-10-09 14:14:13,198 - train.py:82 - Epoch [  89][    12/13] -- loss: 256929.60447, loss_e: 363.22835, loss_f: 347256.17181, time/step=337ms, lr=1.00e-02
+2024-10-09 14:14:15,184 - train.py:82 - Epoch [  89] Train -- loss: 256929.60447, loss_e: 363.22835, loss_f: 347256.17181, Time: 6.37s
+2024-10-09 14:14:15,186 - train.py:82 - Epoch [  89] Val   -- loss: 547898.34987, loss_e: 365.04541, loss_f: 795520.14062
+2024-10-09 14:14:15,746 - train.py:82 - Epoch [  90][     0/13] -- loss: 197789.13289, loss_e: 296.75818, loss_f: 247162.21875, time/step=553ms, lr=1.00e-02
+2024-10-09 14:14:18,685 - train.py:82 - Epoch [  90][    12/13] -- loss: 120077.39802, loss_e: 365.88165, loss_f: 137524.70983, time/step=269ms, lr=1.00e-02
+2024-10-09 14:14:21,322 - train.py:82 - Epoch [  90] Train -- loss: 120077.39802, loss_e: 365.88165, loss_f: 137524.70983, Time: 6.13s
+2024-10-09 14:14:21,325 - train.py:82 - Epoch [  90] Val   -- loss: 59322.85273, loss_e: 366.63022, loss_f: 73206.28856
+2024-10-09 14:14:22,031 - train.py:82 - Epoch [  91][     0/13] -- loss: 35676.37029, loss_e: 298.16003, loss_f: 44520.92188, time/step=695ms, lr=1.00e-02
+2024-10-09 14:14:25,867 - train.py:82 - Epoch [  91][    12/13] -- loss: 45855.35166, loss_e: 367.09070, loss_f: 53037.14177, time/step=349ms, lr=1.00e-02
+2024-10-09 14:14:28,562 - train.py:82 - Epoch [  91] Train -- loss: 45855.35166, loss_e: 367.09070, loss_f: 53037.14177, Time: 7.24s
+2024-10-09 14:14:28,565 - train.py:82 - Epoch [  91] Val   -- loss: 70138.31038, loss_e: 367.52449, loss_f: 90767.99763
+2024-10-09 14:14:29,337 - train.py:82 - Epoch [  92][     0/13] -- loss: 534617.27348, loss_e: 469.17990, loss_f: 668154.31250, time/step=763ms, lr=1.00e-02
+2024-10-09 14:14:32,653 - train.py:82 - Epoch [  92][    12/13] -- loss: 110667.00177, loss_e: 368.32586, loss_f: 147535.54560, time/step=314ms, lr=1.00e-02
+2024-10-09 14:14:34,623 - train.py:82 - Epoch [  92] Train -- loss: 110667.00177, loss_e: 368.32586, loss_f: 147535.54560, Time: 6.06s
+2024-10-09 14:14:34,626 - train.py:82 - Epoch [  92] Val   -- loss: 75024.03693, loss_e: 369.24016, loss_f: 92227.07452
+2024-10-09 14:14:35,194 - train.py:82 - Epoch [  93][     0/13] -- loss: 89858.04314, loss_e: 354.00475, loss_f: 112234.04688, time/step=561ms, lr=1.00e-02
+2024-10-09 14:14:38,673 - train.py:82 - Epoch [  93][    12/13] -- loss: 285577.05774, loss_e: 377.08981, loss_f: 401263.62427, time/step=311ms, lr=1.00e-02
+2024-10-09 14:14:40,834 - train.py:82 - Epoch [  93] Train -- loss: 285577.05774, loss_e: 377.08981, loss_f: 401263.62427, Time: 6.21s
+2024-10-09 14:14:40,836 - train.py:82 - Epoch [  93] Val   -- loss: 5762137.08484, loss_e: 398.57591, loss_f: 8938978.93676
+2024-10-09 14:14:41,426 - train.py:82 - Epoch [  94][     0/13] -- loss: 12168.97520, loss_e: 416.40432, loss_f: 15107.11816, time/step=584ms, lr=1.00e-02
+2024-10-09 14:14:44,554 - train.py:82 - Epoch [  94][    12/13] -- loss: 93123.99344, loss_e: 410.21100, loss_f: 117559.58584, time/step=285ms, lr=1.00e-02
+2024-10-09 14:14:47,308 - train.py:82 - Epoch [  94] Train -- loss: 93123.99344, loss_e: 410.21100, loss_f: 117559.58584, Time: 6.47s
+2024-10-09 14:14:47,311 - train.py:82 - Epoch [  94] Val   -- loss: 36016.40468, loss_e: 420.15460, loss_f: 42360.69123
+2024-10-09 14:14:48,139 - train.py:82 - Epoch [  95][     0/13] -- loss: 62308.95460, loss_e: 365.57379, loss_f: 77794.79688, time/step=819ms, lr=1.00e-02
+2024-10-09 14:14:51,816 - train.py:82 - Epoch [  95][    12/13] -- loss: 33562.85161, loss_e: 424.49965, loss_f: 41291.98459, time/step=346ms, lr=1.00e-02
+2024-10-09 14:14:53,858 - train.py:82 - Epoch [  95] Train -- loss: 33562.85161, loss_e: 424.49965, loss_f: 41291.98459, Time: 6.55s
+2024-10-09 14:14:53,860 - train.py:82 - Epoch [  95] Val   -- loss: 93853.60826, loss_e: 428.18380, loss_f: 131726.98004
+2024-10-09 14:14:54,395 - train.py:82 - Epoch [  96][     0/13] -- loss: 44890.58979, loss_e: 360.25366, loss_f: 56023.17188, time/step=528ms, lr=1.00e-02
+2024-10-09 14:14:57,322 - train.py:82 - Epoch [  96][    12/13] -- loss: 230693.48495, loss_e: 434.69899, loss_f: 267708.86139, time/step=266ms, lr=1.00e-02
+2024-10-09 14:14:59,263 - train.py:82 - Epoch [  96] Train -- loss: 230693.48495, loss_e: 434.69899, loss_f: 267708.86139, Time: 5.40s
+2024-10-09 14:14:59,266 - train.py:82 - Epoch [  96] Val   -- loss: 36978.43152, loss_e: 441.89433, loss_f: 44519.99790
+2024-10-09 14:15:00,000 - train.py:82 - Epoch [  97][     0/13] -- loss: 22984.71192, loss_e: 564.26271, loss_f: 28589.82422, time/step=726ms, lr=1.00e-02
+2024-10-09 14:15:03,837 - train.py:82 - Epoch [  97][    12/13] -- loss: 106636.66772, loss_e: 448.04426, loss_f: 136754.30728, time/step=351ms, lr=1.00e-02
+2024-10-09 14:15:06,064 - train.py:82 - Validation error decreased. Saving model to `best_val_epochs@97_e@5969.8923`...
+2024-10-09 14:15:06,200 - train.py:82 - Epoch [  97] Train -- loss: 106636.66772, loss_e: 448.04426, loss_f: 136754.30728, Time: 6.93s
+2024-10-09 14:15:06,200 - train.py:82 - Epoch [  97] Val   -- loss: 5969.89229, loss_e: 455.42444, loss_f: 7010.72394
+2024-10-09 14:15:06,779 - train.py:82 - Epoch [  98][     0/13] -- loss: 1813.56898, loss_e: 568.43448, loss_f: 2124.85254, time/step=572ms, lr=1.00e-02
+2024-10-09 14:15:09,731 - train.py:82 - Epoch [  98][    12/13] -- loss: 14693.55728, loss_e: 457.83768, loss_f: 18563.23675, time/step=271ms, lr=1.00e-02
+2024-10-09 14:15:11,692 - train.py:82 - Epoch [  98] Train -- loss: 14693.55728, loss_e: 457.83768, loss_f: 18563.23675, Time: 5.49s
+2024-10-09 14:15:11,694 - train.py:82 - Epoch [  98] Val   -- loss: 21814.31988, loss_e: 459.26846, loss_f: 26291.57156
+2024-10-09 14:15:12,245 - train.py:82 - Epoch [  99][     0/13] -- loss: 2936.97725, loss_e: 466.55861, loss_f: 3554.58179, time/step=544ms, lr=1.00e-02
+2024-10-09 14:15:15,256 - train.py:82 - Epoch [  99][    12/13] -- loss: 9165.41901, loss_e: 458.59270, loss_f: 12198.88122, time/step=273ms, lr=1.00e-02
+2024-10-09 14:15:17,337 - train.py:82 - Epoch [  99] Train -- loss: 9165.41901, loss_e: 458.59270, loss_f: 12198.88122, Time: 5.64s
+2024-10-09 14:15:17,339 - train.py:82 - Epoch [  99] Val   -- loss: 7182.22894, loss_e: 456.33618, loss_f: 8600.85344
+2024-10-09 14:15:17,900 - train.py:82 - Epoch [ 100][     0/13] -- loss: 34566.26859, loss_e: 397.33904, loss_f: 43108.50000, time/step=554ms, lr=1.00e-02
+2024-10-09 14:15:21,700 - train.py:82 - Epoch [ 100][    12/13] -- loss: 10951.47420, loss_e: 454.01858, loss_f: 12393.58257, time/step=335ms, lr=1.00e-02
+2024-10-09 14:15:24,424 - train.py:82 - Epoch [ 100] Train -- loss: 10951.47420, loss_e: 454.01858, loss_f: 12393.58257, Time: 7.08s
+2024-10-09 14:15:24,428 - train.py:82 - Epoch [ 100] Val   -- loss: 9511.86245, loss_e: 451.92559, loss_f: 11669.56484
+2024-10-11 14:12:47,478 - train.py:82 - Namespace(train_file='tests/data/train.h5', valid_file='tests/data/valid.h5', test_file=None, statistics_file='tests/data/statistics.json', output_dir='tests/result', epochs=100, batch_size=64, batch_edge_limit=0, eval_batch_size=24, model='v1', alpha_drop=0.0, proj_drop=0.0, out_drop=0.0, drop_path_rate=0.0, opt='adamw', opt_eps=1e-08, opt_betas=None, clip_grad=None, momentum=0.9, weight_decay=0.005, sched='plateau', lr=0.01, lr_noise=None, lr_noise_pct=0.67, lr_noise_std=1.0, warmup_lr=0.01, min_lr=1e-06, decay_epochs=30, warmup_epochs=0, cooldown_epochs=0, patience_epochs=2, decay_rate=0.5, print_freq=100, energy_weight=0.2, force_weight=0.8, stress_weight=0.0, seed=1, workers=4, pin_mem=True, shuffle=True, load_checkpoint=None, load_checkpoint_model=None, evaluate=False)
+2024-10-11 14:12:47,651 - train.py:82 - Using r_max=4.5 from statistics file `tests/data/statistics.json`
+2024-10-11 14:12:53,376 - train.py:82 - Number of params: 8725251
+2024-10-11 14:12:55,122 - train.py:82 - Epoch [   0] Val   -- loss: 9419.80354, loss_e: 0.60948, loss_f: 11774.60156
+2024-10-11 14:12:56,701 - train.py:82 - Epoch [   1][     0/1] -- loss: 9450.22635, loss_e: 0.60927, loss_f: 11812.63086, time/step=1563ms, lr=1.00e-02
+2024-10-11 14:12:57,465 - train.py:82 - Validation error decreased. Saving model to `best_val_epochs@1_e@11294.3796`...
+2024-10-11 14:12:57,606 - train.py:82 - Epoch [   1] Train -- loss: 9450.22635, loss_e: 0.60927, loss_f: 11812.63086, Time: 2.48s
+2024-10-11 14:12:57,606 - train.py:82 - Epoch [   1] Val   -- loss: 11294.37960, loss_e: 14.28080, loss_f: 14114.40430
+2024-10-11 14:12:58,984 - train.py:82 - Epoch [   2][     0/1] -- loss: 11556.31208, loss_e: 14.28015, loss_f: 14441.82031, time/step=1368ms, lr=1.00e-02
+2024-10-11 14:12:59,649 - train.py:82 - Epoch [   2] Train -- loss: 11556.31208, loss_e: 14.28015, loss_f: 14441.82031, Time: 2.04s
+2024-10-11 14:12:59,651 - train.py:82 - Epoch [   2] Val   -- loss: 23818.10872, loss_e: 5.08464, loss_f: 29771.36328
+2024-10-11 14:13:01,333 - train.py:82 - Epoch [   3][     0/1] -- loss: 22853.96025, loss_e: 5.08445, loss_f: 28566.17969, time/step=1674ms, lr=1.00e-02
+2024-10-11 14:13:02,163 - train.py:82 - Epoch [   3] Train -- loss: 22853.96025, loss_e: 5.08445, loss_f: 28566.17969, Time: 2.51s
+2024-10-11 14:13:02,164 - train.py:82 - Epoch [   3] Val   -- loss: 16897.75392, loss_e: 0.41022, loss_f: 21122.08984
+2024-10-11 14:13:03,231 - train.py:82 - Epoch [   4][     0/1] -- loss: 15968.27926, loss_e: 0.40999, loss_f: 19960.24609, time/step=1059ms, lr=1.00e-02
+2024-10-11 14:13:04,057 - train.py:82 - Validation error decreased. Saving model to `best_val_epochs@4_e@7574.1402`...
+2024-10-11 14:13:04,213 - train.py:82 - Epoch [   4] Train -- loss: 15968.27926, loss_e: 0.40999, loss_f: 19960.24609, Time: 2.05s
+2024-10-11 14:13:04,213 - train.py:82 - Epoch [   4] Val   -- loss: 7574.14024, loss_e: 0.13479, loss_f: 9467.64160
+2024-10-11 14:45:54,668 - train.py:82 - Namespace(train_file='tests/data/train.h5', valid_file='tests/data/valid.h5', test_file=None, statistics_file='tests/data/statistics.json', output_dir='tests/result', epochs=100, batch_size=64, batch_edge_limit=0, eval_batch_size=24, model='v1', alpha_drop=0.0, proj_drop=0.0, out_drop=0.0, drop_path_rate=0.0, opt='adamw', opt_eps=1e-08, opt_betas=None, clip_grad=None, momentum=0.9, weight_decay=0.005, sched='plateau', lr=0.01, lr_noise=None, lr_noise_pct=0.67, lr_noise_std=1.0, warmup_lr=0.01, min_lr=1e-06, decay_epochs=30, warmup_epochs=0, cooldown_epochs=0, patience_epochs=2, decay_rate=0.5, print_freq=100, energy_weight=0.2, force_weight=0.8, stress_weight=0.0, seed=1, workers=4, pin_mem=True, shuffle=True, load_checkpoint=None, load_checkpoint_model=None, evaluate=False)
+2024-10-11 14:45:54,805 - train.py:82 - Using r_max=4.5 from statistics file `tests/data/statistics.json`
+2024-10-11 14:46:00,048 - train.py:82 - Number of params: 8725251
+2024-10-11 14:46:01,427 - train.py:82 - Epoch [   0] Val   -- loss: 9835.08573, loss_e: 0.60931, loss_f: 12293.70410
+2024-10-11 14:46:02,833 - train.py:82 - Epoch [   1][     0/1] -- loss: 9851.27915, loss_e: 0.60964, loss_f: 12313.94629, time/step=1391ms, lr=1.00e-02
+2024-10-11 14:46:03,691 - train.py:82 - Validation error decreased. Saving model to `best_val_epochs@1_e@15294.0625`...
+2024-10-11 14:46:03,868 - train.py:82 - Epoch [   1] Train -- loss: 9851.27915, loss_e: 0.60964, loss_f: 12313.94629, Time: 2.44s
+2024-10-11 14:46:03,869 - train.py:82 - Epoch [   1] Val   -- loss: 15294.06248, loss_e: 1.37198, loss_f: 19117.23438
+2024-10-11 14:46:05,285 - train.py:82 - Epoch [   2][     0/1] -- loss: 15372.34001, loss_e: 1.37289, loss_f: 19215.08203, time/step=1409ms, lr=1.00e-02
+2024-10-11 14:46:05,976 - train.py:82 - Epoch [   2] Train -- loss: 15372.34001, loss_e: 1.37289, loss_f: 19215.08203, Time: 2.11s
+2024-10-11 14:46:05,977 - train.py:82 - Epoch [   2] Val   -- loss: 19202.41598, loss_e: 1.95293, loss_f: 24002.53125
+2024-10-11 14:46:07,494 - train.py:82 - Epoch [   3][     0/1] -- loss: 20196.31839, loss_e: 1.95328, loss_f: 25244.90820, time/step=1510ms, lr=1.00e-02
+2024-10-11 14:46:08,110 - train.py:82 - Epoch [   3] Train -- loss: 20196.31839, loss_e: 1.95328, loss_f: 25244.90820, Time: 2.13s
+2024-10-11 14:46:08,111 - train.py:82 - Epoch [   3] Val   -- loss: 103113.96037, loss_e: 0.30965, loss_f: 128892.37500
+2024-10-11 14:46:08,889 - train.py:82 - Epoch [   4][     0/1] -- loss: 60029.07390, loss_e: 0.31091, loss_f: 75036.26562, time/step=771ms, lr=1.00e-02
+2024-10-11 14:46:09,453 - train.py:82 - Epoch [   4] Train -- loss: 60029.07390, loss_e: 0.31091, loss_f: 75036.26562, Time: 1.34s
+2024-10-11 14:46:09,454 - train.py:82 - Epoch [   4] Val   -- loss: 23726.02617, loss_e: 2.35740, loss_f: 29656.94336
+2024-10-11 14:46:10,233 - train.py:82 - Epoch [   5][     0/1] -- loss: 39543.65120, loss_e: 2.35755, loss_f: 49428.97266, time/step=773ms, lr=1.00e-02
+2024-10-11 14:46:10,807 - train.py:82 - Epoch [   5] Train -- loss: 39543.65120, loss_e: 2.35755, loss_f: 49428.97266, Time: 1.35s
+2024-10-11 14:46:10,808 - train.py:82 - Epoch [   5] Val   -- loss: 95991.89283, loss_e: 3.80007, loss_f: 119988.91406
+2024-10-11 14:46:11,593 - train.py:82 - Epoch [   6][     0/1] -- loss: 77904.46291, loss_e: 3.79892, loss_f: 97379.62500, time/step=779ms, lr=1.00e-02
+2024-10-11 14:46:12,172 - train.py:82 - Epoch [   6] Train -- loss: 77904.46291, loss_e: 3.79892, loss_f: 97379.62500, Time: 1.36s
+2024-10-11 14:46:12,173 - train.py:82 - Epoch [   6] Val   -- loss: 21087.34844, loss_e: 2.80663, loss_f: 26358.48242
+2024-10-11 14:46:12,977 - train.py:82 - Epoch [   7][     0/1] -- loss: 15415.32986, loss_e: 2.80654, loss_f: 19268.46094, time/step=797ms, lr=1.00e-02
+2024-10-11 14:46:13,528 - train.py:82 - Epoch [   7] Train -- loss: 15415.32986, loss_e: 2.80654, loss_f: 19268.46094, Time: 1.35s
+2024-10-11 14:46:13,529 - train.py:82 - Epoch [   7] Val   -- loss: 1488710.94558, loss_e: 15.35292, loss_f: 1860884.87500
+2024-10-11 14:46:14,295 - train.py:82 - Epoch [   8][     0/1] -- loss: 1490128.19217, loss_e: 15.33584, loss_f: 1862656.37500, time/step=761ms, lr=1.00e-02
+2024-10-11 14:46:14,832 - train.py:82 - Epoch [   8] Train -- loss: 1490128.19217, loss_e: 15.33584, loss_f: 1862656.37500, Time: 1.30s
+2024-10-11 14:46:14,833 - train.py:82 - Epoch [   8] Val   -- loss: 249602.44457, loss_e: 15.73845, loss_f: 311999.12500
+2024-10-11 14:46:15,581 - train.py:82 - Epoch [   9][     0/1] -- loss: 953991.83545, loss_e: 15.73973, loss_f: 1192485.87500, time/step=741ms, lr=1.00e-02
+2024-10-11 14:46:16,118 - train.py:82 - Epoch [   9] Train -- loss: 953991.83545, loss_e: 15.73973, loss_f: 1192485.87500, Time: 1.29s
+2024-10-11 14:46:16,119 - train.py:82 - Epoch [   9] Val   -- loss: 218932.85385, loss_e: 12.86298, loss_f: 273662.84375
+2024-10-11 14:46:16,867 - train.py:82 - Epoch [  10][     0/1] -- loss: 304196.10394, loss_e: 12.86345, loss_f: 380241.90625, time/step=742ms, lr=1.00e-02
+2024-10-11 14:46:17,420 - train.py:82 - Epoch [  10] Train -- loss: 304196.10394, loss_e: 12.86345, loss_f: 380241.90625, Time: 1.30s
+2024-10-11 14:46:17,421 - train.py:82 - Epoch [  10] Val   -- loss: 253182.42875, loss_e: 7.37814, loss_f: 316476.18750
+2024-10-11 14:46:18,167 - train.py:82 - Epoch [  11][     0/1] -- loss: 506414.63220, loss_e: 7.37976, loss_f: 633016.43750, time/step=740ms, lr=1.00e-02
+2024-10-11 14:46:18,717 - train.py:82 - Epoch [  11] Train -- loss: 506414.63220, loss_e: 7.37976, loss_f: 633016.43750, Time: 1.30s
+2024-10-11 14:46:18,718 - train.py:82 - Epoch [  11] Val   -- loss: 885338.10877, loss_e: 2.41887, loss_f: 1106672.00000
+2024-10-11 14:46:19,471 - train.py:82 - Epoch [  12][     0/1] -- loss: 590551.23373, loss_e: 2.41866, loss_f: 738188.43750, time/step=747ms, lr=1.00e-02
+2024-10-11 14:46:20,038 - train.py:82 - Epoch [  12] Train -- loss: 590551.23373, loss_e: 2.41866, loss_f: 738188.43750, Time: 1.32s
+2024-10-11 14:46:20,039 - train.py:82 - Epoch [  12] Val   -- loss: 1657547.50674, loss_e: 4.40869, loss_f: 2071933.25000
+2024-10-11 14:46:20,792 - train.py:82 - Epoch [  13][     0/1] -- loss: 1525911.50687, loss_e: 4.40935, loss_f: 1907388.25000, time/step=747ms, lr=1.00e-02
+2024-10-11 14:46:21,350 - train.py:82 - Epoch [  13] Train -- loss: 1525911.50687, loss_e: 4.40935, loss_f: 1907388.25000, Time: 1.31s
+2024-10-11 14:46:21,350 - train.py:82 - Epoch [  13] Val   -- loss: 780290.34969, loss_e: 7.06097, loss_f: 975361.18750
+2024-10-11 14:46:22,098 - train.py:82 - Epoch [  14][     0/1] -- loss: 1441578.91213, loss_e: 7.06065, loss_f: 1801971.87500, time/step=741ms, lr=1.00e-02
+2024-10-11 14:46:22,653 - train.py:82 - Epoch [  14] Train -- loss: 1441578.91213, loss_e: 7.06065, loss_f: 1801971.87500, Time: 1.30s
+2024-10-11 14:46:22,653 - train.py:82 - Epoch [  14] Val   -- loss: 531867.01554, loss_e: 9.14019, loss_f: 664831.43750
+2024-10-11 14:46:23,415 - train.py:82 - Epoch [  15][     0/1] -- loss: 1729149.82829, loss_e: 9.14145, loss_f: 2161435.00000, time/step=756ms, lr=1.00e-02
+2024-10-11 14:46:23,976 - train.py:82 - Epoch [  15] Train -- loss: 1729149.82829, loss_e: 9.14145, loss_f: 2161435.00000, Time: 1.32s
+2024-10-11 14:46:23,977 - train.py:82 - Epoch [  15] Val   -- loss: 1948042.47909, loss_e: 9.27043, loss_f: 2435050.75000
+2024-10-11 14:46:24,762 - train.py:82 - Epoch [  16][     0/1] -- loss: 435030.41634, loss_e: 9.26921, loss_f: 543785.68750, time/step=779ms, lr=1.00e-02
+2024-10-11 14:46:25,313 - train.py:82 - Epoch [  16] Train -- loss: 435030.41634, loss_e: 9.26921, loss_f: 543785.68750, Time: 1.34s
+2024-10-11 14:46:25,314 - train.py:82 - Epoch [  16] Val   -- loss: 1230607.23013, loss_e: 9.90066, loss_f: 1538256.50000
+2024-10-11 14:46:26,084 - train.py:82 - Epoch [  17][     0/1] -- loss: 535911.41785, loss_e: 9.90173, loss_f: 669886.81250, time/step=763ms, lr=1.00e-02
+2024-10-11 14:46:26,635 - train.py:82 - Epoch [  17] Train -- loss: 535911.41785, loss_e: 9.90173, loss_f: 669886.81250, Time: 1.32s
+2024-10-11 14:46:26,636 - train.py:82 - Epoch [  17] Val   -- loss: 847250.18410, loss_e: 13.73302, loss_f: 1059059.25000
+2024-10-11 14:46:27,407 - train.py:82 - Epoch [  18][     0/1] -- loss: 218922.87175, loss_e: 13.73376, loss_f: 273650.15625, time/step=765ms, lr=1.00e-02
+2024-10-11 14:46:27,954 - train.py:82 - Epoch [  18] Train -- loss: 218922.87175, loss_e: 13.73376, loss_f: 273650.15625, Time: 1.32s
+2024-10-11 14:46:27,954 - train.py:82 - Epoch [  18] Val   -- loss: 2024265.04001, loss_e: 18.95005, loss_f: 2530326.50000
+2024-10-11 14:46:28,706 - train.py:82 - Epoch [  19][     0/1] -- loss: 163379.24316, loss_e: 18.95020, loss_f: 204219.31250, time/step=746ms, lr=1.00e-02
+2024-10-11 14:46:29,279 - train.py:82 - Epoch [  19] Train -- loss: 163379.24316, loss_e: 18.95020, loss_f: 204219.31250, Time: 1.32s
+2024-10-11 14:46:29,279 - train.py:82 - Epoch [  19] Val   -- loss: 431959.56810, loss_e: 23.62175, loss_f: 539943.56250
+2024-10-11 14:46:30,045 - train.py:82 - Epoch [  20][     0/1] -- loss: 287311.38083, loss_e: 23.62291, loss_f: 359133.31250, time/step=759ms, lr=1.00e-02
+2024-10-11 14:46:30,673 - train.py:82 - Epoch [  20] Train -- loss: 287311.38083, loss_e: 23.62291, loss_f: 359133.31250, Time: 1.39s
+2024-10-11 14:46:30,674 - train.py:82 - Epoch [  20] Val   -- loss: 656906.75721, loss_e: 27.53605, loss_f: 821126.56250
+2024-10-11 14:46:31,475 - train.py:82 - Epoch [  21][     0/1] -- loss: 322409.50638, loss_e: 27.53190, loss_f: 403005.00000, time/step=795ms, lr=1.00e-02
+2024-10-11 14:46:32,099 - train.py:82 - Epoch [  21] Train -- loss: 322409.50638, loss_e: 27.53190, loss_f: 403005.00000, Time: 1.42s
+2024-10-11 14:46:32,099 - train.py:82 - Epoch [  21] Val   -- loss: 1230133.04523, loss_e: 30.22617, loss_f: 1537658.75000
+2024-10-11 14:46:32,860 - train.py:82 - Epoch [  22][     0/1] -- loss: 670252.73331, loss_e: 30.22903, loss_f: 837808.31250, time/step=754ms, lr=1.00e-02
+2024-10-11 14:46:33,410 - train.py:82 - Epoch [  22] Train -- loss: 670252.73331, loss_e: 30.22903, loss_f: 837808.31250, Time: 1.31s
+2024-10-11 14:46:33,411 - train.py:82 - Epoch [  22] Val   -- loss: 654138.86817, loss_e: 31.21586, loss_f: 817665.75000
+2024-10-11 14:46:34,175 - train.py:82 - Epoch [  23][     0/1] -- loss: 275893.30570, loss_e: 31.21602, loss_f: 344858.81250, time/step=758ms, lr=1.00e-02
+2024-10-11 14:46:34,726 - train.py:82 - Epoch [  23] Train -- loss: 275893.30570, loss_e: 31.21602, loss_f: 344858.81250, Time: 1.31s
+2024-10-11 14:46:34,727 - train.py:82 - Epoch [  23] Val   -- loss: 94309.76304, loss_e: 32.21362, loss_f: 117879.14844
+2024-10-11 14:46:35,488 - train.py:82 - Epoch [  24][     0/1] -- loss: 116623.38026, loss_e: 32.21380, loss_f: 145771.17188, time/step=756ms, lr=1.00e-02
+2024-10-11 14:46:36,036 - train.py:82 - Epoch [  24] Train -- loss: 116623.38026, loss_e: 32.21380, loss_f: 145771.17188, Time: 1.31s
+2024-10-11 14:46:36,037 - train.py:82 - Epoch [  24] Val   -- loss: 270279.73167, loss_e: 32.72084, loss_f: 337841.46875
+2024-10-11 14:46:36,797 - train.py:82 - Epoch [  25][     0/1] -- loss: 77264.27855, loss_e: 32.72088, loss_f: 96572.16406, time/step=753ms, lr=1.00e-02
+2024-10-11 14:46:37,348 - train.py:82 - Epoch [  25] Train -- loss: 77264.27855, loss_e: 32.72088, loss_f: 96572.16406, Time: 1.31s
+2024-10-11 14:46:37,349 - train.py:82 - Epoch [  25] Val   -- loss: 142821.99122, loss_e: 32.92486, loss_f: 178519.25000
+2024-10-11 14:46:38,124 - train.py:82 - Epoch [  26][     0/1] -- loss: 65813.11626, loss_e: 32.92506, loss_f: 82258.16406, time/step=768ms, lr=1.00e-02
+2024-10-11 14:46:38,688 - train.py:82 - Epoch [  26] Train -- loss: 65813.11626, loss_e: 32.92506, loss_f: 82258.16406, Time: 1.34s
+2024-10-11 14:46:38,688 - train.py:82 - Epoch [  26] Val   -- loss: 409911.45591, loss_e: 33.06082, loss_f: 512381.06250
+2024-10-11 14:46:39,459 - train.py:82 - Epoch [  27][     0/1] -- loss: 139194.36215, loss_e: 33.06073, loss_f: 173984.68750, time/step=765ms, lr=1.00e-02
+2024-10-11 14:46:40,023 - train.py:82 - Epoch [  27] Train -- loss: 139194.36215, loss_e: 33.06073, loss_f: 173984.68750, Time: 1.33s
+2024-10-11 14:46:40,024 - train.py:82 - Epoch [  27] Val   -- loss: 285637.35062, loss_e: 33.15936, loss_f: 357038.40625
+2024-10-11 14:46:40,774 - train.py:82 - Epoch [  28][     0/1] -- loss: 285570.97534, loss_e: 33.15794, loss_f: 356955.40625, time/step=744ms, lr=1.00e-02
+2024-10-11 14:46:41,326 - train.py:82 - Epoch [  28] Train -- loss: 285570.97534, loss_e: 33.15794, loss_f: 356955.40625, Time: 1.30s
+2024-10-11 14:46:41,327 - train.py:82 - Epoch [  28] Val   -- loss: 411093.98386, loss_e: 35.23178, loss_f: 513858.65625
+2024-10-11 14:46:42,100 - train.py:82 - Epoch [  29][     0/1] -- loss: 660111.73400, loss_e: 35.23251, loss_f: 825130.87500, time/step=767ms, lr=1.00e-02
+2024-10-11 14:46:42,658 - train.py:82 - Epoch [  29] Train -- loss: 660111.73400, loss_e: 35.23251, loss_f: 825130.87500, Time: 1.33s
+2024-10-11 14:46:42,659 - train.py:82 - Epoch [  29] Val   -- loss: 5226463.75382, loss_e: 36.26911, loss_f: 6533070.50000
+2024-10-11 14:46:43,422 - train.py:82 - Epoch [  30][     0/1] -- loss: 490083.84860, loss_e: 36.27424, loss_f: 612595.75000, time/step=757ms, lr=1.00e-02
+2024-10-11 14:46:43,959 - train.py:82 - Epoch [  30] Train -- loss: 490083.84860, loss_e: 36.27424, loss_f: 612595.75000, Time: 1.30s
+2024-10-11 14:46:43,960 - train.py:82 - Epoch [  30] Val   -- loss: 1110146.30265, loss_e: 23.38826, loss_f: 1387677.00000
+2024-10-11 14:46:44,730 - train.py:82 - Epoch [  31][     0/1] -- loss: 3204558.40203, loss_e: 23.26013, loss_f: 4005692.25000, time/step=763ms, lr=1.00e-02
+2024-10-11 14:46:45,262 - train.py:82 - Epoch [  31] Train -- loss: 3204558.40203, loss_e: 23.26013, loss_f: 4005692.25000, Time: 1.30s
+2024-10-11 14:46:45,262 - train.py:82 - Epoch [  31] Val   -- loss: 792341.07675, loss_e: 17.57126, loss_f: 990421.93750
+2024-10-11 14:46:46,003 - train.py:82 - Epoch [  32][     0/1] -- loss: 846385.93778, loss_e: 17.50138, loss_f: 1057978.00000, time/step=735ms, lr=1.00e-02
+2024-10-11 14:46:46,548 - train.py:82 - Epoch [  32] Train -- loss: 846385.93778, loss_e: 17.50138, loss_f: 1057978.00000, Time: 1.29s
+2024-10-11 14:46:46,549 - train.py:82 - Epoch [  32] Val   -- loss: 2031645.58225, loss_e: 9.78625, loss_f: 2539554.50000
+2024-10-11 14:46:47,314 - train.py:82 - Epoch [  33][     0/1] -- loss: 1159967.33089, loss_e: 9.77943, loss_f: 1449956.62500, time/step=760ms, lr=1.00e-02
+2024-10-11 14:46:47,884 - train.py:82 - Epoch [  33] Train -- loss: 1159967.33089, loss_e: 9.77943, loss_f: 1449956.62500, Time: 1.33s
+2024-10-11 14:46:47,884 - train.py:82 - Epoch [  33] Val   -- loss: 10764466.25538, loss_e: 11.27690, loss_f: 13455580.00000
+2024-10-11 14:46:48,644 - train.py:82 - Epoch [  34][     0/1] -- loss: 14013925.25574, loss_e: 11.27869, loss_f: 17517404.00000, time/step=753ms, lr=1.00e-02
+2024-10-11 14:46:49,197 - train.py:82 - Epoch [  34] Train -- loss: 14013925.25574, loss_e: 11.27869, loss_f: 17517404.00000, Time: 1.31s
+2024-10-11 14:46:49,197 - train.py:82 - Epoch [  34] Val   -- loss: 273426.70011, loss_e: 38.50056, loss_f: 341773.75000
+2024-10-11 14:46:49,966 - train.py:82 - Epoch [  35][     0/1] -- loss: 517641.85642, loss_e: 38.50085, loss_f: 647042.68750, time/step=763ms, lr=1.00e-02
+2024-10-11 14:46:50,504 - train.py:82 - Epoch [  35] Train -- loss: 517641.85642, loss_e: 38.50085, loss_f: 647042.68750, Time: 1.31s
+2024-10-11 14:46:50,504 - train.py:82 - Epoch [  35] Val   -- loss: 300732.67343, loss_e: 75.39838, loss_f: 375897.00000
+2024-10-11 14:46:51,256 - train.py:82 - Epoch [  36][     0/1] -- loss: 321958.95481, loss_e: 75.39905, loss_f: 402429.84375, time/step=745ms, lr=1.00e-02
+2024-10-11 14:46:51,802 - train.py:82 - Epoch [  36] Train -- loss: 321958.95481, loss_e: 75.39905, loss_f: 402429.84375, Time: 1.30s
+2024-10-11 14:46:51,803 - train.py:82 - Epoch [  36] Val   -- loss: 264689.29036, loss_e: 109.10805, loss_f: 330834.34375
+2024-10-11 14:46:52,558 - train.py:82 - Epoch [  37][     0/1] -- loss: 276036.91526, loss_e: 109.10757, loss_f: 345018.87500, time/step=749ms, lr=1.00e-02
+2024-10-11 14:46:53,102 - train.py:82 - Epoch [  37] Train -- loss: 276036.91526, loss_e: 109.10757, loss_f: 345018.87500, Time: 1.30s
+2024-10-11 14:46:53,103 - train.py:82 - Epoch [  37] Val   -- loss: 673966.16033, loss_e: 137.36414, loss_f: 842423.37500
+2024-10-11 14:46:53,867 - train.py:82 - Epoch [  38][     0/1] -- loss: 231855.09798, loss_e: 137.36490, loss_f: 289784.53125, time/step=758ms, lr=1.00e-02
+2024-10-11 14:46:54,396 - train.py:82 - Epoch [  38] Train -- loss: 231855.09798, loss_e: 137.36490, loss_f: 289784.53125, Time: 1.29s
+2024-10-11 14:46:54,397 - train.py:82 - Epoch [  38] Val   -- loss: 2809531.72504, loss_e: 159.87520, loss_f: 3511874.50000
+2024-10-11 14:46:55,148 - train.py:82 - Epoch [  39][     0/1] -- loss: 682349.72453, loss_e: 159.87263, loss_f: 852897.18750, time/step=745ms, lr=1.00e-02
+2024-10-11 14:46:55,684 - train.py:82 - Epoch [  39] Train -- loss: 682349.72453, loss_e: 159.87263, loss_f: 852897.18750, Time: 1.29s
+2024-10-11 14:46:55,684 - train.py:82 - Epoch [  39] Val   -- loss: 548722.64064, loss_e: 176.01570, loss_f: 685859.25000
+2024-10-11 14:46:56,434 - train.py:82 - Epoch [  40][     0/1] -- loss: 925892.51605, loss_e: 176.01775, loss_f: 1157321.62500, time/step=744ms, lr=1.00e-02
+2024-10-11 14:46:56,975 - train.py:82 - Epoch [  40] Train -- loss: 925892.51605, loss_e: 176.01775, loss_f: 1157321.62500, Time: 1.29s
+2024-10-11 14:46:56,976 - train.py:82 - Epoch [  40] Val   -- loss: 280162.75813, loss_e: 187.85317, loss_f: 350156.46875
+2024-10-11 14:46:57,726 - train.py:82 - Epoch [  41][     0/1] -- loss: 12318898.57117, loss_e: 187.85584, loss_f: 15398576.00000, time/step=744ms, lr=1.00e-02
+2024-10-11 14:46:58,272 - train.py:82 - Epoch [  41] Train -- loss: 12318898.57117, loss_e: 187.85584, loss_f: 15398576.00000, Time: 1.30s
+2024-10-11 14:46:58,273 - train.py:82 - Epoch [  41] Val   -- loss: 219599.80314, loss_e: 188.00008, loss_f: 274452.75000
+2024-10-11 14:46:59,033 - train.py:82 - Epoch [  42][     0/1] -- loss: 394133.81797, loss_e: 187.99609, loss_f: 492620.25000, time/step=754ms, lr=1.00e-02
+2024-10-11 14:46:59,579 - train.py:82 - Epoch [  42] Train -- loss: 394133.81797, loss_e: 187.99609, loss_f: 492620.25000, Time: 1.31s
+2024-10-11 14:46:59,580 - train.py:82 - Epoch [  42] Val   -- loss: 1609141.39508, loss_e: 182.60041, loss_f: 2011381.00000
+2024-10-11 14:47:00,429 - train.py:82 - Epoch [  43][     0/1] -- loss: 772104.70604, loss_e: 182.59272, loss_f: 965085.18750, time/step=843ms, lr=1.00e-02
+2024-10-11 14:47:00,960 - train.py:82 - Epoch [  43] Train -- loss: 772104.70604, loss_e: 182.59272, loss_f: 965085.18750, Time: 1.38s
+2024-10-11 14:47:00,961 - train.py:82 - Epoch [  43] Val   -- loss: 2007696.43110, loss_e: 172.78051, loss_f: 2509577.25000
+2024-10-11 14:47:01,717 - train.py:82 - Epoch [  44][     0/1] -- loss: 511670.46628, loss_e: 172.80016, loss_f: 639544.87500, time/step=750ms, lr=1.00e-02
+2024-10-11 14:47:02,249 - train.py:82 - Epoch [  44] Train -- loss: 511670.46628, loss_e: 172.80016, loss_f: 639544.87500, Time: 1.29s
+2024-10-11 14:47:02,249 - train.py:82 - Epoch [  44] Val   -- loss: 1219766.87908, loss_e: 160.02041, loss_f: 1524668.62500
+2024-10-11 14:47:03,002 - train.py:82 - Epoch [  45][     0/1] -- loss: 2662629.75177, loss_e: 160.00883, loss_f: 3328247.25000, time/step=746ms, lr=1.00e-02
+2024-10-11 14:47:03,560 - train.py:82 - Epoch [  45] Train -- loss: 2662629.75177, loss_e: 160.00883, loss_f: 3328247.25000, Time: 1.31s
+2024-10-11 14:47:03,561 - train.py:82 - Epoch [  45] Val   -- loss: 1361053.93392, loss_e: 145.91958, loss_f: 1701280.87500
+2024-10-11 14:47:04,309 - train.py:82 - Epoch [  46][     0/1] -- loss: 4658520.18430, loss_e: 145.92149, loss_f: 5823113.50000, time/step=742ms, lr=1.00e-02
+2024-10-11 14:47:04,858 - train.py:82 - Epoch [  46] Train -- loss: 4658520.18430, loss_e: 145.92149, loss_f: 5823113.50000, Time: 1.30s
+2024-10-11 14:47:04,859 - train.py:82 - Epoch [  46] Val   -- loss: 1238484.13782, loss_e: 125.06408, loss_f: 1548073.87500
+2024-10-11 14:47:05,680 - train.py:82 - Epoch [  47][     0/1] -- loss: 2189076.50980, loss_e: 125.04902, loss_f: 2736314.25000, time/step=814ms, lr=1.00e-02
+2024-10-11 14:47:06,236 - train.py:82 - Epoch [  47] Train -- loss: 2189076.50980, loss_e: 125.04902, loss_f: 2736314.25000, Time: 1.38s
+2024-10-11 14:47:06,237 - train.py:82 - Epoch [  47] Val   -- loss: 610995.30112, loss_e: 103.38060, loss_f: 763718.25000
+2024-10-11 14:47:06,994 - train.py:82 - Epoch [  48][     0/1] -- loss: 4881464.67136, loss_e: 103.35678, loss_f: 6101805.00000, time/step=752ms, lr=1.00e-02
+2024-10-11 14:47:07,534 - train.py:82 - Epoch [  48] Train -- loss: 4881464.67136, loss_e: 103.35678, loss_f: 6101805.00000, Time: 1.30s
+2024-10-11 14:47:07,535 - train.py:82 - Epoch [  48] Val   -- loss: 11822947.48616, loss_e: 77.43079, loss_f: 14778665.00000
+2024-10-11 14:47:08,290 - train.py:82 - Epoch [  49][     0/1] -- loss: 1294226.24019, loss_e: 77.45095, loss_f: 1617763.37500, time/step=748ms, lr=1.00e-02
+2024-10-11 14:47:08,836 - train.py:82 - Epoch [  49] Train -- loss: 1294226.24019, loss_e: 77.45095, loss_f: 1617763.37500, Time: 1.30s
+2024-10-11 14:47:08,837 - train.py:82 - Epoch [  49] Val   -- loss: 8622227.53218, loss_e: 52.66092, loss_f: 10777771.00000
+2024-10-11 14:47:09,597 - train.py:82 - Epoch [  50][     0/1] -- loss: 2644933.29072, loss_e: 52.70360, loss_f: 3306153.25000, time/step=754ms, lr=1.00e-02
+2024-10-11 14:47:10,130 - train.py:82 - Epoch [  50] Train -- loss: 2644933.29072, loss_e: 52.70360, loss_f: 3306153.25000, Time: 1.29s
+2024-10-11 14:47:10,130 - train.py:82 - Epoch [  50] Val   -- loss: 4204112.03640, loss_e: 30.18201, loss_f: 5255132.50000
+2024-10-11 14:47:10,889 - train.py:82 - Epoch [  51][     0/1] -- loss: 3429606.78606, loss_e: 30.18028, loss_f: 4287001.00000, time/step=753ms, lr=1.00e-02
+2024-10-11 14:47:11,424 - train.py:82 - Epoch [  51] Train -- loss: 3429606.78606, loss_e: 30.18028, loss_f: 4287001.00000, Time: 1.29s
+2024-10-11 14:47:11,425 - train.py:82 - Epoch [  51] Val   -- loss: 10194187.04126, loss_e: 10.20632, loss_f: 12742731.00000
+2024-10-11 14:47:12,175 - train.py:82 - Epoch [  52][     0/1] -- loss: 6737675.04471, loss_e: 10.22355, loss_f: 8422091.00000, time/step=743ms, lr=1.00e-02
+2024-10-11 14:47:12,710 - train.py:82 - Epoch [  52] Train -- loss: 6737675.04471, loss_e: 10.22355, loss_f: 8422091.00000, Time: 1.28s
+2024-10-11 14:47:12,711 - train.py:82 - Epoch [  52] Val   -- loss: 16150388.89104, loss_e: 9.45520, loss_f: 20187984.00000
+2024-10-11 14:47:13,453 - train.py:82 - Epoch [  53][     0/1] -- loss: 25985857.88533, loss_e: 9.42666, loss_f: 32482320.00000, time/step=736ms, lr=1.00e-02
+2024-10-11 14:47:14,000 - train.py:82 - Epoch [  53] Train -- loss: 25985857.88533, loss_e: 9.42666, loss_f: 32482320.00000, Time: 1.29s
+2024-10-11 14:47:14,001 - train.py:82 - Epoch [  53] Val   -- loss: 1960882.64281, loss_e: 10.08903, loss_f: 2451100.75000
+2024-10-11 14:47:14,747 - train.py:82 - Epoch [  54][     0/1] -- loss: 8893300.01776, loss_e: 10.08879, loss_f: 11116622.00000, time/step=740ms, lr=1.00e-02
+2024-10-11 14:47:15,298 - train.py:82 - Epoch [  54] Train -- loss: 8893300.01776, loss_e: 10.08879, loss_f: 11116622.00000, Time: 1.30s
+2024-10-11 14:47:15,298 - train.py:82 - Epoch [  54] Val   -- loss: 2479335.24272, loss_e: 2.46358, loss_f: 3099168.25000
+2024-10-11 14:47:16,049 - train.py:82 - Epoch [  55][     0/1] -- loss: 1989031.11997, loss_e: 2.47486, loss_f: 2486288.25000, time/step=745ms, lr=1.00e-02
+2024-10-11 14:47:16,573 - train.py:82 - Epoch [  55] Train -- loss: 1989031.11997, loss_e: 2.47486, loss_f: 2486288.25000, Time: 1.27s
+2024-10-11 14:47:16,574 - train.py:82 - Epoch [  55] Val   -- loss: 904805.61468, loss_e: 21.51090, loss_f: 1131001.62500
+2024-10-11 14:47:17,337 - train.py:82 - Epoch [  56][     0/1] -- loss: 892721.11556, loss_e: 21.51530, loss_f: 1115896.00000, time/step=757ms, lr=1.00e-02
+2024-10-11 14:47:17,910 - train.py:82 - Epoch [  56] Train -- loss: 892721.11556, loss_e: 21.51530, loss_f: 1115896.00000, Time: 1.34s
+2024-10-11 14:47:17,911 - train.py:82 - Epoch [  56] Val   -- loss: 673211.86179, loss_e: 42.74646, loss_f: 841504.12500
+2024-10-11 14:47:18,685 - train.py:82 - Epoch [  57][     0/1] -- loss: 861137.04659, loss_e: 42.73295, loss_f: 1076410.62500, time/step=767ms, lr=1.00e-02
+2024-10-11 14:47:19,232 - train.py:82 - Epoch [  57] Train -- loss: 861137.04659, loss_e: 42.73295, loss_f: 1076410.62500, Time: 1.32s
+2024-10-11 14:47:19,233 - train.py:82 - Epoch [  57] Val   -- loss: 3534593.88415, loss_e: 63.17073, loss_f: 4418226.50000
+2024-10-11 14:47:19,988 - train.py:82 - Epoch [  58][     0/1] -- loss: 78103300.63298, loss_e: 63.16492, loss_f: 97629112.00000, time/step=750ms, lr=1.00e-02
+2024-10-11 14:47:20,535 - train.py:82 - Epoch [  58] Train -- loss: 78103300.63298, loss_e: 63.16492, loss_f: 97629112.00000, Time: 1.30s
+2024-10-11 14:47:20,536 - train.py:82 - Epoch [  58] Val   -- loss: 17282318.95939, loss_e: 54.79694, loss_f: 21602884.00000
+2024-10-11 14:47:21,314 - train.py:82 - Epoch [  59][     0/1] -- loss: 1746591.57938, loss_e: 54.77191, loss_f: 2183225.75000, time/step=772ms, lr=1.00e-02
+2024-10-11 14:47:21,894 - train.py:82 - Epoch [  59] Train -- loss: 1746591.57938, loss_e: 54.77191, loss_f: 2183225.75000, Time: 1.36s
+2024-10-11 14:47:21,895 - train.py:82 - Epoch [  59] Val   -- loss: 80534408.67553, loss_e: 43.37766, loss_f: 100668000.00000
+2024-10-11 14:47:22,671 - train.py:82 - Epoch [  60][     0/1] -- loss: 38053200.69261, loss_e: 43.46307, loss_f: 47566488.00000, time/step=770ms, lr=1.00e-02
+2024-10-11 14:47:23,220 - train.py:82 - Epoch [  60] Train -- loss: 38053200.69261, loss_e: 43.46307, loss_f: 47566488.00000, Time: 1.32s
+2024-10-11 14:47:23,221 - train.py:82 - Epoch [  60] Val   -- loss: 16439301.84963, loss_e: 29.24817, loss_f: 20549120.00000
+2024-10-11 14:47:23,982 - train.py:82 - Epoch [  61][     0/1] -- loss: 15170804.85796, loss_e: 29.28982, loss_f: 18963498.00000, time/step=755ms, lr=1.00e-02
+2024-10-11 14:47:24,531 - train.py:82 - Epoch [  61] Train -- loss: 15170804.85796, loss_e: 29.28982, loss_f: 18963498.00000, Time: 1.31s
+2024-10-11 14:47:24,531 - train.py:82 - Epoch [  61] Val   -- loss: 14824630.63095, loss_e: 18.15474, loss_f: 18530784.00000
+2024-10-11 14:47:25,283 - train.py:82 - Epoch [  62][     0/1] -- loss: 3485844.90085, loss_e: 18.25423, loss_f: 4357301.50000, time/step=745ms, lr=1.00e-02
+2024-10-11 14:47:25,823 - train.py:82 - Epoch [  62] Train -- loss: 3485844.90085, loss_e: 18.25423, loss_f: 4357301.50000, Time: 1.29s
+2024-10-11 14:47:25,824 - train.py:82 - Epoch [  62] Val   -- loss: 4701034.44287, loss_e: 7.21434, loss_f: 5876291.00000
+2024-10-11 14:47:26,679 - train.py:82 - Epoch [  63][     0/1] -- loss: 11397175.47742, loss_e: 7.38710, loss_f: 14246467.00000, time/step=847ms, lr=1.00e-02
+2024-10-11 14:47:27,246 - train.py:82 - Epoch [  63] Train -- loss: 11397175.47742, loss_e: 7.38710, loss_f: 14246467.00000, Time: 1.42s
+2024-10-11 14:47:27,247 - train.py:82 - Epoch [  63] Val   -- loss: 10405007.25225, loss_e: 16.26126, loss_f: 13006255.00000
+2024-10-11 14:47:28,040 - train.py:82 - Epoch [  64][     0/1] -- loss: 39139995.23140, loss_e: 16.15699, loss_f: 48924988.00000, time/step=787ms, lr=1.00e-02
+2024-10-11 14:47:28,607 - train.py:82 - Epoch [  64] Train -- loss: 39139995.23140, loss_e: 16.15699, loss_f: 48924988.00000, Time: 1.36s
+2024-10-11 14:47:28,608 - train.py:82 - Epoch [  64] Val   -- loss: 74237378.59521, loss_e: 52.97604, loss_f: 92796704.00000
+2024-10-11 14:47:29,366 - train.py:82 - Epoch [  65][     0/1] -- loss: 5433950.59509, loss_e: 52.97543, loss_f: 6792425.00000, time/step=752ms, lr=1.00e-02
+2024-10-11 14:47:29,952 - train.py:82 - Epoch [  65] Train -- loss: 5433950.59509, loss_e: 52.97543, loss_f: 6792425.00000, Time: 1.34s
+2024-10-11 14:47:29,953 - train.py:82 - Epoch [  65] Val   -- loss: 11499680.17856, loss_e: 55.89282, loss_f: 14374586.00000
+2024-10-11 14:47:30,758 - train.py:82 - Epoch [  66][     0/1] -- loss: 73333539.18862, loss_e: 55.94312, loss_f: 91666912.00000, time/step=798ms, lr=1.00e-02
+2024-10-11 14:47:31,338 - train.py:82 - Epoch [  66] Train -- loss: 73333539.18862, loss_e: 55.94312, loss_f: 91666912.00000, Time: 1.38s
+2024-10-11 14:47:31,339 - train.py:82 - Epoch [  66] Val   -- loss: 21834691.65530, loss_e: 68.27652, loss_f: 27293348.00000
+2024-10-11 14:47:32,099 - train.py:82 - Epoch [  67][     0/1] -- loss: 5614454.40439, loss_e: 67.02197, loss_f: 7018051.00000, time/step=754ms, lr=1.00e-02
+2024-10-11 14:47:32,658 - train.py:82 - Epoch [  67] Train -- loss: 5614454.40439, loss_e: 67.02197, loss_f: 7018051.00000, Time: 1.32s
+2024-10-11 14:47:32,659 - train.py:82 - Epoch [  67] Val   -- loss: 2011553.89876, loss_e: 81.36882, loss_f: 2514422.00000
+2024-10-11 14:47:33,407 - train.py:82 - Epoch [  68][     0/1] -- loss: 19235462.26691, loss_e: 81.33453, loss_f: 24044306.00000, time/step=741ms, lr=1.00e-02
+2024-10-11 14:47:33,955 - train.py:82 - Epoch [  68] Train -- loss: 19235462.26691, loss_e: 81.33453, loss_f: 24044306.00000, Time: 1.30s
+2024-10-11 14:47:33,955 - train.py:82 - Epoch [  68] Val   -- loss: 7196064.06591, loss_e: 75.32954, loss_f: 8995061.00000
+2024-10-11 14:47:34,721 - train.py:82 - Epoch [  69][     0/1] -- loss: 787207.11550, loss_e: 74.95249, loss_f: 983990.12500, time/step=759ms, lr=1.00e-02
+2024-10-11 14:47:35,276 - train.py:82 - Epoch [  69] Train -- loss: 787207.11550, loss_e: 74.95249, loss_f: 983990.12500, Time: 1.32s
+2024-10-11 14:47:35,277 - train.py:82 - Epoch [  69] Val   -- loss: 725946.87474, loss_e: 91.56119, loss_f: 907410.68750
+2024-10-11 14:47:36,031 - train.py:82 - Epoch [  70][     0/1] -- loss: 703161.37544, loss_e: 91.56470, loss_f: 878928.81250, time/step=748ms, lr=1.00e-02
+2024-10-11 14:47:36,578 - train.py:82 - Epoch [  70] Train -- loss: 703161.37544, loss_e: 91.56470, loss_f: 878928.81250, Time: 1.30s
+2024-10-11 14:47:36,578 - train.py:82 - Epoch [  70] Val   -- loss: 15222268.14749, loss_e: 105.73745, loss_f: 19027808.00000
+2024-10-11 14:47:37,325 - train.py:82 - Epoch [  71][     0/1] -- loss: 805338.89883, loss_e: 105.74417, loss_f: 1006647.18750, time/step=741ms, lr=1.00e-02
+2024-10-11 14:47:37,867 - train.py:82 - Epoch [  71] Train -- loss: 805338.89883, loss_e: 105.74417, loss_f: 1006647.18750, Time: 1.29s
+2024-10-11 14:47:37,868 - train.py:82 - Epoch [  71] Val   -- loss: 762013.55717, loss_e: 114.66087, loss_f: 952488.25000
+2024-10-11 14:47:38,684 - train.py:82 - Epoch [  72][     0/1] -- loss: 1334473.93063, loss_e: 114.65317, loss_f: 1668063.75000, time/step=810ms, lr=1.00e-02
+2024-10-11 14:47:39,260 - train.py:82 - Epoch [  72] Train -- loss: 1334473.93063, loss_e: 114.65317, loss_f: 1668063.75000, Time: 1.39s
+2024-10-11 14:47:39,260 - train.py:82 - Epoch [  72] Val   -- loss: 226352.40679, loss_e: 124.14330, loss_f: 282909.46875
+2024-10-11 14:47:40,046 - train.py:82 - Epoch [  73][     0/1] -- loss: 974459.14139, loss_e: 124.14447, loss_f: 1218042.87500, time/step=779ms, lr=1.00e-02
+2024-10-11 14:47:40,628 - train.py:82 - Epoch [  73] Train -- loss: 974459.14139, loss_e: 124.14447, loss_f: 1218042.87500, Time: 1.37s
+2024-10-11 14:47:40,629 - train.py:82 - Epoch [  73] Val   -- loss: 469835.34782, loss_e: 126.89537, loss_f: 587262.43750
+2024-10-11 14:47:41,399 - train.py:82 - Epoch [  74][     0/1] -- loss: 966347.19167, loss_e: 126.89584, loss_f: 1207902.25000, time/step=763ms, lr=1.00e-02
+2024-10-11 14:47:41,942 - train.py:82 - Epoch [  74] Train -- loss: 966347.19167, loss_e: 126.89584, loss_f: 1207902.25000, Time: 1.31s
+2024-10-11 14:47:41,943 - train.py:82 - Epoch [  74] Val   -- loss: 149487.55520, loss_e: 132.61974, loss_f: 186826.28125
+2024-10-11 14:47:42,727 - train.py:82 - Epoch [  75][     0/1] -- loss: 551754.21210, loss_e: 132.62301, loss_f: 689659.62500, time/step=778ms, lr=1.00e-02
+2024-10-11 14:47:43,278 - train.py:82 - Epoch [  75] Train -- loss: 551754.21210, loss_e: 132.62301, loss_f: 689659.62500, Time: 1.33s
+2024-10-11 14:47:43,279 - train.py:82 - Epoch [  75] Val   -- loss: 274309.26890, loss_e: 141.50075, loss_f: 342851.18750
+2024-10-11 14:47:44,028 - train.py:82 - Epoch [  76][     0/1] -- loss: 7988123.79958, loss_e: 141.49791, loss_f: 9985119.00000, time/step=743ms, lr=1.00e-02
+2024-10-11 14:47:44,567 - train.py:82 - Epoch [  76] Train -- loss: 7988123.79958, loss_e: 141.49791, loss_f: 9985119.00000, Time: 1.29s
+2024-10-11 14:47:44,568 - train.py:82 - Epoch [  76] Val   -- loss: 5414747.01122, loss_e: 125.05612, loss_f: 6768402.50000
+2024-10-11 14:47:45,323 - train.py:82 - Epoch [  77][     0/1] -- loss: 1769864.63934, loss_e: 125.07168, loss_f: 2212299.50000, time/step=749ms, lr=1.00e-02
+2024-10-11 14:47:45,868 - train.py:82 - Epoch [  77] Train -- loss: 1769864.63934, loss_e: 125.07168, loss_f: 2212299.50000, Time: 1.30s
+2024-10-11 14:47:45,868 - train.py:82 - Epoch [  77] Val   -- loss: 2567517.10571, loss_e: 109.27855, loss_f: 3209369.00000
+2024-10-11 14:47:46,619 - train.py:82 - Epoch [  78][     0/1] -- loss: 1067895.60171, loss_e: 109.25856, loss_f: 1334842.12500, time/step=744ms, lr=1.00e-02
+2024-10-11 14:47:47,158 - train.py:82 - Epoch [  78] Train -- loss: 1067895.60171, loss_e: 109.25856, loss_f: 1334842.12500, Time: 1.29s
+2024-10-11 14:47:47,159 - train.py:82 - Epoch [  78] Val   -- loss: 6307113.23770, loss_e: 93.68849, loss_f: 7883868.00000
+2024-10-11 14:47:47,918 - train.py:82 - Epoch [  79][     0/1] -- loss: 2289422.48319, loss_e: 93.66593, loss_f: 2861754.50000, time/step=753ms, lr=1.00e-02
+2024-10-11 14:47:48,472 - train.py:82 - Epoch [  79] Train -- loss: 2289422.48319, loss_e: 93.66593, loss_f: 2861754.50000, Time: 1.31s
+2024-10-11 14:47:48,473 - train.py:82 - Epoch [  79] Val   -- loss: 1317777.05380, loss_e: 79.01899, loss_f: 1647201.50000
+2024-10-11 14:47:49,227 - train.py:82 - Epoch [  80][     0/1] -- loss: 33999535.79976, loss_e: 78.99882, loss_f: 42499400.00000, time/step=748ms, lr=1.00e-02
+2024-10-11 14:47:49,766 - train.py:82 - Epoch [  80] Train -- loss: 33999535.79976, loss_e: 78.99882, loss_f: 42499400.00000, Time: 1.29s
+2024-10-11 14:47:49,767 - train.py:82 - Epoch [  80] Val   -- loss: 3711080.45165, loss_e: 82.25825, loss_f: 4638830.00000
+2024-10-11 14:47:50,518 - train.py:82 - Epoch [  81][     0/1] -- loss: 1486857.07698, loss_e: 82.25991, loss_f: 1858550.75000, time/step=745ms, lr=1.00e-02
+2024-10-11 14:47:51,068 - train.py:82 - Epoch [  81] Train -- loss: 1486857.07698, loss_e: 82.25991, loss_f: 1858550.75000, Time: 1.30s
+2024-10-11 14:47:51,069 - train.py:82 - Epoch [  81] Val   -- loss: 1402935.19449, loss_e: 86.59747, loss_f: 1753647.25000
+2024-10-11 14:47:51,838 - train.py:82 - Epoch [  82][     0/1] -- loss: 16151152.31269, loss_e: 86.56343, loss_f: 20188918.00000, time/step=762ms, lr=1.00e-02
+2024-10-11 14:47:52,386 - train.py:82 - Epoch [  82] Train -- loss: 16151152.31269, loss_e: 86.56343, loss_f: 20188918.00000, Time: 1.32s
+2024-10-11 14:47:52,387 - train.py:82 - Epoch [  82] Val   -- loss: 681610.83776, loss_e: 97.62630, loss_f: 851989.12500
+2024-10-11 14:47:53,135 - train.py:82 - Epoch [  83][     0/1] -- loss: 4369889.02081, loss_e: 97.60406, loss_f: 5462336.50000, time/step=742ms, lr=1.00e-02
+2024-10-11 14:47:53,688 - train.py:82 - Epoch [  83] Train -- loss: 4369889.02081, loss_e: 97.60406, loss_f: 5462336.50000, Time: 1.30s
+2024-10-11 14:47:53,688 - train.py:82 - Epoch [  83] Val   -- loss: 417424.60159, loss_e: 121.60170, loss_f: 521750.34375
+2024-10-11 14:47:54,457 - train.py:82 - Epoch [  84][     0/1] -- loss: 486693.28811, loss_e: 121.59679, loss_f: 608336.18750, time/step=762ms, lr=1.00e-02
+2024-10-11 14:47:54,991 - train.py:82 - Epoch [  84] Train -- loss: 486693.28811, loss_e: 121.59679, loss_f: 608336.18750, Time: 1.30s
+2024-10-11 14:47:54,991 - train.py:82 - Epoch [  84] Val   -- loss: 8431670.26682, loss_e: 146.33409, loss_f: 10539551.00000
+2024-10-11 14:47:55,760 - train.py:82 - Epoch [  85][     0/1] -- loss: 692263645.25745, loss_e: 146.28725, loss_f: 865329536.00000, time/step=763ms, lr=1.00e-02
+2024-10-11 14:47:56,304 - train.py:82 - Epoch [  85] Train -- loss: 692263645.25745, loss_e: 146.28725, loss_f: 865329536.00000, Time: 1.31s
+2024-10-11 14:47:56,305 - train.py:82 - Epoch [  85] Val   -- loss: 30102827.04651, loss_e: 135.23255, loss_f: 37628500.00000
+2024-10-11 14:47:57,059 - train.py:82 - Epoch [  86][     0/1] -- loss: 7832241.29595, loss_e: 133.97976, loss_f: 9790268.00000, time/step=748ms, lr=1.00e-02
+2024-10-11 14:47:57,605 - train.py:82 - Epoch [  86] Train -- loss: 7832241.29595, loss_e: 133.97976, loss_f: 9790268.00000, Time: 1.30s
+2024-10-11 14:47:57,606 - train.py:82 - Epoch [  86] Val   -- loss: 25669153.84521, loss_e: 109.22604, loss_f: 32086414.00000
+2024-10-11 14:47:58,367 - train.py:82 - Epoch [  87][     0/1] -- loss: 12803816.94745, loss_e: 109.73726, loss_f: 16004743.00000, time/step=755ms, lr=1.00e-02
+2024-10-11 14:47:58,910 - train.py:82 - Epoch [  87] Train -- loss: 12803816.94745, loss_e: 109.73726, loss_f: 16004743.00000, Time: 1.30s
+2024-10-11 14:47:58,911 - train.py:82 - Epoch [  87] Val   -- loss: 36753932.66681, loss_e: 83.33406, loss_f: 45942396.00000
+2024-10-11 14:47:59,657 - train.py:82 - Epoch [  88][     0/1] -- loss: 32965562.95674, loss_e: 84.78370, loss_f: 41206932.00000, time/step=740ms, lr=1.00e-02
+2024-10-11 14:48:00,207 - train.py:82 - Epoch [  88] Train -- loss: 32965562.95674, loss_e: 84.78370, loss_f: 41206932.00000, Time: 1.30s
+2024-10-11 14:48:00,208 - train.py:82 - Epoch [  88] Val   -- loss: 53555759.60843, loss_e: 238.04214, loss_f: 66944640.00000
+2024-10-11 14:48:00,960 - train.py:82 - Epoch [  89][     0/1] -- loss: 19897413.42729, loss_e: 237.13646, loss_f: 24871706.00000, time/step=746ms, lr=1.00e-02
+2024-10-11 14:48:01,499 - train.py:82 - Epoch [  89] Train -- loss: 19897413.42729, loss_e: 237.13646, loss_f: 24871706.00000, Time: 1.29s
+2024-10-11 14:48:01,500 - train.py:82 - Epoch [  89] Val   -- loss: 88159206.43295, loss_e: 232.16476, loss_f: 110198944.00000
+2024-10-11 14:48:02,258 - train.py:82 - Epoch [  90][     0/1] -- loss: 120883094.40270, loss_e: 232.01348, loss_f: 151103808.00000, time/step=751ms, lr=1.00e-02
+2024-10-11 14:48:02,807 - train.py:82 - Epoch [  90] Train -- loss: 120883094.40270, loss_e: 232.01348, loss_f: 151103808.00000, Time: 1.31s
+2024-10-11 14:48:02,808 - train.py:82 - Epoch [  90] Val   -- loss: 57499959.34736, loss_e: 216.73679, loss_f: 71874896.00000
+2024-10-11 14:48:03,576 - train.py:82 - Epoch [  91][     0/1] -- loss: 7646358.90363, loss_e: 217.01814, loss_f: 9557894.00000, time/step=762ms, lr=1.00e-02
+2024-10-11 14:48:04,223 - train.py:82 - Epoch [  91] Train -- loss: 7646358.90363, loss_e: 217.01814, loss_f: 9557894.00000, Time: 1.42s
+2024-10-11 14:48:04,224 - train.py:82 - Epoch [  91] Val   -- loss: 3285327.64055, loss_e: 200.70273, loss_f: 4106609.25000
+2024-10-11 14:48:04,985 - train.py:82 - Epoch [  92][     0/1] -- loss: 10729481.12017, loss_e: 200.60083, loss_f: 13411801.00000, time/step=755ms, lr=1.00e-02
+2024-10-11 14:48:05,518 - train.py:82 - Epoch [  92] Train -- loss: 10729481.12017, loss_e: 200.60083, loss_f: 13411801.00000, Time: 1.29s
+2024-10-11 14:48:05,519 - train.py:82 - Epoch [  92] Val   -- loss: 2838349.83619, loss_e: 210.43095, loss_f: 3547884.50000
+2024-10-11 14:48:06,282 - train.py:82 - Epoch [  93][     0/1] -- loss: 1733231.07480, loss_e: 210.37399, loss_f: 2166486.25000, time/step=757ms, lr=1.00e-02
+2024-10-11 14:48:06,829 - train.py:82 - Epoch [  93] Train -- loss: 1733231.07480, loss_e: 210.37399, loss_f: 2166486.25000, Time: 1.31s
+2024-10-11 14:48:06,829 - train.py:82 - Epoch [  93] Val   -- loss: 7900922.05710, loss_e: 232.78552, loss_f: 9876094.00000
+2024-10-11 14:48:07,583 - train.py:82 - Epoch [  94][     0/1] -- loss: 4948134.58175, loss_e: 232.90876, loss_f: 6185110.00000, time/step=747ms, lr=1.00e-02
+2024-10-11 14:48:08,136 - train.py:82 - Epoch [  94] Train -- loss: 4948134.58175, loss_e: 232.90876, loss_f: 6185110.00000, Time: 1.31s
+2024-10-11 14:48:08,136 - train.py:82 - Epoch [  94] Val   -- loss: 12321537.66611, loss_e: 253.33054, loss_f: 15401858.00000
+2024-10-11 14:48:08,886 - train.py:82 - Epoch [  95][     0/1] -- loss: 2484862.89617, loss_e: 253.23084, loss_f: 3106015.25000, time/step=744ms, lr=1.00e-02
+2024-10-11 14:48:09,439 - train.py:82 - Epoch [  95] Train -- loss: 2484862.89617, loss_e: 253.23084, loss_f: 3106015.25000, Time: 1.30s
+2024-10-11 14:48:09,440 - train.py:82 - Epoch [  95] Val   -- loss: 4175253.13755, loss_e: 275.68775, loss_f: 5218997.50000
+2024-10-11 14:48:10,192 - train.py:82 - Epoch [  96][     0/1] -- loss: 2664800.13060, loss_e: 275.65301, loss_f: 3330931.25000, time/step=746ms, lr=1.00e-02
+2024-10-11 14:48:10,732 - train.py:82 - Epoch [  96] Train -- loss: 2664800.13060, loss_e: 275.65301, loss_f: 3330931.25000, Time: 1.29s
+2024-10-11 14:48:10,733 - train.py:82 - Epoch [  96] Val   -- loss: 4543302.49072, loss_e: 304.95361, loss_f: 5679052.00000
+2024-10-11 14:48:11,575 - train.py:82 - Epoch [  97][     0/1] -- loss: 14882950.96754, loss_e: 304.83772, loss_f: 18603612.00000, time/step=835ms, lr=1.00e-02
+2024-10-11 14:48:12,115 - train.py:82 - Epoch [  97] Train -- loss: 14882950.96754, loss_e: 304.83772, loss_f: 18603612.00000, Time: 1.38s
+2024-10-11 14:48:12,116 - train.py:82 - Epoch [  97] Val   -- loss: 2587456.44458, loss_e: 192.22291, loss_f: 3234272.50000
+2024-10-11 14:48:12,865 - train.py:82 - Epoch [  98][     0/1] -- loss: 4824691.90657, loss_e: 192.03283, loss_f: 6030816.50000, time/step=743ms, lr=1.00e-02
+2024-10-11 14:48:13,395 - train.py:82 - Epoch [  98] Train -- loss: 4824691.90657, loss_e: 192.03283, loss_f: 6030816.50000, Time: 1.28s
+2024-10-11 14:48:13,396 - train.py:82 - Epoch [  98] Val   -- loss: 4294521.62841, loss_e: 155.64205, loss_f: 5368113.00000
+2024-10-11 14:48:14,146 - train.py:82 - Epoch [  99][     0/1] -- loss: 6185710.10925, loss_e: 155.54624, loss_f: 7732098.50000, time/step=744ms, lr=1.00e-02
+2024-10-11 14:48:14,683 - train.py:82 - Epoch [  99] Train -- loss: 6185710.10925, loss_e: 155.54624, loss_f: 7732098.50000, Time: 1.29s
+2024-10-11 14:48:14,684 - train.py:82 - Epoch [  99] Val   -- loss: 6311315.31988, loss_e: 149.09942, loss_f: 7889106.50000
+2024-10-11 14:48:15,452 - train.py:82 - Epoch [ 100][     0/1] -- loss: 11285823.82804, loss_e: 149.14019, loss_f: 14107242.00000, time/step=762ms, lr=1.00e-02
+2024-10-11 14:48:15,981 - train.py:82 - Epoch [ 100] Train -- loss: 11285823.82804, loss_e: 149.14019, loss_f: 14107242.00000, Time: 1.30s
+2024-10-11 14:48:15,982 - train.py:82 - Epoch [ 100] Val   -- loss: 6345126.29143, loss_e: 143.95714, loss_f: 7931371.50000
