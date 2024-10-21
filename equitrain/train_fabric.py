@@ -190,6 +190,9 @@ class FileLogger:
         # only call by master 
         # checked outside the class
         self.output_dir = output_dir
+        self.save_dir = output_dir
+        self.name = logger_name
+
         if is_rank0:
             self.logger_name = logger_name
             self.logger = self.get_logger(output_dir, log_to_file=is_master)
@@ -232,6 +235,10 @@ class FileLogger:
 
     def info(self, *args):
         self.logger.info(*args)
+    
+    def finalize(self, status):
+        """Finalize method required by PyTorch Lightning's logging system."""
+        self.logger.info(f"Training finalized with status: {status}")
 
 def log_metrics(args, logger, prefix, postfix, loss_metrics):
 
@@ -337,13 +344,13 @@ class EquiTrainModule(pl.LightningModule):
                 lr_scheduler.warmup_t = -1
         return [optimizer], [lr_scheduler]
 
-    def training_epoch_end(self, outputs):
-        # Log metrics at the end of the training epoch
+    def on_train_epoch_end(self):
+        # Use the custom logger to log metrics at the end of the training epoch
         log_metrics(self.args, self.custom_logger, f"Epoch [{self.current_epoch}] Train -- ", None, self.loss_metrics)
 
-    def validation_epoch_end(self, outputs):
-        # Log validation metrics at the end of the epoch
-        log_metrics(self.args, self.custom_logger, f"Epoch [{self.current_epoch}] Val   -- ", None, self.loss_metrics)
+    def on_validation_epoch_end(self):
+        # Use the custom logger to log metrics at the end of the validation epoch
+        log_metrics(self.args, self.custom_logger, f"Epoch [{self.current_epoch}] Val -- ", None, self.loss_metrics)
 
 
 def _train(args):
@@ -351,6 +358,7 @@ def _train(args):
     logger.info(args)
 
     device = torch.device("cuda:1")
+    torch.set_float32_matmul_precision('medium')
     torch.manual_seed(args.seed)
     np.random.seed(args.seed)
 
