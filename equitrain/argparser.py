@@ -80,6 +80,11 @@ def get_args_parser_train():
     parser.add_argument('--load-checkpoint-model', type=str, default=None,
                         help="Load model checkpoint")
     parser.add_argument('--evaluate', action='store_true', dest='evaluate')
+    parser.add_argument(
+        '--mixed_precision', 
+        action='store_true', 
+        help='Enable mixed precision training (16-bit precision)'
+    )
     parser.set_defaults(evaluate=False)
     return parser
 
@@ -151,6 +156,11 @@ def get_args_parser_preprocess() -> argparse.ArgumentParser:
         help="Random seed for splitting training and validation sets",
         type=int,
         default=123,
+    )
+    parser.add_argument(
+        '--mixed_precision', 
+        action='store_true', 
+        help='Enable mixed precision training (16-bit precision)'
     )
     return parser
 
