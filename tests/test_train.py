@@ -16,7 +16,7 @@ def main():
     args.statistics_file = f'tests/data/statistics.json'
     args.output_dir      = 'tests/result'
 
-    args.epochs     = 100
+    args.epochs     = 10
     args.batch_size = 64
     args.lr         = 0.01
 
