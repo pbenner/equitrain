@@ -391,6 +391,8 @@ class EquiTrainModule(pl.LightningModule):
         for meter in self.loss_metrics.values():
             meter.reset()
 
+    #TEsting commits
+
 
 def _train(args):
     logger = FileLogger(is_master=True, is_rank0=True, output_dir=args.output_dir)
