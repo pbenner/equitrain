@@ -23,6 +23,29 @@ from timm.scheduler import create_scheduler
 from equitrain.dataloaders   import get_dataloaders
 from equitrain.model         import get_model
 
+def log_metrics(args, logger, prefix, postfix, loss_metrics):
+
+    info_str  = prefix
+    info_str += 'loss: {loss:.5f}'.format(loss=loss_metrics['total'].avg)
+
+    if args.energy_weight > 0.0:
+        info_str += ', loss_e: {loss_e:.5f}'.format(
+            loss_e=loss_metrics['energy'].avg,
+        )
+    if args.force_weight > 0.0:
+        info_str += ', loss_f: {loss_f:.5f}'.format(
+            loss_f=loss_metrics['forces'].avg,
+        )
+    if args.stress_weight > 0.0:
+        info_str += ', loss_s: {loss_f:.5f}'.format(
+            loss_f=loss_metrics['stress'].avg,
+        )
+
+    if postfix is not None:
+        info_str += postfix
+
+    logger.info(info_str)
+
 class AverageMeter:
     """Computes and stores the average and current value"""
     def __init__(self):
@@ -186,12 +209,13 @@ class NoOp:
         return no_op
 
 class FileLogger:
-    def __init__(self, is_master=False, is_rank0=False, output_dir=None, logger_name='training'):
+    def __init__(self, is_master=False, is_rank0=False, output_dir=None, logger_name='training', version='1'):
         # only call by master 
         # checked outside the class
         self.output_dir = output_dir
         self.save_dir = output_dir
         self.name = logger_name
+        self.version = version
 
         if is_rank0:
             self.logger_name = logger_name
@@ -219,7 +243,6 @@ class FileLogger:
         console.setLevel(logging.DEBUG)
         logger.addHandler(console)
         
-        # Reference: https://stackoverflow.com/questions/21127360/python-2-7-log-displayed-twice-when-logging-module-is-used-in-two-python-scri
         logger.propagate = False
 
         return logger
@@ -237,31 +260,23 @@ class FileLogger:
         self.logger.info(*args)
     
     def finalize(self, status):
-        """Finalize method required by PyTorch Lightning's logging system."""
         self.logger.info(f"Training finalized with status: {status}")
+    
+    def log_graph(self, model):
+        pass
+    
+    def save(self):
+        pass
+    
+    def log_metrics(self, metrics, step=None):
+        for key, value in metrics.items():
+            if step is not None:
+                self.logger.info(f"{key}: {value} at step {step}")
+            else:
+                self.logger.info(f"{key}: {value}")
 
-def log_metrics(args, logger, prefix, postfix, loss_metrics):
-
-    info_str  = prefix
-    info_str += 'loss: {loss:.5f}'.format(loss=loss_metrics['total'].avg)
-
-    if args.energy_weight > 0.0:
-        info_str += ', loss_e: {loss_e:.5f}'.format(
-            loss_e=loss_metrics['energy'].avg,
-        )
-    if args.force_weight > 0.0:
-        info_str += ', loss_f: {loss_f:.5f}'.format(
-            loss_f=loss_metrics['forces'].avg,
-        )
-    if args.stress_weight > 0.0:
-        info_str += ', loss_s: {loss_f:.5f}'.format(
-            loss_f=loss_metrics['stress'].avg,
-        )
-
-    if postfix is not None:
-        info_str += postfix
-
-    logger.info(info_str)
+    def after_save_checkpoint(self, checkpoint):
+        self.logger.info(f"Checkpoint saved at {checkpoint}")
 
 
 
@@ -334,23 +349,47 @@ class EquiTrainModule(pl.LightningModule):
         if pred_s is not None:
             self.loss_metrics['stress'].update(loss_s.item(), n=pred_s.shape[0])
 
-        return loss
+        # Log validation loss (this will be used by ModelCheckpoint)
+        self.log('val_loss', loss, prog_bar=True, batch_size=pred_e.shape[0])
 
+        if loss_e is not None:
+            self.log('loss_e', loss_e)
+        if loss_f is not None:
+            self.log('loss_f', loss_f)
+        if loss_s is not None:
+            self.log('loss_s', loss_s)
+
+        return loss
+    
     def configure_optimizers(self):
         optimizer = create_optimizer(self.args, self.model)
-        lr_scheduler, _ = create_scheduler(self.args, optimizer)
-        if self.args.warmup_epochs == 0:
-            if hasattr(lr_scheduler, 'warmup_t'):
-                lr_scheduler.warmup_t = -1
-        return [optimizer], [lr_scheduler]
+        lr_scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='min', patience=self.args.patience_epochs)
+
+        return {
+            'optimizer': optimizer,
+            'lr_scheduler': {
+                'scheduler': lr_scheduler,
+                'monitor': 'val_loss',  # The metric to monitor for PlateauLR
+                'interval': 'epoch',
+                'frequency': 1,
+                'reduce_on_plateau': True  # Tell Lightning it's a PlateauLR type scheduler
+            }
+        }
+
 
     def on_train_epoch_end(self):
         # Use the custom logger to log metrics at the end of the training epoch
         log_metrics(self.args, self.custom_logger, f"Epoch [{self.current_epoch}] Train -- ", None, self.loss_metrics)
+        self.reset_loss_metrics()
 
     def on_validation_epoch_end(self):
         # Use the custom logger to log metrics at the end of the validation epoch
         log_metrics(self.args, self.custom_logger, f"Epoch [{self.current_epoch}] Val -- ", None, self.loss_metrics)
+        self.reset_loss_metrics()
+
+    def reset_loss_metrics(self):
+        for meter in self.loss_metrics.values():
+            meter.reset()
 
 
 def _train(args):
@@ -379,6 +418,13 @@ def _train(args):
     ''' Lightning Module '''
     lightning_model = EquiTrainModule(args, model, criterion, logger)
 
+    checkpoint_callback = pl.callbacks.ModelCheckpoint(
+        monitor='val_loss',  # This is the key you are logging
+        save_top_k=1,  # Save the best checkpoint
+        mode='min',  # We're minimizing the loss
+        filename='best-checkpoint'
+    )
+
     ''' PyTorch Lightning Trainer '''
     trainer = pl.Trainer(
         max_epochs=args.epochs,
@@ -388,7 +434,7 @@ def _train(args):
         log_every_n_steps=100,
         logger=logger,  # Integrate your custom logger
         default_root_dir=args.output_dir,
-        callbacks=[pl.callbacks.ModelCheckpoint(monitor='val_loss', save_top_k=1)]
+        callbacks=[checkpoint_callback]
     )
 
     ''' Start Training '''
