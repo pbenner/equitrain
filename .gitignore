@@ -2,3 +2,5 @@
 __pycache__
 *.ckpt
 *.bin
+*.pkl
+*.log
