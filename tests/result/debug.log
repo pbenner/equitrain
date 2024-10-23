@@ -1,0 +1,1461 @@
+2024-10-23 16:18:00,279 - train.py:82 - Namespace(train_file='tests/data/train.h5', valid_file='tests/data/valid.h5', test_file=None, statistics_file='tests/data/statistics.json', output_dir='tests/result', epochs=10, batch_size=64, batch_edge_limit=0, eval_batch_size=24, model='v1', alpha_drop=0.0, proj_drop=0.0, out_drop=0.0, drop_path_rate=0.0, opt='adamw', opt_eps=1e-08, opt_betas=None, clip_grad=None, momentum=0.9, weight_decay=0.005, sched='plateau', lr=0.01, lr_noise=None, lr_noise_pct=0.67, lr_noise_std=1.0, warmup_lr=0.01, min_lr=1e-06, decay_epochs=30, warmup_epochs=0, cooldown_epochs=0, patience_epochs=2, decay_rate=0.5, print_freq=100, energy_weight=0.2, force_weight=0.8, stress_weight=0.0, seed=1, workers=4, pin_mem=True, shuffle=True, load_checkpoint=None, load_checkpoint_model=None, evaluate=False, mixed_precision=False)
+2024-10-23 16:18:00,349 - train.py:82 - Using r_max=4.5 from statistics file `tests/data/statistics.json`
+2024-10-23 16:18:04,941 - train.py:82 - Number of params: 8725251
+2024-10-23 16:18:06,643 - train.py:82 - Epoch [   0] Val   -- loss: 10190.20582, loss_e: 0.60916, loss_f: 12737.60449
+2024-10-23 16:18:08,286 - train.py:82 - Epoch [   1][     0/1] -- loss: 8952.23815, loss_e: 0.60970, loss_f: 11190.14551, time/step=1623ms, lr=1.00e-02
+2024-10-23 16:18:09,151 - train.py:82 - Validation error decreased. Saving model to `best_val_epochs@1_e@29325.6388`...
+2024-10-23 16:18:09,336 - train.py:82 - Epoch [   1] Train -- loss: 8952.23815, loss_e: 0.60970, loss_f: 11190.14551, Time: 2.69s
+2024-10-23 16:18:09,336 - train.py:82 - Epoch [   1] Val   -- loss: 29325.63876, loss_e: 8.43795, loss_f: 36654.93750
+2024-10-23 16:18:10,751 - train.py:82 - Epoch [   2][     0/1] -- loss: 21818.82400, loss_e: 8.43639, loss_f: 27271.41992, time/step=1408ms, lr=1.00e-02
+2024-10-23 16:18:11,464 - train.py:82 - Validation error decreased. Saving model to `best_val_epochs@2_e@23492.5162`...
+2024-10-23 16:18:11,637 - train.py:82 - Epoch [   2] Train -- loss: 21818.82400, loss_e: 8.43639, loss_f: 27271.41992, Time: 2.30s
+2024-10-23 16:18:11,637 - train.py:82 - Epoch [   2] Val   -- loss: 23492.51619, loss_e: 4.99306, loss_f: 29364.39648
+2024-10-23 16:18:13,145 - train.py:82 - Epoch [   3][     0/1] -- loss: 22759.96527, loss_e: 4.99238, loss_f: 28448.70703, time/step=1500ms, lr=1.00e-02
+2024-10-23 16:18:13,846 - train.py:82 - Epoch [   3] Train -- loss: 22759.96527, loss_e: 4.99238, loss_f: 28448.70703, Time: 2.21s
+2024-10-23 16:18:13,847 - train.py:82 - Epoch [   3] Val   -- loss: 29573.11612, loss_e: 3.70562, loss_f: 36965.46875
+2024-10-23 16:18:14,768 - train.py:82 - Epoch [   4][     0/1] -- loss: 33816.08488, loss_e: 3.70564, loss_f: 42269.17969, time/step=914ms, lr=1.00e-02
+2024-10-23 16:18:15,472 - train.py:82 - Epoch [   4] Train -- loss: 33816.08488, loss_e: 3.70564, loss_f: 42269.17969, Time: 1.63s
+2024-10-23 16:18:15,473 - train.py:82 - Epoch [   4] Val   -- loss: 46632.71271, loss_e: 16.37606, loss_f: 58286.79688
+2024-10-23 16:18:16,381 - train.py:82 - Epoch [   5][     0/1] -- loss: 92245.01749, loss_e: 16.37653, loss_f: 115302.17969, time/step=900ms, lr=1.00e-02
+2024-10-23 16:18:17,091 - train.py:82 - Epoch [   5] Train -- loss: 92245.01749, loss_e: 16.37653, loss_f: 115302.17969, Time: 1.62s
+2024-10-23 16:18:17,092 - train.py:82 - Epoch [   5] Val   -- loss: 39488.04390, loss_e: 16.33278, loss_f: 49355.97266
+2024-10-23 16:18:17,997 - train.py:82 - Epoch [   6][     0/1] -- loss: 36448.37198, loss_e: 16.33254, loss_f: 45556.38281, time/step=897ms, lr=1.00e-02
+2024-10-23 16:18:18,710 - train.py:82 - Epoch [   6] Train -- loss: 36448.37198, loss_e: 16.33254, loss_f: 45556.38281, Time: 1.62s
+2024-10-23 16:18:18,711 - train.py:82 - Epoch [   6] Val   -- loss: 152328.09389, loss_e: 12.96945, loss_f: 190406.87500
+2024-10-23 16:18:19,629 - train.py:82 - Epoch [   7][     0/1] -- loss: 129125.60979, loss_e: 12.97083, loss_f: 161403.76562, time/step=910ms, lr=1.00e-02
+2024-10-23 16:18:20,336 - train.py:82 - Epoch [   7] Train -- loss: 129125.60979, loss_e: 12.97083, loss_f: 161403.76562, Time: 1.62s
+2024-10-23 16:18:20,337 - train.py:82 - Epoch [   7] Val   -- loss: 39182.65746, loss_e: 10.86544, loss_f: 48975.60547
+2024-10-23 16:18:21,264 - train.py:82 - Epoch [   8][     0/1] -- loss: 39883.22388, loss_e: 10.86549, loss_f: 49851.31250, time/step=919ms, lr=1.00e-02
+2024-10-23 16:18:21,948 - train.py:82 - Epoch [   8] Train -- loss: 39883.22388, loss_e: 10.86549, loss_f: 49851.31250, Time: 1.61s
+2024-10-23 16:18:21,950 - train.py:82 - Epoch [   8] Val   -- loss: 70308.45518, loss_e: 9.54152, loss_f: 87883.17969
+2024-10-23 16:18:22,870 - train.py:82 - Epoch [   9][     0/1] -- loss: 56577.07624, loss_e: 9.54136, loss_f: 70718.96094, time/step=913ms, lr=1.00e-02
+2024-10-23 16:18:23,582 - train.py:82 - Validation error decreased. Saving model to `best_val_epochs@9_e@6467.0118`...
+2024-10-23 16:18:23,755 - train.py:82 - Epoch [   9] Train -- loss: 56577.07624, loss_e: 9.54136, loss_f: 70718.96094, Time: 1.81s
+2024-10-23 16:18:23,755 - train.py:82 - Epoch [   9] Val   -- loss: 6467.01180, loss_e: 9.14346, loss_f: 8081.47852
+2024-10-23 16:18:24,675 - train.py:82 - Epoch [  10][     0/1] -- loss: 5542.09578, loss_e: 9.14346, loss_f: 6925.33398, time/step=912ms, lr=1.00e-02
+2024-10-23 16:18:25,366 - train.py:82 - Epoch [  10] Train -- loss: 5542.09578, loss_e: 9.14346, loss_f: 6925.33398, Time: 1.61s
+2024-10-23 16:18:25,367 - train.py:82 - Epoch [  10] Val   -- loss: 56300.91413, loss_e: 8.12532, loss_f: 70374.10938
+2024-10-23 16:18:36,521 - train_fabric.py:260 - Namespace(train_file='tests/data/train.h5', valid_file='tests/data/valid.h5', test_file=None, statistics_file='tests/data/statistics.json', output_dir='tests/result', epochs=10, batch_size=64, batch_edge_limit=0, eval_batch_size=24, model='v1', alpha_drop=0.0, proj_drop=0.0, out_drop=0.0, drop_path_rate=0.0, opt='adamw', opt_eps=1e-08, opt_betas=None, clip_grad=None, momentum=0.9, weight_decay=0.005, sched='plateau', lr=0.01, lr_noise=None, lr_noise_pct=0.67, lr_noise_std=1.0, warmup_lr=0.01, min_lr=1e-06, decay_epochs=30, warmup_epochs=0, cooldown_epochs=0, patience_epochs=2, decay_rate=0.5, print_freq=100, energy_weight=0.2, force_weight=0.8, stress_weight=0.0, seed=1, workers=4, pin_mem=True, shuffle=True, load_checkpoint=None, load_checkpoint_model=None, evaluate=False, mixed_precision=False)
+2024-10-23 16:18:36,589 - train_fabric.py:260 - Using r_max=4.5 from statistics file `tests/data/statistics.json`
+2024-10-23 16:19:15,194 - train_fabric.py:260 - Namespace(train_file='tests/data/train.h5', valid_file='tests/data/valid.h5', test_file=None, statistics_file='tests/data/statistics.json', output_dir='tests/result', epochs=10, batch_size=64, batch_edge_limit=0, eval_batch_size=24, model='v1', alpha_drop=0.0, proj_drop=0.0, out_drop=0.0, drop_path_rate=0.0, opt='adamw', opt_eps=1e-08, opt_betas=None, clip_grad=None, momentum=0.9, weight_decay=0.005, sched='plateau', lr=0.01, lr_noise=None, lr_noise_pct=0.67, lr_noise_std=1.0, warmup_lr=0.01, min_lr=1e-06, decay_epochs=30, warmup_epochs=0, cooldown_epochs=0, patience_epochs=2, decay_rate=0.5, print_freq=100, energy_weight=0.2, force_weight=0.8, stress_weight=0.0, seed=1, workers=4, pin_mem=True, shuffle=True, load_checkpoint=None, load_checkpoint_model=None, evaluate=False, mixed_precision=False)
+2024-10-23 16:19:15,260 - train_fabric.py:260 - Using r_max=4.5 from statistics file `tests/data/statistics.json`
+2024-10-23 16:19:21,103 - train_fabric.py:260 - Epoch [0] Val -- loss: 2609.36168, loss_e: 0.61334, loss_f: 3261.54883
+2024-10-23 16:19:23,405 - train_fabric.py:260 - Epoch [0] Val -- loss: 5609.07066, loss_e: 9.04713, loss_f: 7009.07666
+2024-10-23 16:19:23,406 - train_fabric.py:274 - val_loss: 5609.070655947924 at step 0
+2024-10-23 16:19:23,406 - train_fabric.py:274 - loss_e: 9.047127395868301 at step 0
+2024-10-23 16:19:23,406 - train_fabric.py:274 - loss_f: 7009.07666015625 at step 0
+2024-10-23 16:19:23,406 - train_fabric.py:274 - epoch: 0 at step 0
+2024-10-23 16:19:23,411 - train_fabric.py:260 - Epoch [0] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 16:19:23,747 - train_fabric.py:279 - Checkpoint saved at <pytorch_lightning.callbacks.model_checkpoint.ModelCheckpoint object at 0x7f4ad7129d50>
+2024-10-23 16:19:23,748 - train_fabric.py:274 - train_loss_epoch: 3390.565859618387 at step 0
+2024-10-23 16:19:23,748 - train_fabric.py:274 - loss_e_epoch: 0.6137219200609252 at step 0
+2024-10-23 16:19:23,748 - train_fabric.py:274 - loss_f_epoch: 4238.0537109375 at step 0
+2024-10-23 16:19:23,748 - train_fabric.py:274 - epoch: 0 at step 0
+2024-10-23 16:19:26,410 - train_fabric.py:260 - Epoch [1] Val -- loss: 121542.16970, loss_e: 6.70788, loss_f: 151926.03125
+2024-10-23 16:19:26,411 - train_fabric.py:274 - val_loss: 121542.16970006675 at step 1
+2024-10-23 16:19:26,412 - train_fabric.py:274 - loss_e: 6.707875333726406 at step 1
+2024-10-23 16:19:26,412 - train_fabric.py:274 - loss_f: 151926.03125 at step 1
+2024-10-23 16:19:26,412 - train_fabric.py:274 - epoch: 1 at step 1
+2024-10-23 16:19:26,418 - train_fabric.py:260 - Epoch [1] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 16:19:26,421 - train_fabric.py:274 - train_loss_epoch: 6345.4240012690425 at step 1
+2024-10-23 16:19:26,421 - train_fabric.py:274 - loss_e_epoch: 9.04627587646246 at step 1
+2024-10-23 16:19:26,421 - train_fabric.py:274 - loss_f_epoch: 7929.51806640625 at step 1
+2024-10-23 16:19:26,421 - train_fabric.py:274 - epoch: 1 at step 1
+2024-10-23 16:19:29,169 - train_fabric.py:260 - Epoch [2] Val -- loss: 9840.47043, loss_e: 10.13049, loss_f: 12298.05566
+2024-10-23 16:19:29,170 - train_fabric.py:274 - val_loss: 9840.470434600114 at step 2
+2024-10-23 16:19:29,170 - train_fabric.py:274 - loss_e: 10.130493313074112 at step 2
+2024-10-23 16:19:29,170 - train_fabric.py:274 - loss_f: 12298.0556640625 at step 2
+2024-10-23 16:19:29,170 - train_fabric.py:274 - epoch: 2 at step 2
+2024-10-23 16:19:29,176 - train_fabric.py:260 - Epoch [2] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 16:19:29,178 - train_fabric.py:274 - train_loss_epoch: 102201.65455575586 at step 2
+2024-10-23 16:19:29,178 - train_fabric.py:274 - loss_e_epoch: 6.710278779268265 at step 2
+2024-10-23 16:19:29,178 - train_fabric.py:274 - loss_f_epoch: 127750.3984375 at step 2
+2024-10-23 16:19:29,178 - train_fabric.py:274 - epoch: 2 at step 2
+2024-10-23 16:19:31,333 - train_fabric.py:260 - Epoch [3] Val -- loss: 7691.47103, loss_e: 6.75214, loss_f: 9612.65039
+2024-10-23 16:19:31,334 - train_fabric.py:274 - val_loss: 7691.471033897996 at step 3
+2024-10-23 16:19:31,334 - train_fabric.py:274 - loss_e: 6.752142146229744 at step 3
+2024-10-23 16:19:31,334 - train_fabric.py:274 - loss_f: 9612.650390625 at step 3
+2024-10-23 16:19:31,334 - train_fabric.py:274 - epoch: 3 at step 3
+2024-10-23 16:19:31,340 - train_fabric.py:260 - Epoch [3] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 16:19:31,342 - train_fabric.py:274 - train_loss_epoch: 9055.43640423864 at step 3
+2024-10-23 16:19:31,342 - train_fabric.py:274 - loss_e_epoch: 10.13123994320631 at step 3
+2024-10-23 16:19:31,342 - train_fabric.py:274 - loss_f_epoch: 11316.7626953125 at step 3
+2024-10-23 16:19:31,342 - train_fabric.py:274 - epoch: 3 at step 3
+2024-10-23 16:19:33,496 - train_fabric.py:260 - Epoch [4] Val -- loss: 4735.72376, loss_e: 6.35315, loss_f: 5918.06641
+2024-10-23 16:19:33,497 - train_fabric.py:274 - val_loss: 4735.723755912482 at step 4
+2024-10-23 16:19:33,497 - train_fabric.py:274 - loss_e: 6.3531545624136925 at step 4
+2024-10-23 16:19:33,497 - train_fabric.py:274 - loss_f: 5918.06640625 at step 4
+2024-10-23 16:19:33,497 - train_fabric.py:274 - epoch: 4 at step 4
+2024-10-23 16:19:33,503 - train_fabric.py:260 - Epoch [4] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 16:19:34,254 - train_fabric.py:279 - Checkpoint saved at <pytorch_lightning.callbacks.model_checkpoint.ModelCheckpoint object at 0x7f4ad7129d50>
+2024-10-23 16:19:34,255 - train_fabric.py:274 - train_loss_epoch: 8432.027942760289 at step 4
+2024-10-23 16:19:34,255 - train_fabric.py:274 - loss_e_epoch: 6.751041926443577 at step 4
+2024-10-23 16:19:34,255 - train_fabric.py:274 - loss_f_epoch: 10538.3466796875 at step 4
+2024-10-23 16:19:34,256 - train_fabric.py:274 - epoch: 4 at step 4
+2024-10-23 16:19:35,757 - train_fabric.py:260 - Epoch [5] Val -- loss: 5603.76507, loss_e: 6.04216, loss_f: 7003.19580
+2024-10-23 16:19:35,758 - train_fabric.py:274 - val_loss: 5603.765073387325 at step 5
+2024-10-23 16:19:35,758 - train_fabric.py:274 - loss_e: 6.04216381162405 at step 5
+2024-10-23 16:19:35,758 - train_fabric.py:274 - loss_f: 7003.19580078125 at step 5
+2024-10-23 16:19:35,758 - train_fabric.py:274 - epoch: 5 at step 5
+2024-10-23 16:19:35,763 - train_fabric.py:260 - Epoch [5] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 16:19:35,765 - train_fabric.py:274 - train_loss_epoch: 4311.344411170483 at step 5
+2024-10-23 16:19:35,765 - train_fabric.py:274 - loss_e_epoch: 6.3534035086631775 at step 5
+2024-10-23 16:19:35,765 - train_fabric.py:274 - loss_f_epoch: 5387.591796875 at step 5
+2024-10-23 16:19:35,765 - train_fabric.py:274 - epoch: 5 at step 5
+2024-10-23 16:19:37,272 - train_fabric.py:260 - Epoch [6] Val -- loss: 3730.77626, loss_e: 5.79538, loss_f: 4662.02148
+2024-10-23 16:19:37,274 - train_fabric.py:274 - val_loss: 3730.7762630909683 at step 6
+2024-10-23 16:19:37,274 - train_fabric.py:274 - loss_e: 5.79537795484066 at step 6
+2024-10-23 16:19:37,274 - train_fabric.py:274 - loss_f: 4662.021484375 at step 6
+2024-10-23 16:19:37,274 - train_fabric.py:274 - epoch: 6 at step 6
+2024-10-23 16:19:37,279 - train_fabric.py:260 - Epoch [6] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 16:19:37,686 - train_fabric.py:279 - Checkpoint saved at <pytorch_lightning.callbacks.model_checkpoint.ModelCheckpoint object at 0x7f4ad7129d50>
+2024-10-23 16:19:37,687 - train_fabric.py:274 - train_loss_epoch: 3503.471384358406 at step 6
+2024-10-23 16:19:37,687 - train_fabric.py:274 - loss_e_epoch: 6.0422245264053345 at step 6
+2024-10-23 16:19:37,688 - train_fabric.py:274 - loss_f_epoch: 4377.82861328125 at step 6
+2024-10-23 16:19:37,688 - train_fabric.py:274 - epoch: 6 at step 6
+2024-10-23 16:19:39,179 - train_fabric.py:260 - Epoch [7] Val -- loss: 3766.46304, loss_e: 5.69045, loss_f: 4706.65625
+2024-10-23 16:19:39,180 - train_fabric.py:274 - val_loss: 3766.463042065501 at step 7
+2024-10-23 16:19:39,180 - train_fabric.py:274 - loss_e: 5.690454468131065 at step 7
+2024-10-23 16:19:39,180 - train_fabric.py:274 - loss_f: 4706.65625 at step 7
+2024-10-23 16:19:39,180 - train_fabric.py:274 - epoch: 7 at step 7
+2024-10-23 16:19:39,185 - train_fabric.py:260 - Epoch [7] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 16:19:39,187 - train_fabric.py:274 - train_loss_epoch: 3920.177094462514 at step 7
+2024-10-23 16:19:39,187 - train_fabric.py:274 - loss_e_epoch: 5.795140281319618 at step 7
+2024-10-23 16:19:39,188 - train_fabric.py:274 - loss_f_epoch: 4898.7724609375 at step 7
+2024-10-23 16:19:39,188 - train_fabric.py:274 - epoch: 7 at step 7
+2024-10-23 16:19:40,692 - train_fabric.py:260 - Epoch [8] Val -- loss: 3425.69090, loss_e: 5.60296, loss_f: 4280.71289
+2024-10-23 16:19:40,693 - train_fabric.py:274 - val_loss: 3425.690903699398 at step 8
+2024-10-23 16:19:40,693 - train_fabric.py:274 - loss_e: 5.602955996990204 at step 8
+2024-10-23 16:19:40,693 - train_fabric.py:274 - loss_f: 4280.712890625 at step 8
+2024-10-23 16:19:40,693 - train_fabric.py:274 - epoch: 8 at step 8
+2024-10-23 16:19:40,699 - train_fabric.py:260 - Epoch [8] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 16:19:41,093 - train_fabric.py:279 - Checkpoint saved at <pytorch_lightning.callbacks.model_checkpoint.ModelCheckpoint object at 0x7f4ad7129d50>
+2024-10-23 16:19:41,094 - train_fabric.py:274 - train_loss_epoch: 3881.0994352802636 at step 8
+2024-10-23 16:19:41,094 - train_fabric.py:274 - loss_e_epoch: 5.69004749506712 at step 8
+2024-10-23 16:19:41,094 - train_fabric.py:274 - loss_f_epoch: 4849.95166015625 at step 8
+2024-10-23 16:19:41,094 - train_fabric.py:274 - epoch: 8 at step 8
+2024-10-23 16:19:42,604 - train_fabric.py:260 - Epoch [9] Val -- loss: 2820.52596, loss_e: 5.61930, loss_f: 3524.25244
+2024-10-23 16:19:42,605 - train_fabric.py:274 - val_loss: 2820.5259599626065 at step 9
+2024-10-23 16:19:42,605 - train_fabric.py:274 - loss_e: 5.61930176615715 at step 9
+2024-10-23 16:19:42,605 - train_fabric.py:274 - loss_f: 3524.25244140625 at step 9
+2024-10-23 16:19:42,605 - train_fabric.py:274 - epoch: 9 at step 9
+2024-10-23 16:19:42,611 - train_fabric.py:260 - Epoch [9] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 16:19:43,012 - train_fabric.py:279 - Checkpoint saved at <pytorch_lightning.callbacks.model_checkpoint.ModelCheckpoint object at 0x7f4ad7129d50>
+2024-10-23 16:19:43,014 - train_fabric.py:274 - train_loss_epoch: 3843.756566414237 at step 9
+2024-10-23 16:19:43,014 - train_fabric.py:274 - loss_e_epoch: 5.602900430560112 at step 9
+2024-10-23 16:19:43,014 - train_fabric.py:274 - loss_f_epoch: 4803.294921875 at step 9
+2024-10-23 16:19:43,014 - train_fabric.py:274 - epoch: 9 at step 9
+2024-10-23 16:19:43,263 - train_fabric.py:263 - Training finalized with status: success
+2024-10-23 16:28:20,914 - train_fabric.py:260 - Namespace(train_file='tests/data/train.h5', valid_file='tests/data/valid.h5', test_file=None, statistics_file='tests/data/statistics.json', output_dir='tests/result', epochs=10, batch_size=64, batch_edge_limit=0, eval_batch_size=24, model='v1', alpha_drop=0.0, proj_drop=0.0, out_drop=0.0, drop_path_rate=0.0, opt='adamw', opt_eps=1e-08, opt_betas=None, clip_grad=None, momentum=0.9, weight_decay=0.005, sched='plateau', lr=0.01, lr_noise=None, lr_noise_pct=0.67, lr_noise_std=1.0, warmup_lr=0.01, min_lr=1e-06, decay_epochs=30, warmup_epochs=0, cooldown_epochs=0, patience_epochs=2, decay_rate=0.5, print_freq=100, energy_weight=0.2, force_weight=0.8, stress_weight=0.0, seed=1, workers=4, pin_mem=True, shuffle=True, load_checkpoint=None, load_checkpoint_model=None, evaluate=False, mixed_precision=False)
+2024-10-23 16:28:20,984 - train_fabric.py:260 - Using r_max=4.5 from statistics file `tests/data/statistics.json`
+2024-10-23 16:28:26,666 - train_fabric.py:260 - Epoch [0] Val -- loss: 2268.79913, loss_e: 0.61310, loss_f: 2835.84546
+2024-10-23 16:28:29,017 - train_fabric.py:260 - Epoch [0] Val -- loss: 4436.07695, loss_e: 5.73387, loss_f: 5543.66260
+2024-10-23 16:28:29,018 - train_fabric.py:274 - val_loss: 5200.220153166354 at step 0
+2024-10-23 16:28:29,018 - train_fabric.py:274 - loss_e: 10.854183800518513 at step 0
+2024-10-23 16:28:29,018 - train_fabric.py:274 - loss_f: 6497.56201171875 at step 0
+2024-10-23 16:28:29,018 - train_fabric.py:274 - epoch: 0 at step 0
+2024-10-23 16:28:29,023 - train_fabric.py:260 - Epoch [0] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 16:28:29,350 - train_fabric.py:279 - Checkpoint saved at <pytorch_lightning.callbacks.model_checkpoint.ModelCheckpoint object at 0x7fd94a62b580>
+2024-10-23 16:28:29,351 - train_fabric.py:274 - train_loss_epoch: 3671.9337446077725 at step 0
+2024-10-23 16:28:29,352 - train_fabric.py:274 - loss_e_epoch: 0.6135472576133907 at step 0
+2024-10-23 16:28:29,352 - train_fabric.py:274 - loss_f_epoch: 4589.763671875 at step 0
+2024-10-23 16:28:29,352 - train_fabric.py:274 - epoch: 0 at step 0
+2024-10-23 16:28:32,000 - train_fabric.py:260 - Epoch [1] Val -- loss: 21617.51961, loss_e: 6.13445, loss_f: 27020.36499
+2024-10-23 16:28:32,001 - train_fabric.py:274 - val_loss: 37601.9316640187 at step 1
+2024-10-23 16:28:32,001 - train_fabric.py:274 - loss_e: 1.4161325935274363 at step 1
+2024-10-23 16:28:32,001 - train_fabric.py:274 - loss_f: 47002.05859375 at step 1
+2024-10-23 16:28:32,001 - train_fabric.py:274 - epoch: 1 at step 1
+2024-10-23 16:28:32,007 - train_fabric.py:260 - Epoch [1] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 16:28:32,009 - train_fabric.py:274 - train_loss_epoch: 5633.107565686107 at step 1
+2024-10-23 16:28:32,009 - train_fabric.py:274 - loss_e_epoch: 10.85276983678341 at step 1
+2024-10-23 16:28:32,009 - train_fabric.py:274 - loss_f_epoch: 7038.67138671875 at step 1
+2024-10-23 16:28:32,009 - train_fabric.py:274 - epoch: 1 at step 1
+2024-10-23 16:28:34,768 - train_fabric.py:260 - Epoch [2] Val -- loss: 30181.66160, loss_e: 5.05606, loss_f: 37725.81348
+2024-10-23 16:28:34,769 - train_fabric.py:274 - val_loss: 21230.215810498594 at step 2
+2024-10-23 16:28:34,769 - train_fabric.py:274 - loss_e: 8.696239992976189 at step 2
+2024-10-23 16:28:34,769 - train_fabric.py:274 - loss_f: 26535.595703125 at step 2
+2024-10-23 16:28:34,769 - train_fabric.py:274 - epoch: 2 at step 2
+2024-10-23 16:28:34,774 - train_fabric.py:260 - Epoch [2] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 16:28:34,776 - train_fabric.py:274 - train_loss_epoch: 39133.10739622302 at step 2
+2024-10-23 16:28:34,777 - train_fabric.py:274 - loss_e_epoch: 1.415887365117669 at step 2
+2024-10-23 16:28:34,777 - train_fabric.py:274 - loss_f_epoch: 48916.03125 at step 2
+2024-10-23 16:28:34,777 - train_fabric.py:274 - epoch: 2 at step 2
+2024-10-23 16:28:36,934 - train_fabric.py:260 - Epoch [3] Val -- loss: 22444.74803, loss_e: 9.63124, loss_f: 28053.52686
+2024-10-23 16:28:36,935 - train_fabric.py:274 - val_loss: 31802.117171555758 at step 3
+2024-10-23 16:28:36,935 - train_fabric.py:274 - loss_e: 10.566326528787613 at step 3
+2024-10-23 16:28:36,935 - train_fabric.py:274 - loss_f: 39750.00390625 at step 3
+2024-10-23 16:28:36,935 - train_fabric.py:274 - epoch: 3 at step 3
+2024-10-23 16:28:36,941 - train_fabric.py:260 - Epoch [3] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 16:28:36,943 - train_fabric.py:274 - train_loss_epoch: 13087.378878463805 at step 3
+2024-10-23 16:28:36,943 - train_fabric.py:274 - loss_e_epoch: 8.69615013152361 at step 3
+2024-10-23 16:28:36,943 - train_fabric.py:274 - loss_f_epoch: 16357.0498046875 at step 3
+2024-10-23 16:28:36,943 - train_fabric.py:274 - epoch: 3 at step 3
+2024-10-23 16:28:39,124 - train_fabric.py:260 - Epoch [4] Val -- loss: 28358.49070, loss_e: 10.71033, loss_f: 35445.43555
+2024-10-23 16:28:39,125 - train_fabric.py:274 - val_loss: 22493.77453162819 at step 4
+2024-10-23 16:28:39,126 - train_fabric.py:274 - loss_e: 10.855080015957355 at step 4
+2024-10-23 16:28:39,126 - train_fabric.py:274 - loss_f: 28114.50390625 at step 4
+2024-10-23 16:28:39,126 - train_fabric.py:274 - epoch: 4 at step 4
+2024-10-23 16:28:39,131 - train_fabric.py:260 - Epoch [4] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 16:28:39,133 - train_fabric.py:274 - train_loss_epoch: 34223.20686722398 at step 4
+2024-10-23 16:28:39,133 - train_fabric.py:274 - loss_e_epoch: 10.565586119890213 at step 4
+2024-10-23 16:28:39,133 - train_fabric.py:274 - loss_f_epoch: 42776.3671875 at step 4
+2024-10-23 16:28:39,133 - train_fabric.py:274 - epoch: 4 at step 4
+2024-10-23 16:28:41,261 - train_fabric.py:260 - Epoch [5] Val -- loss: 12811.60552, loss_e: 10.94018, loss_f: 16011.77148
+2024-10-23 16:28:41,262 - train_fabric.py:274 - val_loss: 10236.162868782878 at step 5
+2024-10-23 16:28:41,263 - train_fabric.py:274 - loss_e: 11.02430485188961 at step 5
+2024-10-23 16:28:41,263 - train_fabric.py:274 - loss_f: 12792.4462890625 at step 5
+2024-10-23 16:28:41,263 - train_fabric.py:274 - epoch: 5 at step 5
+2024-10-23 16:28:41,268 - train_fabric.py:260 - Epoch [5] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 16:28:41,270 - train_fabric.py:274 - train_loss_epoch: 15387.048163555562 at step 5
+2024-10-23 16:28:41,270 - train_fabric.py:274 - loss_e_epoch: 10.856052152812481 at step 5
+2024-10-23 16:28:41,270 - train_fabric.py:274 - loss_f_epoch: 19231.095703125 at step 5
+2024-10-23 16:28:41,270 - train_fabric.py:274 - epoch: 5 at step 5
+2024-10-23 16:28:42,771 - train_fabric.py:260 - Epoch [6] Val -- loss: 8427.14652, loss_e: 11.04752, loss_f: 10531.17090
+2024-10-23 16:28:42,772 - train_fabric.py:274 - val_loss: 7039.4612004294995 at step 6
+2024-10-23 16:28:42,773 - train_fabric.py:274 - loss_e: 11.070650584995747 at step 6
+2024-10-23 16:28:42,773 - train_fabric.py:274 - loss_f: 8796.55859375 at step 6
+2024-10-23 16:28:42,773 - train_fabric.py:274 - epoch: 6 at step 6
+2024-10-23 16:28:42,778 - train_fabric.py:260 - Epoch [6] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 16:28:42,780 - train_fabric.py:274 - train_loss_epoch: 9814.831830872596 at step 6
+2024-10-23 16:28:42,780 - train_fabric.py:274 - loss_e_epoch: 11.024388737976551 at step 6
+2024-10-23 16:28:42,780 - train_fabric.py:274 - loss_f_epoch: 12265.783203125 at step 6
+2024-10-23 16:28:42,780 - train_fabric.py:274 - epoch: 6 at step 6
+2024-10-23 16:28:44,282 - train_fabric.py:260 - Epoch [7] Val -- loss: 7063.51021, loss_e: 11.07279, loss_f: 8826.61963
+2024-10-23 16:28:44,283 - train_fabric.py:274 - val_loss: 6576.648525100946 at step 7
+2024-10-23 16:28:44,283 - train_fabric.py:274 - loss_e: 11.074656754732132 at step 7
+2024-10-23 16:28:44,283 - train_fabric.py:274 - loss_f: 8218.0419921875 at step 7
+2024-10-23 16:28:44,284 - train_fabric.py:274 - epoch: 7 at step 7
+2024-10-23 16:28:44,289 - train_fabric.py:260 - Epoch [7] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 16:28:44,291 - train_fabric.py:274 - train_loss_epoch: 7550.371901376546 at step 7
+2024-10-23 16:28:44,291 - train_fabric.py:274 - loss_e_epoch: 11.070932663977146 at step 7
+2024-10-23 16:28:44,291 - train_fabric.py:274 - loss_f_epoch: 9435.197265625 at step 7
+2024-10-23 16:28:44,291 - train_fabric.py:274 - epoch: 7 at step 7
+2024-10-23 16:28:45,803 - train_fabric.py:260 - Epoch [8] Val -- loss: 6701.93790, loss_e: 11.07864, loss_f: 8374.65259
+2024-10-23 16:28:45,804 - train_fabric.py:274 - val_loss: 5934.185783244669 at step 8
+2024-10-23 16:28:45,804 - train_fabric.py:274 - loss_e: 11.082724817097187 at step 8
+2024-10-23 16:28:45,804 - train_fabric.py:274 - loss_f: 7414.96142578125 at step 8
+2024-10-23 16:28:45,804 - train_fabric.py:274 - epoch: 8 at step 8
+2024-10-23 16:28:45,810 - train_fabric.py:260 - Epoch [8] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 16:28:45,812 - train_fabric.py:274 - train_loss_epoch: 7469.69001030773 at step 8
+2024-10-23 16:28:45,812 - train_fabric.py:274 - loss_e_epoch: 11.074563257396221 at step 8
+2024-10-23 16:28:45,812 - train_fabric.py:274 - loss_f_epoch: 9334.34375 at step 8
+2024-10-23 16:28:45,812 - train_fabric.py:274 - epoch: 8 at step 8
+2024-10-23 16:28:47,295 - train_fabric.py:260 - Epoch [9] Val -- loss: 6524.85454, loss_e: 11.08787, loss_f: 8153.29614
+2024-10-23 16:28:47,296 - train_fabric.py:274 - val_loss: 6822.372376523912 at step 9
+2024-10-23 16:28:47,296 - train_fabric.py:274 - loss_e: 11.092839650809765 at step 9
+2024-10-23 16:28:47,297 - train_fabric.py:274 - loss_f: 8525.1923828125 at step 9
+2024-10-23 16:28:47,297 - train_fabric.py:274 - epoch: 9 at step 9
+2024-10-23 16:28:47,302 - train_fabric.py:260 - Epoch [9] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 16:28:47,304 - train_fabric.py:274 - train_loss_epoch: 6227.3366957739 at step 9
+2024-10-23 16:28:47,304 - train_fabric.py:274 - loss_e_epoch: 11.082892931997776 at step 9
+2024-10-23 16:28:47,305 - train_fabric.py:274 - loss_f_epoch: 7781.39990234375 at step 9
+2024-10-23 16:28:47,305 - train_fabric.py:274 - epoch: 9 at step 9
+2024-10-23 16:28:47,580 - train_fabric.py:263 - Training finalized with status: success
+2024-10-23 16:38:41,077 - train_fabric.py:260 - Namespace(train_file='tests/data/train.h5', valid_file='tests/data/valid.h5', test_file=None, statistics_file='tests/data/statistics.json', output_dir='tests/result', epochs=10, batch_size=64, batch_edge_limit=0, eval_batch_size=24, model='v1', alpha_drop=0.0, proj_drop=0.0, out_drop=0.0, drop_path_rate=0.0, opt='adamw', opt_eps=1e-08, opt_betas=None, clip_grad=None, momentum=0.9, weight_decay=0.005, sched='plateau', lr=0.01, lr_noise=None, lr_noise_pct=0.67, lr_noise_std=1.0, warmup_lr=0.01, min_lr=1e-06, decay_epochs=30, warmup_epochs=0, cooldown_epochs=0, patience_epochs=2, decay_rate=0.5, print_freq=100, energy_weight=0.2, force_weight=0.8, stress_weight=0.0, seed=1, workers=4, pin_mem=True, shuffle=True, load_checkpoint=None, load_checkpoint_model=None, evaluate=False, mixed_precision=False)
+2024-10-23 16:38:41,150 - train_fabric.py:260 - Using r_max=4.5 from statistics file `tests/data/statistics.json`
+2024-10-23 16:38:46,403 - train_fabric.py:260 - Epoch [0] Val -- loss: 2426.96357, loss_e: 0.61375, loss_f: 3033.55103
+2024-10-23 16:38:48,462 - train_fabric.py:260 - Epoch [0] Val -- loss: 5965.43526, loss_e: 8.76380, loss_f: 7454.60315
+2024-10-23 16:38:48,463 - train_fabric.py:274 - val_loss: 8654.898437553644 at step 0
+2024-10-23 16:38:48,463 - train_fabric.py:274 - loss_e: 16.9140627682209 at step 0
+2024-10-23 16:38:48,463 - train_fabric.py:274 - loss_f: 10814.39453125 at step 0
+2024-10-23 16:38:48,463 - train_fabric.py:274 - epoch: 0 at step 0
+2024-10-23 16:38:48,467 - train_fabric.py:260 - Epoch [0] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 16:38:48,707 - train_fabric.py:279 - Checkpoint saved at <pytorch_lightning.callbacks.model_checkpoint.ModelCheckpoint object at 0x7f21aa5f7520>
+2024-10-23 16:38:48,708 - train_fabric.py:274 - train_loss_epoch: 3275.972073551081 at step 0
+2024-10-23 16:38:48,708 - train_fabric.py:274 - loss_e_epoch: 0.6135415835306048 at step 0
+2024-10-23 16:38:48,708 - train_fabric.py:274 - loss_f_epoch: 4094.811767578125 at step 0
+2024-10-23 16:38:48,708 - train_fabric.py:274 - epoch: 0 at step 0
+2024-10-23 16:38:51,132 - train_fabric.py:260 - Epoch [1] Val -- loss: 10613.50486, loss_e: 15.04017, loss_f: 13263.12061
+2024-10-23 16:38:51,133 - train_fabric.py:274 - val_loss: 15058.892697766423 at step 1
+2024-10-23 16:38:51,133 - train_fabric.py:274 - loss_e: 13.164660707116127 at step 1
+2024-10-23 16:38:51,133 - train_fabric.py:274 - loss_f: 18820.32421875 at step 1
+2024-10-23 16:38:51,133 - train_fabric.py:274 - epoch: 1 at step 1
+2024-10-23 16:38:51,139 - train_fabric.py:260 - Epoch [1] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 16:38:51,141 - train_fabric.py:274 - train_loss_epoch: 6168.117022353411 at step 1
+2024-10-23 16:38:51,141 - train_fabric.py:274 - loss_e_epoch: 16.915678173303604 at step 1
+2024-10-23 16:38:51,142 - train_fabric.py:274 - loss_f_epoch: 7705.9169921875 at step 1
+2024-10-23 16:38:51,142 - train_fabric.py:274 - epoch: 1 at step 1
+2024-10-23 16:38:54,176 - train_fabric.py:260 - Epoch [2] Val -- loss: 29515.95731, loss_e: 10.05020, loss_f: 36892.43262
+2024-10-23 16:38:54,177 - train_fabric.py:274 - val_loss: 45497.52384466529 at step 2
+2024-10-23 16:38:54,177 - train_fabric.py:274 - loss_e: 6.935629576444626 at step 2
+2024-10-23 16:38:54,177 - train_fabric.py:274 - loss_f: 56870.16796875 at step 2
+2024-10-23 16:38:54,177 - train_fabric.py:274 - epoch: 2 at step 2
+2024-10-23 16:38:54,182 - train_fabric.py:260 - Epoch [2] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 16:38:54,184 - train_fabric.py:274 - train_loss_epoch: 13534.390766245127 at step 2
+2024-10-23 16:38:54,184 - train_fabric.py:274 - loss_e_epoch: 13.164768725633621 at step 2
+2024-10-23 16:38:54,184 - train_fabric.py:274 - loss_f_epoch: 16914.697265625 at step 2
+2024-10-23 16:38:54,184 - train_fabric.py:274 - epoch: 2 at step 2
+2024-10-23 16:38:56,378 - train_fabric.py:260 - Epoch [3] Val -- loss: 58017.97685, loss_e: 6.48584, loss_f: 72520.84961
+2024-10-23 16:38:56,379 - train_fabric.py:274 - val_loss: 74197.64471348077 at step 3
+2024-10-23 16:38:56,379 - train_fabric.py:274 - loss_e: 6.03606740385294 at step 3
+2024-10-23 16:38:56,379 - train_fabric.py:274 - loss_f: 92745.5546875 at step 3
+2024-10-23 16:38:56,379 - train_fabric.py:274 - epoch: 3 at step 3
+2024-10-23 16:38:56,384 - train_fabric.py:260 - Epoch [3] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 16:38:56,386 - train_fabric.py:274 - train_loss_epoch: 41838.30899578482 at step 3
+2024-10-23 16:38:56,386 - train_fabric.py:274 - loss_e_epoch: 6.935603924095631 at step 3
+2024-10-23 16:38:56,386 - train_fabric.py:274 - loss_f_epoch: 52296.15234375 at step 3
+2024-10-23 16:38:56,386 - train_fabric.py:274 - epoch: 3 at step 3
+2024-10-23 16:38:58,453 - train_fabric.py:260 - Epoch [4] Val -- loss: 49027.89400, loss_e: 4.72393, loss_f: 61283.68750
+2024-10-23 16:38:58,454 - train_fabric.py:274 - val_loss: 33054.10047441423 at step 4
+2024-10-23 16:38:58,454 - train_fabric.py:274 - loss_e: 3.412528321146965 at step 4
+2024-10-23 16:38:58,454 - train_fabric.py:274 - loss_f: 41316.77734375 at step 4
+2024-10-23 16:38:58,454 - train_fabric.py:274 - epoch: 4 at step 4
+2024-10-23 16:38:58,460 - train_fabric.py:260 - Epoch [4] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 16:38:58,462 - train_fabric.py:274 - train_loss_epoch: 65001.68753509819 at step 4
+2024-10-23 16:38:58,462 - train_fabric.py:274 - loss_e_epoch: 6.03533174097538 at step 4
+2024-10-23 16:38:58,462 - train_fabric.py:274 - loss_f_epoch: 81250.6015625 at step 4
+2024-10-23 16:38:58,462 - train_fabric.py:274 - epoch: 4 at step 4
+2024-10-23 16:39:00,615 - train_fabric.py:260 - Epoch [5] Val -- loss: 22193.14430, loss_e: 2.40850, loss_f: 27740.82715
+2024-10-23 16:39:00,616 - train_fabric.py:274 - val_loss: 12813.327100142464 at step 5
+2024-10-23 16:39:00,616 - train_fabric.py:274 - loss_e: 1.4060085248202085 at step 5
+2024-10-23 16:39:00,616 - train_fabric.py:274 - loss_f: 16016.3056640625 at step 5
+2024-10-23 16:39:00,616 - train_fabric.py:274 - epoch: 5 at step 5
+2024-10-23 16:39:00,621 - train_fabric.py:260 - Epoch [5] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 16:39:00,623 - train_fabric.py:274 - train_loss_epoch: 31572.961495004594 at step 5
+2024-10-23 16:39:00,623 - train_fabric.py:274 - loss_e_epoch: 3.41099064797163 at step 5
+2024-10-23 16:39:00,623 - train_fabric.py:274 - loss_f_epoch: 39465.34765625 at step 5
+2024-10-23 16:39:00,623 - train_fabric.py:274 - epoch: 5 at step 5
+2024-10-23 16:39:02,111 - train_fabric.py:260 - Epoch [6] Val -- loss: 9787.18793, loss_e: 0.97627, loss_f: 12233.74048
+2024-10-23 16:39:02,112 - train_fabric.py:274 - val_loss: 4532.611145038158 at step 6
+2024-10-23 16:39:02,112 - train_fabric.py:274 - loss_e: 0.5459595657885075 at step 6
+2024-10-23 16:39:02,112 - train_fabric.py:274 - loss_f: 5665.62744140625 at step 6
+2024-10-23 16:39:02,112 - train_fabric.py:274 - epoch: 6 at step 6
+2024-10-23 16:39:02,118 - train_fabric.py:260 - Epoch [6] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 16:39:02,505 - train_fabric.py:279 - Checkpoint saved at <pytorch_lightning.callbacks.model_checkpoint.ModelCheckpoint object at 0x7f21aa5f7520>
+2024-10-23 16:39:02,506 - train_fabric.py:274 - train_loss_epoch: 15041.764715252817 at step 6
+2024-10-23 16:39:02,506 - train_fabric.py:274 - loss_e_epoch: 1.4065840765833855 at step 6
+2024-10-23 16:39:02,506 - train_fabric.py:274 - loss_f_epoch: 18801.853515625 at step 6
+2024-10-23 16:39:02,506 - train_fabric.py:274 - epoch: 6 at step 6
+2024-10-23 16:39:03,993 - train_fabric.py:260 - Epoch [7] Val -- loss: 3132.33963, loss_e: 0.48292, loss_f: 3915.30371
+2024-10-23 16:39:03,994 - train_fabric.py:274 - val_loss: 2203.8805956417696 at step 7
+2024-10-23 16:39:03,994 - train_fabric.py:274 - loss_e: 0.4198239119723439 at step 7
+2024-10-23 16:39:03,994 - train_fabric.py:274 - loss_f: 2754.745361328125 at step 7
+2024-10-23 16:39:03,994 - train_fabric.py:274 - epoch: 7 at step 7
+2024-10-23 16:39:04,000 - train_fabric.py:260 - Epoch [7] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 16:39:04,398 - train_fabric.py:279 - Checkpoint saved at <pytorch_lightning.callbacks.model_checkpoint.ModelCheckpoint object at 0x7f21aa5f7520>
+2024-10-23 16:39:04,399 - train_fabric.py:274 - train_loss_epoch: 4060.798656579759 at step 7
+2024-10-23 16:39:04,400 - train_fabric.py:274 - loss_e_epoch: 0.5460172737948596 at step 7
+2024-10-23 16:39:04,400 - train_fabric.py:274 - loss_f_epoch: 5075.86181640625 at step 7
+2024-10-23 16:39:04,400 - train_fabric.py:274 - epoch: 7 at step 7
+2024-10-23 16:39:05,887 - train_fabric.py:260 - Epoch [8] Val -- loss: 1458.21650, loss_e: 0.50360, loss_f: 1822.64465
+2024-10-23 16:39:05,888 - train_fabric.py:274 - val_loss: 833.9803501693532 at step 8
+2024-10-23 16:39:05,888 - train_fabric.py:274 - loss_e: 0.5871756514534354 at step 8
+2024-10-23 16:39:05,888 - train_fabric.py:274 - loss_f: 1042.32861328125 at step 8
+2024-10-23 16:39:05,888 - train_fabric.py:274 - epoch: 8 at step 8
+2024-10-23 16:39:05,894 - train_fabric.py:260 - Epoch [8] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 16:39:06,291 - train_fabric.py:279 - Checkpoint saved at <pytorch_lightning.callbacks.model_checkpoint.ModelCheckpoint object at 0x7f21aa5f7520>
+2024-10-23 16:39:06,293 - train_fabric.py:274 - train_loss_epoch: 2082.452656700555 at step 8
+2024-10-23 16:39:06,293 - train_fabric.py:274 - loss_e_epoch: 0.42002178402617574 at step 8
+2024-10-23 16:39:06,293 - train_fabric.py:274 - loss_f_epoch: 2602.960693359375 at step 8
+2024-10-23 16:39:06,293 - train_fabric.py:274 - epoch: 8 at step 8
+2024-10-23 16:39:07,799 - train_fabric.py:260 - Epoch [9] Val -- loss: 1279.47336, loss_e: 0.72890, loss_f: 1599.15942
+2024-10-23 16:39:07,800 - train_fabric.py:274 - val_loss: 1287.4217866003514 at step 9
+2024-10-23 16:39:07,801 - train_fabric.py:274 - loss_e: 0.8705296814441681 at step 9
+2024-10-23 16:39:07,801 - train_fabric.py:274 - loss_f: 1609.0595703125 at step 9
+2024-10-23 16:39:07,801 - train_fabric.py:274 - epoch: 9 at step 9
+2024-10-23 16:39:07,806 - train_fabric.py:260 - Epoch [9] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 16:39:07,808 - train_fabric.py:274 - train_loss_epoch: 1271.524926420953 at step 9
+2024-10-23 16:39:07,808 - train_fabric.py:274 - loss_e_epoch: 0.5872785891406238 at step 9
+2024-10-23 16:39:07,808 - train_fabric.py:274 - loss_f_epoch: 1589.2591552734375 at step 9
+2024-10-23 16:39:07,808 - train_fabric.py:274 - epoch: 9 at step 9
+2024-10-23 16:39:08,089 - train_fabric.py:263 - Training finalized with status: success
+2024-10-23 16:42:01,375 - train_fabric.py:262 - Namespace(train_file='tests/data/train.h5', valid_file='tests/data/valid.h5', test_file=None, statistics_file='tests/data/statistics.json', output_dir='tests/result', epochs=10, batch_size=64, batch_edge_limit=0, eval_batch_size=24, model='v1', alpha_drop=0.0, proj_drop=0.0, out_drop=0.0, drop_path_rate=0.0, opt='adamw', opt_eps=1e-08, opt_betas=None, clip_grad=None, momentum=0.9, weight_decay=0.005, sched='plateau', lr=0.01, lr_noise=None, lr_noise_pct=0.67, lr_noise_std=1.0, warmup_lr=0.01, min_lr=1e-06, decay_epochs=30, warmup_epochs=0, cooldown_epochs=0, patience_epochs=2, decay_rate=0.5, print_freq=100, energy_weight=0.2, force_weight=0.8, stress_weight=0.0, seed=1, workers=4, pin_mem=True, shuffle=True, load_checkpoint=None, load_checkpoint_model=None, evaluate=False, mixed_precision=False)
+2024-10-23 16:42:01,442 - train_fabric.py:262 - Using r_max=4.5 from statistics file `tests/data/statistics.json`
+2024-10-23 16:42:07,235 - train_fabric.py:262 - Epoch [0] Val -- loss: 5254.92248, loss_e: 0.61335, loss_f: 6568.49951
+2024-10-23 16:42:09,577 - train_fabric.py:262 - Epoch [0] Val -- loss: 3192.10363, loss_e: 4.83640, loss_f: 3988.92029
+2024-10-23 16:42:09,578 - train_fabric.py:276 - val_loss: 4158.489143990725 at step 0
+2024-10-23 16:42:09,578 - train_fabric.py:276 - loss_e: 9.059489484876394 at step 0
+2024-10-23 16:42:09,578 - train_fabric.py:276 - loss_f: 5195.84619140625 at step 0
+2024-10-23 16:42:09,578 - train_fabric.py:276 - epoch: 0 at step 0
+2024-10-23 16:42:09,584 - train_fabric.py:262 - Epoch [0] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 16:42:09,906 - train_fabric.py:281 - Checkpoint saved at <pytorch_lightning.callbacks.model_checkpoint.ModelCheckpoint object at 0x7f452e2f2500>
+2024-10-23 16:42:09,907 - train_fabric.py:276 - train_loss_epoch: 2225.718122142297 at step 0
+2024-10-23 16:42:09,907 - train_fabric.py:276 - loss_e_epoch: 0.6133157896110788 at step 0
+2024-10-23 16:42:09,907 - train_fabric.py:276 - loss_f_epoch: 2781.994384765625 at step 0
+2024-10-23 16:42:09,907 - train_fabric.py:276 - epoch: 0 at step 0
+2024-10-23 16:42:12,552 - train_fabric.py:262 - Epoch [1] Val -- loss: 8606.69424, loss_e: 9.58083, loss_f: 10755.97217
+2024-10-23 16:42:12,553 - train_fabric.py:276 - val_loss: 13497.15246219337 at step 1
+2024-10-23 16:42:12,554 - train_fabric.py:276 - loss_e: 10.103131279349327 at step 1
+2024-10-23 16:42:12,554 - train_fabric.py:276 - loss_f: 16868.9140625 at step 1
+2024-10-23 16:42:12,554 - train_fabric.py:276 - epoch: 1 at step 1
+2024-10-23 16:42:12,559 - train_fabric.py:262 - Epoch [1] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 16:42:12,562 - train_fabric.py:276 - train_loss_epoch: 3716.2360233969985 at step 1
+2024-10-23 16:42:12,562 - train_fabric.py:276 - loss_e_epoch: 9.05853495374322 at step 1
+2024-10-23 16:42:12,562 - train_fabric.py:276 - loss_f_epoch: 4643.0302734375 at step 1
+2024-10-23 16:42:12,562 - train_fabric.py:276 - epoch: 1 at step 1
+2024-10-23 16:42:15,297 - train_fabric.py:262 - Epoch [2] Val -- loss: 21294.18629, loss_e: 8.97102, loss_f: 26615.49023
+2024-10-23 16:42:15,298 - train_fabric.py:276 - val_loss: 27070.182962094248 at step 2
+2024-10-23 16:42:15,298 - train_fabric.py:276 - loss_e: 7.838638596236706 at step 2
+2024-10-23 16:42:15,298 - train_fabric.py:276 - loss_f: 33835.76953125 at step 2
+2024-10-23 16:42:15,298 - train_fabric.py:276 - epoch: 2 at step 2
+2024-10-23 16:42:15,304 - train_fabric.py:262 - Epoch [2] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 16:42:15,306 - train_fabric.py:276 - train_loss_epoch: 15518.189624245464 at step 2
+2024-10-23 16:42:15,306 - train_fabric.py:276 - loss_e_epoch: 10.103394664824009 at step 2
+2024-10-23 16:42:15,306 - train_fabric.py:276 - loss_f_epoch: 19395.2109375 at step 2
+2024-10-23 16:42:15,306 - train_fabric.py:276 - epoch: 2 at step 2
+2024-10-23 16:42:17,400 - train_fabric.py:262 - Epoch [3] Val -- loss: 14769.40562, loss_e: 6.24046, loss_f: 18460.19617
+2024-10-23 16:42:17,401 - train_fabric.py:276 - val_loss: 1883.2610901862383 at step 3
+2024-10-23 16:42:17,401 - train_fabric.py:276 - loss_e: 4.642242923378944 at step 3
+2024-10-23 16:42:17,401 - train_fabric.py:276 - loss_f: 2352.915771484375 at step 3
+2024-10-23 16:42:17,401 - train_fabric.py:276 - epoch: 3 at step 3
+2024-10-23 16:42:17,407 - train_fabric.py:262 - Epoch [3] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 16:42:18,106 - train_fabric.py:281 - Checkpoint saved at <pytorch_lightning.callbacks.model_checkpoint.ModelCheckpoint object at 0x7f452e2f2500>
+2024-10-23 16:42:18,107 - train_fabric.py:276 - train_loss_epoch: 27655.550156079233 at step 3
+2024-10-23 16:42:18,107 - train_fabric.py:276 - loss_e_epoch: 7.838671021163464 at step 3
+2024-10-23 16:42:18,108 - train_fabric.py:276 - loss_f_epoch: 34567.4765625 at step 3
+2024-10-23 16:42:18,108 - train_fabric.py:276 - epoch: 3 at step 3
+2024-10-23 16:42:19,612 - train_fabric.py:262 - Epoch [4] Val -- loss: 14213.75773, loss_e: 2.98911, loss_f: 17766.45013
+2024-10-23 16:42:19,613 - train_fabric.py:276 - val_loss: 26804.913665549644 at step 4
+2024-10-23 16:42:19,613 - train_fabric.py:276 - loss_e: 1.3359058732166886 at step 4
+2024-10-23 16:42:19,613 - train_fabric.py:276 - loss_f: 33505.80859375 at step 4
+2024-10-23 16:42:19,613 - train_fabric.py:276 - epoch: 4 at step 4
+2024-10-23 16:42:19,618 - train_fabric.py:262 - Epoch [4] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 16:42:19,620 - train_fabric.py:276 - train_loss_epoch: 1622.6018026940524 at step 4
+2024-10-23 16:42:19,620 - train_fabric.py:276 - loss_e_epoch: 4.642314251512289 at step 4
+2024-10-23 16:42:19,620 - train_fabric.py:276 - loss_f_epoch: 2027.0916748046875 at step 4
+2024-10-23 16:42:19,620 - train_fabric.py:276 - epoch: 4 at step 4
+2024-10-23 16:42:21,115 - train_fabric.py:262 - Epoch [5] Val -- loss: 16238.23948, loss_e: 1.34510, loss_f: 20297.46313
+2024-10-23 16:42:21,116 - train_fabric.py:276 - val_loss: 4954.727493832074 at step 5
+2024-10-23 16:42:21,116 - train_fabric.py:276 - loss_e: 1.3547543166205287 at step 5
+2024-10-23 16:42:21,116 - train_fabric.py:276 - loss_f: 6193.07080078125 at step 5
+2024-10-23 16:42:21,116 - train_fabric.py:276 - epoch: 5 at step 5
+2024-10-23 16:42:21,122 - train_fabric.py:262 - Epoch [5] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 16:42:21,124 - train_fabric.py:276 - train_loss_epoch: 27521.751465890186 at step 5
+2024-10-23 16:42:21,124 - train_fabric.py:276 - loss_e_epoch: 1.3354544509202242 at step 5
+2024-10-23 16:42:21,124 - train_fabric.py:276 - loss_f_epoch: 34401.85546875 at step 5
+2024-10-23 16:42:21,124 - train_fabric.py:276 - epoch: 5 at step 5
+2024-10-23 16:42:22,611 - train_fabric.py:262 - Epoch [6] Val -- loss: 11909.33248, loss_e: 1.88579, loss_f: 14886.19336
+2024-10-23 16:42:22,612 - train_fabric.py:276 - val_loss: 20204.833007148653 at step 6
+2024-10-23 16:42:22,612 - train_fabric.py:276 - loss_e: 2.416988868266344 at step 6
+2024-10-23 16:42:22,612 - train_fabric.py:276 - loss_f: 25255.435546875 at step 6
+2024-10-23 16:42:22,612 - train_fabric.py:276 - epoch: 6 at step 6
+2024-10-23 16:42:22,618 - train_fabric.py:262 - Epoch [6] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 16:42:22,620 - train_fabric.py:276 - train_loss_epoch: 3613.8319535208866 at step 6
+2024-10-23 16:42:22,620 - train_fabric.py:276 - loss_e_epoch: 1.354591823183 at step 6
+2024-10-23 16:42:22,620 - train_fabric.py:276 - loss_f_epoch: 4516.951171875 at step 6
+2024-10-23 16:42:22,620 - train_fabric.py:276 - epoch: 6 at step 6
+2024-10-23 16:42:24,132 - train_fabric.py:262 - Epoch [7] Val -- loss: 28797.07812, loss_e: 2.33394, loss_f: 35995.76367
+2024-10-23 16:42:24,133 - train_fabric.py:276 - val_loss: 18906.016532146932 at step 7
+2024-10-23 16:42:24,133 - train_fabric.py:276 - loss_e: 2.250629484653473 at step 7
+2024-10-23 16:42:24,133 - train_fabric.py:276 - loss_f: 23631.95703125 at step 7
+2024-10-23 16:42:24,133 - train_fabric.py:276 - epoch: 7 at step 7
+2024-10-23 16:42:24,139 - train_fabric.py:262 - Epoch [7] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 16:42:24,141 - train_fabric.py:276 - train_loss_epoch: 38688.13970029466 at step 7
+2024-10-23 16:42:24,141 - train_fabric.py:276 - loss_e_epoch: 2.4172514732927084 at step 7
+2024-10-23 16:42:24,141 - train_fabric.py:276 - loss_f_epoch: 48359.5703125 at step 7
+2024-10-23 16:42:24,141 - train_fabric.py:276 - epoch: 7 at step 7
+2024-10-23 16:42:25,645 - train_fabric.py:262 - Epoch [8] Val -- loss: 14282.14810, loss_e: 2.14185, loss_f: 17852.14990
+2024-10-23 16:42:25,646 - train_fabric.py:276 - val_loss: 9548.933956084773 at step 8
+2024-10-23 16:42:25,647 - train_fabric.py:276 - loss_e: 2.0330616738647223 at step 8
+2024-10-23 16:42:25,647 - train_fabric.py:276 - loss_f: 11935.6591796875 at step 8
+2024-10-23 16:42:25,647 - train_fabric.py:276 - epoch: 8 at step 8
+2024-10-23 16:42:25,652 - train_fabric.py:262 - Epoch [8] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 16:42:25,654 - train_fabric.py:276 - train_loss_epoch: 19015.362235953286 at step 8
+2024-10-23 16:42:25,654 - train_fabric.py:276 - loss_e_epoch: 2.250632891431451 at step 8
+2024-10-23 16:42:25,655 - train_fabric.py:276 - loss_f_epoch: 23768.642578125 at step 8
+2024-10-23 16:42:25,655 - train_fabric.py:276 - epoch: 8 at step 8
+2024-10-23 16:42:27,143 - train_fabric.py:262 - Epoch [9] Val -- loss: 5163.39497, loss_e: 1.93515, loss_f: 6453.75977
+2024-10-23 16:42:27,144 - train_fabric.py:276 - val_loss: 3545.05667300038 at step 9
+2024-10-23 16:42:27,144 - train_fabric.py:276 - loss_e: 1.8373200800269842 at step 9
+2024-10-23 16:42:27,144 - train_fabric.py:276 - loss_f: 4430.861328125 at step 9
+2024-10-23 16:42:27,144 - train_fabric.py:276 - epoch: 9 at step 9
+2024-10-23 16:42:27,150 - train_fabric.py:262 - Epoch [9] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 16:42:27,152 - train_fabric.py:276 - train_loss_epoch: 6781.733257322386 at step 9
+2024-10-23 16:42:27,152 - train_fabric.py:276 - loss_e_epoch: 2.032985830679536 at step 9
+2024-10-23 16:42:27,152 - train_fabric.py:276 - loss_f_epoch: 8476.658203125 at step 9
+2024-10-23 16:42:27,152 - train_fabric.py:276 - epoch: 9 at step 9
+2024-10-23 16:42:27,427 - train_fabric.py:265 - Training finalized with status: success
+2024-10-23 16:47:16,153 - train_fabric.py:262 - Namespace(train_file='tests/data/train.h5', valid_file='tests/data/valid.h5', test_file=None, statistics_file='tests/data/statistics.json', output_dir='tests/result', epochs=10, batch_size=64, batch_edge_limit=0, eval_batch_size=24, model='v1', alpha_drop=0.0, proj_drop=0.0, out_drop=0.0, drop_path_rate=0.0, opt='adamw', opt_eps=1e-08, opt_betas=None, clip_grad=None, momentum=0.9, weight_decay=0.005, sched='plateau', lr=0.01, lr_noise=None, lr_noise_pct=0.67, lr_noise_std=1.0, warmup_lr=0.01, min_lr=1e-06, decay_epochs=30, warmup_epochs=0, cooldown_epochs=0, patience_epochs=2, decay_rate=0.5, print_freq=100, energy_weight=0.2, force_weight=0.8, stress_weight=0.0, seed=1, workers=4, pin_mem=True, shuffle=True, load_checkpoint=None, load_checkpoint_model=None, evaluate=False, mixed_precision=False)
+2024-10-23 16:47:16,219 - train_fabric.py:262 - Using r_max=4.5 from statistics file `tests/data/statistics.json`
+2024-10-23 16:47:21,650 - train_fabric.py:262 - Epoch [0] Val -- loss: 2639.43763, loss_e: 0.61343, loss_f: 3299.14355
+2024-10-23 16:47:23,927 - train_fabric.py:262 - Epoch [0] Val -- loss: 6904.25605, loss_e: 7.40816, loss_f: 8628.46802
+2024-10-23 16:47:23,928 - train_fabric.py:276 - val_loss: 9637.613007724285 at step 0
+2024-10-23 16:47:23,928 - train_fabric.py:276 - loss_e: 14.202733933925629 at step 0
+2024-10-23 16:47:23,928 - train_fabric.py:276 - loss_f: 12043.4658203125 at step 0
+2024-10-23 16:47:23,928 - train_fabric.py:276 - epoch: 0 at step 0
+2024-10-23 16:47:23,933 - train_fabric.py:262 - Epoch [0] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 16:47:24,262 - train_fabric.py:281 - Checkpoint saved at <pytorch_lightning.callbacks.model_checkpoint.ModelCheckpoint object at 0x7f6800d03520>
+2024-10-23 16:47:24,264 - train_fabric.py:276 - train_loss_epoch: 4170.899082893343 at step 0
+2024-10-23 16:47:24,264 - train_fabric.py:276 - loss_e_epoch: 0.6135785292135552 at step 0
+2024-10-23 16:47:24,264 - train_fabric.py:276 - loss_f_epoch: 5213.4697265625 at step 0
+2024-10-23 16:47:24,264 - train_fabric.py:276 - epoch: 0 at step 0
+2024-10-23 16:47:26,926 - train_fabric.py:262 - Epoch [1] Val -- loss: 8961.56527, loss_e: 13.93721, loss_f: 11198.47217
+2024-10-23 16:47:26,928 - train_fabric.py:276 - val_loss: 9776.058663487434 at step 1
+2024-10-23 16:47:26,928 - train_fabric.py:276 - loss_e: 13.672223687171936 at step 1
+2024-10-23 16:47:26,928 - train_fabric.py:276 - loss_f: 12216.6552734375 at step 1
+2024-10-23 16:47:26,928 - train_fabric.py:276 - epoch: 1 at step 1
+2024-10-23 16:47:26,933 - train_fabric.py:262 - Epoch [1] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 16:47:26,935 - train_fabric.py:276 - train_loss_epoch: 8147.07188359797 at step 1
+2024-10-23 16:47:26,936 - train_fabric.py:276 - loss_e_epoch: 14.202191427350044 at step 1
+2024-10-23 16:47:26,936 - train_fabric.py:276 - loss_f_epoch: 10180.2890625 at step 1
+2024-10-23 16:47:26,936 - train_fabric.py:276 - epoch: 1 at step 1
+2024-10-23 16:47:29,685 - train_fabric.py:262 - Epoch [2] Val -- loss: 19909.49969, loss_e: 13.39934, loss_f: 24883.52441
+2024-10-23 16:47:29,686 - train_fabric.py:276 - val_loss: 27807.98433237672 at step 2
+2024-10-23 16:47:29,686 - train_fabric.py:276 - loss_e: 13.124786883592606 at step 2
+2024-10-23 16:47:29,686 - train_fabric.py:276 - loss_f: 34756.69921875 at step 2
+2024-10-23 16:47:29,686 - train_fabric.py:276 - epoch: 2 at step 2
+2024-10-23 16:47:29,691 - train_fabric.py:262 - Epoch [2] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 16:47:29,693 - train_fabric.py:276 - train_loss_epoch: 12011.01505009532 at step 2
+2024-10-23 16:47:29,693 - train_fabric.py:276 - loss_e_epoch: 13.67388328909874 at step 2
+2024-10-23 16:47:29,693 - train_fabric.py:276 - loss_f_epoch: 15010.349609375 at step 2
+2024-10-23 16:47:29,693 - train_fabric.py:276 - epoch: 2 at step 2
+2024-10-23 16:47:31,865 - train_fabric.py:262 - Epoch [3] Val -- loss: 28687.71888, loss_e: 8.10611, loss_f: 35857.62012
+2024-10-23 16:47:31,866 - train_fabric.py:276 - val_loss: 32816.72234452516 at step 3
+2024-10-23 16:47:31,866 - train_fabric.py:276 - loss_e: 3.0843788757920265 at step 3
+2024-10-23 16:47:31,866 - train_fabric.py:276 - loss_f: 41020.12890625 at step 3
+2024-10-23 16:47:31,866 - train_fabric.py:276 - epoch: 3 at step 3
+2024-10-23 16:47:31,871 - train_fabric.py:262 - Epoch [3] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 16:47:31,873 - train_fabric.py:276 - train_loss_epoch: 24558.715413922073 at step 3
+2024-10-23 16:47:31,873 - train_fabric.py:276 - loss_e_epoch: 13.127850860357285 at step 3
+2024-10-23 16:47:31,873 - train_fabric.py:276 - loss_f_epoch: 30695.111328125 at step 3
+2024-10-23 16:47:31,873 - train_fabric.py:276 - epoch: 3 at step 3
+2024-10-23 16:47:33,985 - train_fabric.py:262 - Epoch [4] Val -- loss: 21520.37953, loss_e: 2.64715, loss_f: 26899.81152
+2024-10-23 16:47:33,986 - train_fabric.py:276 - val_loss: 15405.206693981589 at step 4
+2024-10-23 16:47:33,986 - train_fabric.py:276 - loss_e: 2.210227720439434 at step 4
+2024-10-23 16:47:33,986 - train_fabric.py:276 - loss_f: 19255.955078125 at step 4
+2024-10-23 16:47:33,986 - train_fabric.py:276 - epoch: 4 at step 4
+2024-10-23 16:47:33,991 - train_fabric.py:262 - Epoch [4] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 16:47:33,993 - train_fabric.py:276 - train_loss_epoch: 27635.552360364796 at step 4
+2024-10-23 16:47:33,993 - train_fabric.py:276 - loss_e_epoch: 3.0840674489736557 at step 4
+2024-10-23 16:47:33,993 - train_fabric.py:276 - loss_f_epoch: 34543.66796875 at step 4
+2024-10-23 16:47:33,993 - train_fabric.py:276 - epoch: 4 at step 4
+2024-10-23 16:47:36,099 - train_fabric.py:262 - Epoch [5] Val -- loss: 12880.42377, loss_e: 1.77707, loss_f: 16100.08545
+2024-10-23 16:47:36,100 - train_fabric.py:276 - val_loss: 10321.342982473037 at step 5
+2024-10-23 16:47:36,101 - train_fabric.py:276 - loss_e: 1.3438186151906848 at step 5
+2024-10-23 16:47:36,101 - train_fabric.py:276 - loss_f: 12901.3427734375 at step 5
+2024-10-23 16:47:36,101 - train_fabric.py:276 - epoch: 5 at step 5
+2024-10-23 16:47:36,106 - train_fabric.py:262 - Epoch [5] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 16:47:36,108 - train_fabric.py:276 - train_loss_epoch: 15439.50456374772 at step 5
+2024-10-23 16:47:36,108 - train_fabric.py:276 - loss_e_epoch: 2.2103187385946512 at step 5
+2024-10-23 16:47:36,108 - train_fabric.py:276 - loss_f_epoch: 19298.828125 at step 5
+2024-10-23 16:47:36,108 - train_fabric.py:276 - epoch: 5 at step 5
+2024-10-23 16:47:37,591 - train_fabric.py:262 - Epoch [6] Val -- loss: 8538.93445, loss_e: 1.10046, loss_f: 10673.39307
+2024-10-23 16:47:37,592 - train_fabric.py:276 - val_loss: 7796.397872879356 at step 6
+2024-10-23 16:47:37,592 - train_fabric.py:276 - loss_e: 0.8565518967807293 at step 6
+2024-10-23 16:47:37,592 - train_fabric.py:276 - loss_f: 9745.283203125 at step 6
+2024-10-23 16:47:37,592 - train_fabric.py:276 - epoch: 6 at step 6
+2024-10-23 16:47:37,598 - train_fabric.py:262 - Epoch [6] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 16:47:37,992 - train_fabric.py:281 - Checkpoint saved at <pytorch_lightning.callbacks.model_checkpoint.ModelCheckpoint object at 0x7f6800d03520>
+2024-10-23 16:47:37,993 - train_fabric.py:276 - train_loss_epoch: 9281.471020848117 at step 6
+2024-10-23 16:47:37,993 - train_fabric.py:276 - loss_e_epoch: 1.3443620530888438 at step 6
+2024-10-23 16:47:37,993 - train_fabric.py:276 - loss_f_epoch: 11601.5029296875 at step 6
+2024-10-23 16:47:37,993 - train_fabric.py:276 - epoch: 6 at step 6
+2024-10-23 16:47:39,466 - train_fabric.py:262 - Epoch [7] Val -- loss: 6204.49729, loss_e: 0.74450, loss_f: 7755.43530
+2024-10-23 16:47:39,467 - train_fabric.py:276 - val_loss: 3797.416107430961 at step 7
+2024-10-23 16:47:39,467 - train_fabric.py:276 - loss_e: 0.6327832485549152 at step 7
+2024-10-23 16:47:39,467 - train_fabric.py:276 - loss_f: 4746.61181640625 at step 7
+2024-10-23 16:47:39,467 - train_fabric.py:276 - epoch: 7 at step 7
+2024-10-23 16:47:39,473 - train_fabric.py:262 - Epoch [7] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 16:47:39,859 - train_fabric.py:281 - Checkpoint saved at <pytorch_lightning.callbacks.model_checkpoint.ModelCheckpoint object at 0x7f6800d03520>
+2024-10-23 16:47:39,860 - train_fabric.py:276 - train_loss_epoch: 8611.578468192742 at step 7
+2024-10-23 16:47:39,860 - train_fabric.py:276 - loss_e_epoch: 0.8562081512063742 at step 7
+2024-10-23 16:47:39,860 - train_fabric.py:276 - loss_f_epoch: 10764.2587890625 at step 7
+2024-10-23 16:47:39,860 - train_fabric.py:276 - epoch: 7 at step 7
+2024-10-23 16:47:41,341 - train_fabric.py:262 - Epoch [8] Val -- loss: 2928.21739, loss_e: 0.63680, loss_f: 3660.11243
+2024-10-23 16:47:41,342 - train_fabric.py:276 - val_loss: 1793.1931763410569 at step 8
+2024-10-23 16:47:41,342 - train_fabric.py:276 - loss_e: 0.6405643224716187 at step 8
+2024-10-23 16:47:41,342 - train_fabric.py:276 - loss_f: 2241.331298828125 at step 8
+2024-10-23 16:47:41,342 - train_fabric.py:276 - epoch: 8 at step 8
+2024-10-23 16:47:41,348 - train_fabric.py:262 - Epoch [8] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 16:47:41,742 - train_fabric.py:281 - Checkpoint saved at <pytorch_lightning.callbacks.model_checkpoint.ModelCheckpoint object at 0x7f6800d03520>
+2024-10-23 16:47:41,743 - train_fabric.py:276 - train_loss_epoch: 4063.2415967152456 at step 8
+2024-10-23 16:47:41,744 - train_fabric.py:276 - loss_e_epoch: 0.6330324043519795 at step 8
+2024-10-23 16:47:41,744 - train_fabric.py:276 - loss_f_epoch: 5078.8935546875 at step 8
+2024-10-23 16:47:41,744 - train_fabric.py:276 - epoch: 8 at step 8
+2024-10-23 16:47:43,230 - train_fabric.py:262 - Epoch [9] Val -- loss: 2049.71534, loss_e: 0.72117, loss_f: 2561.96375
+2024-10-23 16:47:43,231 - train_fabric.py:276 - val_loss: 1963.064549229294 at step 9
+2024-10-23 16:47:43,231 - train_fabric.py:276 - loss_e: 0.8018721230328083 at step 9
+2024-10-23 16:47:43,231 - train_fabric.py:276 - loss_f: 2453.630126953125 at step 9
+2024-10-23 16:47:43,231 - train_fabric.py:276 - epoch: 9 at step 9
+2024-10-23 16:47:43,236 - train_fabric.py:262 - Epoch [9] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 16:47:43,238 - train_fabric.py:276 - train_loss_epoch: 2136.366132003814 at step 9
+2024-10-23 16:47:43,238 - train_fabric.py:276 - loss_e_epoch: 0.64047447219491 at step 9
+2024-10-23 16:47:43,238 - train_fabric.py:276 - loss_f_epoch: 2670.29736328125 at step 9
+2024-10-23 16:47:43,238 - train_fabric.py:276 - epoch: 9 at step 9
+2024-10-23 16:47:43,510 - train_fabric.py:265 - Training finalized with status: success
+2024-10-23 16:50:40,773 - train_fabric.py:264 - Namespace(train_file='tests/data/train.h5', valid_file='tests/data/valid.h5', test_file=None, statistics_file='tests/data/statistics.json', output_dir='tests/result', epochs=10, batch_size=64, batch_edge_limit=0, eval_batch_size=24, model='v1', alpha_drop=0.0, proj_drop=0.0, out_drop=0.0, drop_path_rate=0.0, opt='adamw', opt_eps=1e-08, opt_betas=None, clip_grad=None, momentum=0.9, weight_decay=0.005, sched='plateau', lr=0.01, lr_noise=None, lr_noise_pct=0.67, lr_noise_std=1.0, warmup_lr=0.01, min_lr=1e-06, decay_epochs=30, warmup_epochs=0, cooldown_epochs=0, patience_epochs=2, decay_rate=0.5, print_freq=100, energy_weight=0.2, force_weight=0.8, stress_weight=0.0, seed=1, workers=4, pin_mem=True, shuffle=True, load_checkpoint=None, load_checkpoint_model=None, evaluate=False, mixed_precision=False)
+2024-10-23 16:50:40,841 - train_fabric.py:264 - Using r_max=4.5 from statistics file `tests/data/statistics.json`
+2024-10-23 16:50:46,695 - train_fabric.py:264 - Epoch [0] Val -- loss: 2727.44085, loss_e: 0.61369, loss_f: 3409.14746
+2024-10-23 16:50:49,027 - train_fabric.py:264 - Epoch [0] Val -- loss: 3486.24464, loss_e: 6.18779, loss_f: 4356.25891
+2024-10-23 16:50:49,028 - train_fabric.py:278 - val_loss: 4478.324590118229 at step 0
+2024-10-23 16:50:49,028 - train_fabric.py:278 - loss_e: 11.762110747396946 at step 0
+2024-10-23 16:50:49,028 - train_fabric.py:278 - loss_f: 5594.96533203125 at step 0
+2024-10-23 16:50:49,028 - train_fabric.py:278 - epoch: 0 at step 0
+2024-10-23 16:50:49,034 - train_fabric.py:264 - Epoch [0] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 16:50:49,376 - train_fabric.py:283 - Checkpoint saved at <pytorch_lightning.callbacks.model_checkpoint.ModelCheckpoint object at 0x7f8067836500>
+2024-10-23 16:50:49,377 - train_fabric.py:278 - train_loss_epoch: 2494.164686207124 at step 0
+2024-10-23 16:50:49,378 - train_fabric.py:278 - loss_e_epoch: 0.6134700981201604 at step 0
+2024-10-23 16:50:49,378 - train_fabric.py:278 - loss_f_epoch: 3117.552490234375 at step 0
+2024-10-23 16:50:49,378 - train_fabric.py:278 - epoch: 0 at step 0
+2024-10-23 16:50:52,085 - train_fabric.py:264 - Epoch [1] Val -- loss: 7808.20665, loss_e: 9.96880, loss_f: 9757.76562
+2024-10-23 16:50:52,085 - train_fabric.py:278 - val_loss: 9953.177408497035 at step 1
+2024-10-23 16:50:52,086 - train_fabric.py:278 - loss_e: 8.177081547677517 at step 1
+2024-10-23 16:50:52,086 - train_fabric.py:278 - loss_f: 12439.4267578125 at step 1
+2024-10-23 16:50:52,086 - train_fabric.py:278 - epoch: 1 at step 1
+2024-10-23 16:50:52,091 - train_fabric.py:264 - Epoch [1] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 16:50:52,094 - train_fabric.py:278 - train_loss_epoch: 5663.235890838504 at step 1
+2024-10-23 16:50:52,094 - train_fabric.py:278 - loss_e_epoch: 11.760508880019188 at step 1
+2024-10-23 16:50:52,094 - train_fabric.py:278 - loss_f_epoch: 7076.1044921875 at step 1
+2024-10-23 16:50:52,094 - train_fabric.py:278 - epoch: 1 at step 1
+2024-10-23 16:50:55,159 - train_fabric.py:264 - Epoch [2] Val -- loss: 13320.07236, loss_e: 12.51758, loss_f: 16646.95996
+2024-10-23 16:50:55,160 - train_fabric.py:278 - val_loss: 8938.355102220177 at step 2
+2024-10-23 16:50:55,160 - train_fabric.py:278 - loss_e: 16.858518913388252 at step 2
+2024-10-23 16:50:55,160 - train_fabric.py:278 - loss_f: 11168.7294921875 at step 2
+2024-10-23 16:50:55,161 - train_fabric.py:278 - epoch: 2 at step 2
+2024-10-23 16:50:55,166 - train_fabric.py:264 - Epoch [2] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 16:50:55,168 - train_fabric.py:278 - train_loss_epoch: 17701.789623893797 at step 2
+2024-10-23 16:50:55,168 - train_fabric.py:278 - loss_e_epoch: 8.176635093986988 at step 2
+2024-10-23 16:50:55,168 - train_fabric.py:278 - loss_f_epoch: 22125.19140625 at step 2
+2024-10-23 16:50:55,168 - train_fabric.py:278 - epoch: 2 at step 2
+2024-10-23 16:50:57,291 - train_fabric.py:264 - Epoch [3] Val -- loss: 10475.40009, loss_e: 17.31906, loss_f: 13089.92041
+2024-10-23 16:50:57,292 - train_fabric.py:278 - val_loss: 13590.634308969975 at step 3
+2024-10-23 16:50:57,292 - train_fabric.py:278 - loss_e: 17.78091984987259 at step 3
+2024-10-23 16:50:57,292 - train_fabric.py:278 - loss_f: 16983.84765625 at step 3
+2024-10-23 16:50:57,292 - train_fabric.py:278 - epoch: 3 at step 3
+2024-10-23 16:50:57,297 - train_fabric.py:264 - Epoch [3] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 16:50:57,299 - train_fabric.py:278 - train_loss_epoch: 7360.165871882438 at step 3
+2024-10-23 16:50:57,299 - train_fabric.py:278 - loss_e_epoch: 16.8571914434433 at step 3
+2024-10-23 16:50:57,299 - train_fabric.py:278 - loss_f_epoch: 9195.9931640625 at step 3
+2024-10-23 16:50:57,299 - train_fabric.py:278 - epoch: 3 at step 3
+2024-10-23 16:50:59,443 - train_fabric.py:264 - Epoch [4] Val -- loss: 10893.26021, loss_e: 18.04178, loss_f: 13612.06445
+2024-10-23 16:50:59,444 - train_fabric.py:278 - val_loss: 9257.220284759998 at step 4
+2024-10-23 16:50:59,444 - train_fabric.py:278 - loss_e: 18.303572237491608 at step 4
+2024-10-23 16:50:59,444 - train_fabric.py:278 - loss_f: 11566.94921875 at step 4
+2024-10-23 16:50:59,444 - train_fabric.py:278 - epoch: 4 at step 4
+2024-10-23 16:50:59,449 - train_fabric.py:264 - Epoch [4] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 16:50:59,451 - train_fabric.py:278 - train_loss_epoch: 12529.300139135123 at step 4
+2024-10-23 16:50:59,451 - train_fabric.py:278 - loss_e_epoch: 17.779992550611496 at step 4
+2024-10-23 16:50:59,452 - train_fabric.py:278 - loss_f_epoch: 15657.1787109375 at step 4
+2024-10-23 16:50:59,452 - train_fabric.py:278 - epoch: 4 at step 4
+2024-10-23 16:51:01,606 - train_fabric.py:264 - Epoch [5] Val -- loss: 13146.73162, loss_e: 18.56289, loss_f: 16428.77393
+2024-10-23 16:51:01,607 - train_fabric.py:278 - val_loss: 15985.45184969902 at step 5
+2024-10-23 16:51:01,607 - train_fabric.py:278 - loss_e: 18.82174849510193 at step 5
+2024-10-23 16:51:01,607 - train_fabric.py:278 - loss_f: 19977.109375 at step 5
+2024-10-23 16:51:01,608 - train_fabric.py:278 - epoch: 5 at step 5
+2024-10-23 16:51:01,613 - train_fabric.py:264 - Epoch [5] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 16:51:01,615 - train_fabric.py:278 - train_loss_epoch: 10308.011391860247 at step 5
+2024-10-23 16:51:01,615 - train_fabric.py:278 - loss_e_epoch: 18.30402961373329 at step 5
+2024-10-23 16:51:01,615 - train_fabric.py:278 - loss_f_epoch: 12880.4384765625 at step 5
+2024-10-23 16:51:01,615 - train_fabric.py:278 - epoch: 5 at step 5
+2024-10-23 16:51:03,125 - train_fabric.py:264 - Epoch [6] Val -- loss: 4896.04872, loss_e: 18.92338, loss_f: 6115.32996
+2024-10-23 16:51:03,126 - train_fabric.py:278 - val_loss: 3137.411159077287 at step 6
+2024-10-23 16:51:03,126 - train_fabric.py:278 - loss_e: 19.0247895270586 at step 6
+2024-10-23 16:51:03,126 - train_fabric.py:278 - loss_f: 3917.007568359375 at step 6
+2024-10-23 16:51:03,126 - train_fabric.py:278 - epoch: 6 at step 6
+2024-10-23 16:51:03,132 - train_fabric.py:264 - Epoch [6] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 16:51:03,518 - train_fabric.py:283 - Checkpoint saved at <pytorch_lightning.callbacks.model_checkpoint.ModelCheckpoint object at 0x7f8067836500>
+2024-10-23 16:51:03,519 - train_fabric.py:278 - train_loss_epoch: 6654.686270979047 at step 6
+2024-10-23 16:51:03,520 - train_fabric.py:278 - loss_e_epoch: 18.821979895234108 at step 6
+2024-10-23 16:51:03,520 - train_fabric.py:278 - loss_f_epoch: 8313.65234375 at step 6
+2024-10-23 16:51:03,520 - train_fabric.py:278 - epoch: 6 at step 6
+2024-10-23 16:51:05,041 - train_fabric.py:264 - Epoch [7] Val -- loss: 2182.89802, loss_e: 18.95634, loss_f: 2723.88342
+2024-10-23 16:51:05,042 - train_fabric.py:278 - val_loss: 1702.1666559338569 at step 7
+2024-10-23 16:51:05,042 - train_fabric.py:278 - loss_e: 18.88808923959732 at step 7
+2024-10-23 16:51:05,042 - train_fabric.py:278 - loss_f: 2122.986328125 at step 7
+2024-10-23 16:51:05,043 - train_fabric.py:278 - epoch: 7 at step 7
+2024-10-23 16:51:05,048 - train_fabric.py:264 - Epoch [7] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 16:51:05,433 - train_fabric.py:283 - Checkpoint saved at <pytorch_lightning.callbacks.model_checkpoint.ModelCheckpoint object at 0x7f8067836500>
+2024-10-23 16:51:05,434 - train_fabric.py:278 - train_loss_epoch: 2663.6293815940617 at step 7
+2024-10-23 16:51:05,434 - train_fabric.py:278 - loss_e_epoch: 19.024593517184258 at step 7
+2024-10-23 16:51:05,434 - train_fabric.py:278 - loss_f_epoch: 3324.780517578125 at step 7
+2024-10-23 16:51:05,434 - train_fabric.py:278 - epoch: 7 at step 7
+2024-10-23 16:51:06,930 - train_fabric.py:264 - Epoch [8] Val -- loss: 1216.22552, loss_e: 18.66728, loss_f: 1515.61505
+2024-10-23 16:51:06,931 - train_fabric.py:278 - val_loss: 1003.1018794983626 at step 8
+2024-10-23 16:51:06,932 - train_fabric.py:278 - loss_e: 18.446409210562706 at step 8
+2024-10-23 16:51:06,932 - train_fabric.py:278 - loss_f: 1249.2657470703125 at step 8
+2024-10-23 16:51:06,932 - train_fabric.py:278 - epoch: 8 at step 8
+2024-10-23 16:51:06,937 - train_fabric.py:264 - Epoch [8] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 16:51:07,336 - train_fabric.py:283 - Checkpoint saved at <pytorch_lightning.callbacks.model_checkpoint.ModelCheckpoint object at 0x7f8067836500>
+2024-10-23 16:51:07,338 - train_fabric.py:278 - train_loss_epoch: 1429.349162620306 at step 8
+2024-10-23 16:51:07,338 - train_fabric.py:278 - loss_e_epoch: 18.888147085905075 at step 8
+2024-10-23 16:51:07,338 - train_fabric.py:278 - loss_f_epoch: 1781.9642333984375 at step 8
+2024-10-23 16:51:07,338 - train_fabric.py:278 - epoch: 8 at step 8
+2024-10-23 16:51:08,843 - train_fabric.py:264 - Epoch [9] Val -- loss: 1113.05782, loss_e: 18.13199, loss_f: 1386.78928
+2024-10-23 16:51:08,844 - train_fabric.py:278 - val_loss: 1433.530426800251 at step 9
+2024-10-23 16:51:08,844 - train_fabric.py:278 - loss_e: 17.817539274692535 at step 9
+2024-10-23 16:51:08,844 - train_fabric.py:278 - loss_f: 1787.4586181640625 at step 9
+2024-10-23 16:51:08,844 - train_fabric.py:278 - epoch: 9 at step 9
+2024-10-23 16:51:08,850 - train_fabric.py:264 - Epoch [9] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 16:51:08,852 - train_fabric.py:278 - train_loss_epoch: 792.5852231144905 at step 9
+2024-10-23 16:51:08,852 - train_fabric.py:278 - loss_e_epoch: 18.446440279483795 at step 9
+2024-10-23 16:51:08,852 - train_fabric.py:278 - loss_f_epoch: 986.1199951171875 at step 9
+2024-10-23 16:51:08,852 - train_fabric.py:278 - epoch: 9 at step 9
+2024-10-23 16:51:09,131 - train_fabric.py:267 - Training finalized with status: success
+2024-10-23 17:01:44,741 - train_fabric.py:265 - Namespace(train_file='tests/data/train.h5', valid_file='tests/data/valid.h5', test_file=None, statistics_file='tests/data/statistics.json', output_dir='tests/result', epochs=10, batch_size=64, batch_edge_limit=0, eval_batch_size=24, model='v1', alpha_drop=0.0, proj_drop=0.0, out_drop=0.0, drop_path_rate=0.0, opt='adamw', opt_eps=1e-08, opt_betas=None, clip_grad=None, momentum=0.9, weight_decay=0.005, sched='plateau', lr=0.01, lr_noise=None, lr_noise_pct=0.67, lr_noise_std=1.0, warmup_lr=0.01, min_lr=1e-06, decay_epochs=30, warmup_epochs=0, cooldown_epochs=0, patience_epochs=2, decay_rate=0.5, print_freq=100, energy_weight=0.2, force_weight=0.8, stress_weight=0.0, seed=1, workers=4, pin_mem=True, shuffle=True, load_checkpoint=None, load_checkpoint_model=None, evaluate=False, mixed_precision=False)
+2024-10-23 17:01:44,807 - train_fabric.py:265 - Using r_max=4.5 from statistics file `tests/data/statistics.json`
+2024-10-23 17:01:50,553 - train_fabric.py:265 - Epoch [0] Val -- loss: 2557.45352, loss_e: 0.61354, loss_f: 3196.66357
+2024-10-23 17:01:52,884 - train_fabric.py:265 - Epoch [0] Val -- loss: 4610.02253, loss_e: 0.95617, loss_f: 5762.28906
+2024-10-23 17:01:52,885 - train_fabric.py:280 - val_loss: 6752.812995395204 at step 0
+2024-10-23 17:01:52,885 - train_fabric.py:280 - loss_e: 1.2988636947702616 at step 0
+2024-10-23 17:01:52,885 - train_fabric.py:280 - loss_f: 8440.69140625 at step 0
+2024-10-23 17:01:52,885 - train_fabric.py:280 - epoch: 0 at step 0
+2024-10-23 17:01:52,891 - train_fabric.py:265 - Epoch [0] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 17:01:53,227 - train_fabric.py:285 - Checkpoint saved at <pytorch_lightning.callbacks.model_checkpoint.ModelCheckpoint object at 0x7f42ee68cca0>
+2024-10-23 17:01:53,228 - train_fabric.py:280 - train_loss_epoch: 2467.2320707277163 at step 0
+2024-10-23 17:01:53,228 - train_fabric.py:280 - loss_e_epoch: 0.6134786385810003 at step 0
+2024-10-23 17:01:53,228 - train_fabric.py:280 - loss_f_epoch: 3083.88671875 at step 0
+2024-10-23 17:01:53,228 - train_fabric.py:280 - epoch: 0 at step 0
+2024-10-23 17:01:55,852 - train_fabric.py:265 - Epoch [1] Val -- loss: 12756.06878, loss_e: 2.26043, loss_f: 15944.52051
+2024-10-23 17:01:55,853 - train_fabric.py:280 - val_loss: 16633.648275344818 at step 1
+2024-10-23 17:01:55,853 - train_fabric.py:280 - loss_e: 3.2218454740941525 at step 1
+2024-10-23 17:01:55,853 - train_fabric.py:280 - loss_f: 20791.25390625 at step 1
+2024-10-23 17:01:55,853 - train_fabric.py:280 - epoch: 1 at step 1
+2024-10-23 17:01:55,858 - train_fabric.py:265 - Epoch [1] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 17:01:55,861 - train_fabric.py:280 - train_loss_epoch: 8878.489293764671 at step 1
+2024-10-23 17:01:55,861 - train_fabric.py:280 - loss_e_epoch: 1.299007885856554 at step 1
+2024-10-23 17:01:55,861 - train_fabric.py:280 - loss_f_epoch: 11097.787109375 at step 1
+2024-10-23 17:01:55,861 - train_fabric.py:280 - epoch: 1 at step 1
+2024-10-23 17:01:58,619 - train_fabric.py:265 - Epoch [2] Val -- loss: 30263.21663, loss_e: 3.03629, loss_f: 37828.26172
+2024-10-23 17:01:58,620 - train_fabric.py:280 - val_loss: 43922.0234702874 at step 2
+2024-10-23 17:01:58,620 - train_fabric.py:280 - loss_e: 2.8517264369875193 at step 2
+2024-10-23 17:01:58,621 - train_fabric.py:280 - loss_f: 54901.8203125 at step 2
+2024-10-23 17:01:58,621 - train_fabric.py:280 - epoch: 2 at step 2
+2024-10-23 17:01:58,626 - train_fabric.py:265 - Epoch [2] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 17:01:58,628 - train_fabric.py:280 - train_loss_epoch: 16604.40979516059 at step 2
+2024-10-23 17:01:58,628 - train_fabric.py:280 - loss_e_epoch: 3.2208508029580116 at step 2
+2024-10-23 17:01:58,628 - train_fabric.py:280 - loss_f_epoch: 20754.70703125 at step 2
+2024-10-23 17:01:58,628 - train_fabric.py:280 - epoch: 2 at step 2
+2024-10-23 17:02:00,736 - train_fabric.py:265 - Epoch [3] Val -- loss: 40082.92380, loss_e: 4.32603, loss_f: 50102.57227
+2024-10-23 17:02:00,736 - train_fabric.py:280 - val_loss: 38798.77351384461 at step 3
+2024-10-23 17:02:00,736 - train_fabric.py:280 - loss_e: 5.801162973046303 at step 3
+2024-10-23 17:02:00,737 - train_fabric.py:280 - loss_f: 48497.015625 at step 3
+2024-10-23 17:02:00,737 - train_fabric.py:280 - epoch: 3 at step 3
+2024-10-23 17:02:00,742 - train_fabric.py:265 - Epoch [3] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 17:02:00,744 - train_fabric.py:280 - train_loss_epoch: 41367.07408598401 at step 3
+2024-10-23 17:02:00,744 - train_fabric.py:280 - loss_e_epoch: 2.8508986700326204 at step 3
+2024-10-23 17:02:00,744 - train_fabric.py:280 - loss_f_epoch: 51708.12890625 at step 3
+2024-10-23 17:02:00,744 - train_fabric.py:280 - epoch: 3 at step 3
+2024-10-23 17:02:02,904 - train_fabric.py:265 - Epoch [4] Val -- loss: 22474.18070, loss_e: 5.79606, loss_f: 28091.27637
+2024-10-23 17:02:02,905 - train_fabric.py:280 - val_loss: 18204.441405504942 at step 4
+2024-10-23 17:02:02,905 - train_fabric.py:280 - loss_e: 5.7910118997097015 at step 4
+2024-10-23 17:02:02,905 - train_fabric.py:280 - loss_f: 22754.103515625 at step 4
+2024-10-23 17:02:02,905 - train_fabric.py:280 - epoch: 4 at step 4
+2024-10-23 17:02:02,910 - train_fabric.py:265 - Epoch [4] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 17:02:02,912 - train_fabric.py:280 - train_loss_epoch: 26743.919988317786 at step 4
+2024-10-23 17:02:02,912 - train_fabric.py:280 - loss_e_epoch: 5.801113463938236 at step 4
+2024-10-23 17:02:02,912 - train_fabric.py:280 - loss_f_epoch: 33428.44921875 at step 4
+2024-10-23 17:02:02,912 - train_fabric.py:280 - epoch: 4 at step 4
+2024-10-23 17:02:05,027 - train_fabric.py:265 - Epoch [5] Val -- loss: 25236.50005, loss_e: 5.74245, loss_f: 31544.18848
+2024-10-23 17:02:05,028 - train_fabric.py:280 - val_loss: 27428.429714885355 at step 5
+2024-10-23 17:02:05,028 - train_fabric.py:280 - loss_e: 5.69349630177021 at step 5
+2024-10-23 17:02:05,029 - train_fabric.py:280 - loss_f: 34284.11328125 at step 5
+2024-10-23 17:02:05,029 - train_fabric.py:280 - epoch: 5 at step 5
+2024-10-23 17:02:05,034 - train_fabric.py:265 - Epoch [5] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 17:02:05,036 - train_fabric.py:280 - train_loss_epoch: 23044.570388253032 at step 5
+2024-10-23 17:02:05,036 - train_fabric.py:280 - loss_e_epoch: 5.791394390165806 at step 5
+2024-10-23 17:02:05,036 - train_fabric.py:280 - loss_f_epoch: 28804.263671875 at step 5
+2024-10-23 17:02:05,036 - train_fabric.py:280 - epoch: 5 at step 5
+2024-10-23 17:02:06,485 - train_fabric.py:265 - Epoch [6] Val -- loss: 17822.14633, loss_e: 5.62912, loss_f: 22276.27490
+2024-10-23 17:02:06,486 - train_fabric.py:280 - val_loss: 11177.720344215631 at step 6
+2024-10-23 17:02:06,486 - train_fabric.py:280 - loss_e: 5.564611703157425 at step 6
+2024-10-23 17:02:06,486 - train_fabric.py:280 - loss_f: 13970.7587890625 at step 6
+2024-10-23 17:02:06,486 - train_fabric.py:280 - epoch: 6 at step 6
+2024-10-23 17:02:06,491 - train_fabric.py:265 - Epoch [6] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 17:02:06,493 - train_fabric.py:280 - train_loss_epoch: 24466.57231795192 at step 6
+2024-10-23 17:02:06,493 - train_fabric.py:280 - loss_e_epoch: 5.693621009588242 at step 6
+2024-10-23 17:02:06,493 - train_fabric.py:280 - loss_f_epoch: 30581.791015625 at step 6
+2024-10-23 17:02:06,493 - train_fabric.py:280 - epoch: 6 at step 6
+2024-10-23 17:02:07,964 - train_fabric.py:265 - Epoch [7] Val -- loss: 10692.46494, loss_e: 5.55954, loss_f: 13364.19141
+2024-10-23 17:02:07,965 - train_fabric.py:280 - val_loss: 8249.735858543218 at step 7
+2024-10-23 17:02:07,965 - train_fabric.py:280 - loss_e: 5.554292716085911 at step 7
+2024-10-23 17:02:07,965 - train_fabric.py:280 - loss_f: 10310.78125 at step 7
+2024-10-23 17:02:07,965 - train_fabric.py:280 - epoch: 7 at step 7
+2024-10-23 17:02:07,970 - train_fabric.py:265 - Epoch [7] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 17:02:07,972 - train_fabric.py:280 - train_loss_epoch: 13135.194012440741 at step 7
+2024-10-23 17:02:07,972 - train_fabric.py:280 - loss_e_epoch: 5.564788766205311 at step 7
+2024-10-23 17:02:07,972 - train_fabric.py:280 - loss_f_epoch: 16417.6015625 at step 7
+2024-10-23 17:02:07,972 - train_fabric.py:280 - epoch: 7 at step 7
+2024-10-23 17:02:09,508 - train_fabric.py:265 - Epoch [8] Val -- loss: 10012.91086, loss_e: 5.55285, loss_f: 12514.75000
+2024-10-23 17:02:09,509 - train_fabric.py:280 - val_loss: 8375.331960842013 at step 8
+2024-10-23 17:02:09,509 - train_fabric.py:280 - loss_e: 5.551405772566795 at step 8
+2024-10-23 17:02:09,509 - train_fabric.py:280 - loss_f: 10467.7763671875 at step 8
+2024-10-23 17:02:09,509 - train_fabric.py:280 - epoch: 8 at step 8
+2024-10-23 17:02:09,515 - train_fabric.py:265 - Epoch [8] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 17:02:09,517 - train_fabric.py:280 - train_loss_epoch: 11650.489766227454 at step 8
+2024-10-23 17:02:09,517 - train_fabric.py:280 - loss_e_epoch: 5.554299887269735 at step 8
+2024-10-23 17:02:09,517 - train_fabric.py:280 - loss_f_epoch: 14561.7236328125 at step 8
+2024-10-23 17:02:09,517 - train_fabric.py:280 - epoch: 8 at step 8
+2024-10-23 17:02:11,019 - train_fabric.py:265 - Epoch [9] Val -- loss: 12054.39907, loss_e: 5.55248, loss_f: 15066.61084
+2024-10-23 17:02:11,020 - train_fabric.py:280 - val_loss: 12501.524758438021 at step 9
+2024-10-23 17:02:11,020 - train_fabric.py:280 - loss_e: 5.553479690104723 at step 9
+2024-10-23 17:02:11,020 - train_fabric.py:280 - loss_f: 15625.5185546875 at step 9
+2024-10-23 17:02:11,020 - train_fabric.py:280 - epoch: 9 at step 9
+2024-10-23 17:02:11,026 - train_fabric.py:265 - Epoch [9] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 17:02:11,028 - train_fabric.py:280 - train_loss_epoch: 11607.273382856696 at step 9
+2024-10-23 17:02:11,028 - train_fabric.py:280 - loss_e_epoch: 5.5514845959842205 at step 9
+2024-10-23 17:02:11,028 - train_fabric.py:280 - loss_f_epoch: 14507.7041015625 at step 9
+2024-10-23 17:02:11,028 - train_fabric.py:280 - epoch: 9 at step 9
+2024-10-23 17:02:11,307 - train_fabric.py:268 - Training finalized with status: success
+2024-10-23 17:12:56,946 - train_fabric.py:265 - Namespace(train_file='tests/data/train.h5', valid_file='tests/data/valid.h5', test_file=None, statistics_file='tests/data/statistics.json', output_dir='tests/result', epochs=10, batch_size=64, batch_edge_limit=0, eval_batch_size=24, model='v1', alpha_drop=0.0, proj_drop=0.0, out_drop=0.0, drop_path_rate=0.0, opt='adamw', opt_eps=1e-08, opt_betas=None, clip_grad=None, momentum=0.9, weight_decay=0.005, sched='plateau', lr=0.01, lr_noise=None, lr_noise_pct=0.67, lr_noise_std=1.0, warmup_lr=0.01, min_lr=1e-06, decay_epochs=30, warmup_epochs=0, cooldown_epochs=0, patience_epochs=2, decay_rate=0.5, print_freq=100, energy_weight=0.2, force_weight=0.8, stress_weight=0.0, seed=1, workers=4, pin_mem=True, shuffle=True, load_checkpoint=None, load_checkpoint_model=None, evaluate=False, mixed_precision=False)
+2024-10-23 17:12:57,020 - train_fabric.py:265 - Using r_max=4.5 from statistics file `tests/data/statistics.json`
+2024-10-23 17:13:03,532 - train_fabric.py:265 - Epoch [0] Val -- loss: 2403.52822, loss_e: 0.61293, loss_f: 3005.01895
+2024-10-23 17:13:07,310 - train_fabric.py:265 - Epoch [0] Val -- loss: 15068.78271, loss_e: 5.75256, loss_f: 18973.85263
+2024-10-23 17:13:07,311 - train_fabric.py:280 - val_loss: 27005.020879761876 at step 1
+2024-10-23 17:13:07,311 - train_fabric.py:280 - loss_e: 9.847450296996403 at step 1
+2024-10-23 17:13:07,311 - train_fabric.py:280 - loss_f: 34033.75390625 at step 1
+2024-10-23 17:13:07,311 - train_fabric.py:280 - epoch: 0 at step 1
+2024-10-23 17:13:07,317 - train_fabric.py:265 - Epoch [0] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 17:13:07,644 - train_fabric.py:285 - Checkpoint saved at <pytorch_lightning.callbacks.model_checkpoint.ModelCheckpoint object at 0x7f3cc4bf3e80>
+2024-10-23 17:13:07,645 - train_fabric.py:280 - train_loss_epoch: 3131.4953253376602 at step 1
+2024-10-23 17:13:07,645 - train_fabric.py:280 - loss_e_epoch: 1.6668687030776508 at step 1
+2024-10-23 17:13:07,645 - train_fabric.py:280 - loss_f_epoch: 3913.952392578125 at step 1
+2024-10-23 17:13:07,645 - train_fabric.py:280 - epoch: 0 at step 1
+2024-10-23 17:13:09,807 - train_fabric.py:265 - Epoch [1] Val -- loss: 21689.56196, loss_e: 4.60910, loss_f: 27090.66569
+2024-10-23 17:13:09,808 - train_fabric.py:280 - val_loss: 19597.065408962873 at step 3
+2024-10-23 17:13:09,808 - train_fabric.py:280 - loss_e: 0.6984271822019972 at step 3
+2024-10-23 17:13:09,808 - train_fabric.py:280 - loss_f: 24478.283203125 at step 3
+2024-10-23 17:13:09,808 - train_fabric.py:280 - epoch: 1 at step 3
+2024-10-23 17:13:09,814 - train_fabric.py:265 - Epoch [1] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 17:13:10,234 - train_fabric.py:285 - Checkpoint saved at <pytorch_lightning.callbacks.model_checkpoint.ModelCheckpoint object at 0x7f3cc4bf3e80>
+2024-10-23 17:13:10,235 - train_fabric.py:280 - train_loss_epoch: 23764.14166272751 at step 3
+2024-10-23 17:13:10,235 - train_fabric.py:280 - loss_e_epoch: 8.517181976548398 at step 3
+2024-10-23 17:13:10,235 - train_fabric.py:280 - loss_f_epoch: 29703.046875 at step 3
+2024-10-23 17:13:10,235 - train_fabric.py:280 - epoch: 1 at step 3
+2024-10-23 17:13:11,919 - train_fabric.py:265 - Epoch [2] Val -- loss: 20806.69390, loss_e: 0.91273, loss_f: 26466.44044
+2024-10-23 17:13:11,920 - train_fabric.py:280 - val_loss: 25845.18236347474 at step 5
+2024-10-23 17:13:11,920 - train_fabric.py:280 - loss_e: 0.9776952566236866 at step 5
+2024-10-23 17:13:11,920 - train_fabric.py:280 - loss_f: 32212.693359375 at step 5
+2024-10-23 17:13:11,920 - train_fabric.py:280 - epoch: 2 at step 5
+2024-10-23 17:13:11,926 - train_fabric.py:265 - Epoch [2] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 17:13:11,928 - train_fabric.py:280 - train_loss_epoch: 16576.31712706809 at step 5
+2024-10-23 17:13:11,928 - train_fabric.py:280 - loss_e_epoch: 0.8423240185333014 at step 5
+2024-10-23 17:13:11,928 - train_fabric.py:280 - loss_f_epoch: 20720.18359375 at step 5
+2024-10-23 17:13:11,928 - train_fabric.py:280 - epoch: 2 at step 5
+2024-10-23 17:13:13,624 - train_fabric.py:265 - Epoch [3] Val -- loss: 42982.43854, loss_e: 2.05109, loss_f: 53784.41143
+2024-10-23 17:13:13,625 - train_fabric.py:280 - val_loss: 75123.9942350272 at step 7
+2024-10-23 17:13:13,625 - train_fabric.py:280 - loss_e: 2.5329948961481352 at step 7
+2024-10-23 17:13:13,625 - train_fabric.py:280 - loss_f: 93840.7421875 at step 7
+2024-10-23 17:13:13,625 - train_fabric.py:280 - epoch: 3 at step 7
+2024-10-23 17:13:13,630 - train_fabric.py:265 - Epoch [3] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 17:13:13,632 - train_fabric.py:280 - train_loss_epoch: 10982.780730610966 at step 7
+2024-10-23 17:13:13,632 - train_fabric.py:280 - loss_e_epoch: 1.5907943175847974 at step 7
+2024-10-23 17:13:13,632 - train_fabric.py:280 - loss_f_epoch: 13728.078125 at step 7
+2024-10-23 17:13:13,633 - train_fabric.py:280 - epoch: 3 at step 7
+2024-10-23 17:13:15,297 - train_fabric.py:265 - Epoch [4] Val -- loss: 127965.47261, loss_e: 1.45240, loss_f: 164490.84607
+2024-10-23 17:13:15,298 - train_fabric.py:280 - val_loss: 167437.7564262062 at step 9
+2024-10-23 17:13:15,298 - train_fabric.py:280 - loss_e: 1.2462771280527183 at step 9
+2024-10-23 17:13:15,298 - train_fabric.py:280 - loss_f: 213166.796875 at step 9
+2024-10-23 17:13:15,298 - train_fabric.py:280 - epoch: 4 at step 9
+2024-10-23 17:13:15,303 - train_fabric.py:265 - Epoch [4] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 17:13:15,305 - train_fabric.py:280 - train_loss_epoch: 92652.2619092149 at step 9
+2024-10-23 17:13:15,305 - train_fabric.py:280 - loss_e_epoch: 1.7193037276314636 at step 9
+2024-10-23 17:13:15,305 - train_fabric.py:280 - loss_f_epoch: 115814.90625 at step 9
+2024-10-23 17:13:15,305 - train_fabric.py:280 - epoch: 4 at step 9
+2024-10-23 17:13:17,019 - train_fabric.py:265 - Epoch [5] Val -- loss: 540047.57792, loss_e: 3.61227, loss_f: 661319.32531
+2024-10-23 17:13:17,020 - train_fabric.py:280 - val_loss: 990264.2183299587 at step 11
+2024-10-23 17:13:17,020 - train_fabric.py:280 - loss_e: 5.914586928953963 at step 11
+2024-10-23 17:13:17,020 - train_fabric.py:280 - loss_f: 1210206.0 at step 11
+2024-10-23 17:13:17,020 - train_fabric.py:280 - epoch: 5 at step 11
+2024-10-23 17:13:17,026 - train_fabric.py:265 - Epoch [5] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 17:13:17,028 - train_fabric.py:280 - train_loss_epoch: 89946.37019259336 at step 11
+2024-10-23 17:13:17,028 - train_fabric.py:280 - loss_e_epoch: 1.2993933806056475 at step 11
+2024-10-23 17:13:17,028 - train_fabric.py:280 - loss_f_epoch: 112432.6328125 at step 11
+2024-10-23 17:13:17,028 - train_fabric.py:280 - epoch: 5 at step 11
+2024-10-23 17:13:18,743 - train_fabric.py:265 - Epoch [6] Val -- loss: 1359854.50936, loss_e: 8.87494, loss_f: 1685098.94884
+2024-10-23 17:13:18,744 - train_fabric.py:280 - val_loss: 1482590.300221576 at step 13
+2024-10-23 17:13:18,745 - train_fabric.py:280 - loss_e: 9.696566838323394 at step 13
+2024-10-23 17:13:18,745 - train_fabric.py:280 - loss_f: 1815843.375 at step 13
+2024-10-23 17:13:18,745 - train_fabric.py:280 - epoch: 6 at step 13
+2024-10-23 17:13:18,750 - train_fabric.py:265 - Epoch [6] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 17:13:18,752 - train_fabric.py:280 - train_loss_epoch: 1243485.2160002617 at step 13
+2024-10-23 17:13:18,752 - train_fabric.py:280 - loss_e_epoch: 8.171838044207924 at step 13
+2024-10-23 17:13:18,752 - train_fabric.py:280 - loss_f_epoch: 1554354.5 at step 13
+2024-10-23 17:13:18,752 - train_fabric.py:280 - epoch: 6 at step 13
+2024-10-23 17:13:20,468 - train_fabric.py:265 - Epoch [7] Val -- loss: 1241647.20414, loss_e: 10.15154, loss_f: 1592301.50175
+2024-10-23 17:13:20,469 - train_fabric.py:280 - val_loss: 408221.0882021025 at step 15
+2024-10-23 17:13:20,469 - train_fabric.py:280 - loss_e: 10.600557011203701 at step 15
+2024-10-23 17:13:20,469 - train_fabric.py:280 - loss_f: 547257.75 at step 15
+2024-10-23 17:13:20,469 - train_fabric.py:280 - epoch: 7 at step 15
+2024-10-23 17:13:20,474 - train_fabric.py:265 - Epoch [7] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 17:13:20,476 - train_fabric.py:280 - train_loss_epoch: 2109878.2259267755 at step 15
+2024-10-23 17:13:20,476 - train_fabric.py:280 - loss_e_epoch: 9.803103266017777 at step 15
+2024-10-23 17:13:20,477 - train_fabric.py:280 - loss_f_epoch: 2637345.0 at step 15
+2024-10-23 17:13:20,477 - train_fabric.py:280 - epoch: 7 at step 15
+2024-10-23 17:13:22,182 - train_fabric.py:265 - Epoch [8] Val -- loss: 236215.42593, loss_e: 10.56715, loss_f: 287389.32098
+2024-10-23 17:13:22,183 - train_fabric.py:280 - val_loss: 271263.3796799153 at step 17
+2024-10-23 17:13:22,183 - train_fabric.py:280 - loss_e: 10.615437926754119 at step 17
+2024-10-23 17:13:22,183 - train_fabric.py:280 - loss_f: 338055.46875 at step 17
+2024-10-23 17:13:22,183 - train_fabric.py:280 - epoch: 8 at step 17
+2024-10-23 17:13:22,189 - train_fabric.py:265 - Epoch [8] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 17:13:22,191 - train_fabric.py:280 - train_loss_epoch: 189380.64863262005 at step 17
+2024-10-23 17:13:22,191 - train_fabric.py:280 - loss_e_epoch: 10.656889007272634 at step 17
+2024-10-23 17:13:22,192 - train_fabric.py:280 - loss_f_epoch: 236723.15625 at step 17
+2024-10-23 17:13:22,192 - train_fabric.py:280 - epoch: 8 at step 17
+2024-10-23 17:13:23,865 - train_fabric.py:265 - Epoch [9] Val -- loss: 252264.53695, loss_e: 10.67302, loss_f: 317223.56881
+2024-10-23 17:13:23,866 - train_fabric.py:280 - val_loss: 276298.27356957947 at step 19
+2024-10-23 17:13:23,866 - train_fabric.py:280 - loss_e: 10.726120982986458 at step 19
+2024-10-23 17:13:23,866 - train_fabric.py:280 - loss_f: 349249.3125 at step 19
+2024-10-23 17:13:23,866 - train_fabric.py:280 - epoch: 9 at step 19
+2024-10-23 17:13:23,872 - train_fabric.py:265 - Epoch [9] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 17:13:23,874 - train_fabric.py:280 - train_loss_epoch: 228160.37603154188 at step 19
+2024-10-23 17:13:23,874 - train_fabric.py:280 - loss_e_epoch: 10.642381348847803 at step 19
+2024-10-23 17:13:23,874 - train_fabric.py:280 - loss_f_epoch: 285197.8125 at step 19
+2024-10-23 17:13:23,874 - train_fabric.py:280 - epoch: 9 at step 19
+2024-10-23 17:13:24,175 - train_fabric.py:268 - Training finalized with status: success
+2024-10-23 17:19:47,435 - train.py:82 - Namespace(train_file='tests/data/train.h5', valid_file='tests/data/valid.h5', test_file=None, statistics_file='tests/data/statistics.json', output_dir='tests/result', epochs=10, batch_size=64, batch_edge_limit=0, eval_batch_size=24, model='v1', alpha_drop=0.0, proj_drop=0.0, out_drop=0.0, drop_path_rate=0.0, opt='adamw', opt_eps=1e-08, opt_betas=None, clip_grad=None, momentum=0.9, weight_decay=0.005, sched='plateau', lr=0.01, lr_noise=None, lr_noise_pct=0.67, lr_noise_std=1.0, warmup_lr=0.01, min_lr=1e-06, decay_epochs=30, warmup_epochs=0, cooldown_epochs=0, patience_epochs=2, decay_rate=0.5, print_freq=100, energy_weight=0.2, force_weight=0.8, stress_weight=0.0, seed=1, workers=4, pin_mem=True, shuffle=True, load_checkpoint=None, load_checkpoint_model=None, evaluate=False, mixed_precision=False)
+2024-10-23 17:19:47,506 - train.py:82 - Using r_max=4.5 from statistics file `tests/data/statistics.json`
+2024-10-23 17:19:52,040 - train.py:82 - Number of params: 8725251
+2024-10-23 17:19:53,695 - train.py:82 - Epoch [   0] Val   -- loss: 11404.62195, loss_e: 0.60973, loss_f: 14255.62500
+2024-10-23 17:19:55,324 - train.py:82 - Epoch [   1][     0/1] -- loss: 8728.11320, loss_e: 0.60995, loss_f: 10909.98828, time/step=1608ms, lr=1.00e-02
+2024-10-23 17:19:56,174 - train.py:82 - Validation error decreased. Saving model to `best_val_epochs@1_e@13083.6602`...
+2024-10-23 17:19:56,352 - train.py:82 - Epoch [   1] Train -- loss: 8728.11320, loss_e: 0.60995, loss_f: 10909.98828, Time: 2.65s
+2024-10-23 17:19:56,352 - train.py:82 - Epoch [   1] Val   -- loss: 13083.66020, loss_e: 10.90352, loss_f: 16351.84863
+2024-10-23 17:19:57,746 - train.py:82 - Epoch [   2][     0/1] -- loss: 13457.01589, loss_e: 10.90463, loss_f: 16818.54297, time/step=1386ms, lr=1.00e-02
+2024-10-23 17:19:58,421 - train.py:82 - Epoch [   2] Train -- loss: 13457.01589, loss_e: 10.90463, loss_f: 16818.54297, Time: 2.07s
+2024-10-23 17:19:58,422 - train.py:82 - Epoch [   2] Val   -- loss: 106245.88572, loss_e: 19.74112, loss_f: 132802.42188
+2024-10-23 17:19:59,935 - train.py:82 - Epoch [   3][     0/1] -- loss: 109875.11252, loss_e: 19.74227, loss_f: 137338.95312, time/step=1505ms, lr=1.00e-02
+2024-10-23 17:20:00,642 - train.py:82 - Epoch [   3] Train -- loss: 109875.11252, loss_e: 19.74227, loss_f: 137338.95312, Time: 2.22s
+2024-10-23 17:20:00,643 - train.py:82 - Epoch [   3] Val   -- loss: 153877.34808, loss_e: 18.14667, loss_f: 192342.14062
+2024-10-23 17:20:01,571 - train.py:82 - Epoch [   4][     0/1] -- loss: 97874.69242, loss_e: 18.14960, loss_f: 122338.82812, time/step=920ms, lr=1.00e-02
+2024-10-23 17:20:02,267 - train.py:82 - Epoch [   4] Train -- loss: 97874.69242, loss_e: 18.14960, loss_f: 122338.82812, Time: 1.62s
+2024-10-23 17:20:02,268 - train.py:82 - Epoch [   4] Val   -- loss: 48168.63252, loss_e: 15.31104, loss_f: 60206.96094
+2024-10-23 17:20:03,172 - train.py:82 - Epoch [   5][     0/1] -- loss: 102197.64051, loss_e: 15.31193, loss_f: 127743.21875, time/step=896ms, lr=1.00e-02
+2024-10-23 17:20:03,873 - train.py:82 - Epoch [   5] Train -- loss: 102197.64051, loss_e: 15.31193, loss_f: 127743.21875, Time: 1.60s
+2024-10-23 17:20:03,875 - train.py:82 - Epoch [   5] Val   -- loss: 107179.98511, loss_e: 11.05836, loss_f: 133972.21875
+2024-10-23 17:20:04,773 - train.py:82 - Epoch [   6][     0/1] -- loss: 135154.27399, loss_e: 11.05745, loss_f: 168940.07812, time/step=890ms, lr=1.00e-02
+2024-10-23 17:20:05,468 - train.py:82 - Epoch [   6] Train -- loss: 135154.27399, loss_e: 11.05745, loss_f: 168940.07812, Time: 1.59s
+2024-10-23 17:20:05,469 - train.py:82 - Epoch [   6] Val   -- loss: 83741.21933, loss_e: 15.08103, loss_f: 104672.75000
+2024-10-23 17:20:06,390 - train.py:82 - Epoch [   7][     0/1] -- loss: 109189.89156, loss_e: 15.08282, loss_f: 136483.59375, time/step=913ms, lr=1.00e-02
+2024-10-23 17:20:07,092 - train.py:82 - Epoch [   7] Train -- loss: 109189.89156, loss_e: 15.08282, loss_f: 136483.59375, Time: 1.62s
+2024-10-23 17:20:07,093 - train.py:82 - Epoch [   7] Val   -- loss: 125585.66797, loss_e: 20.56641, loss_f: 156976.93750
+2024-10-23 17:20:07,982 - train.py:82 - Epoch [   8][     0/1] -- loss: 157048.91026, loss_e: 20.56694, loss_f: 196306.00000, time/step=880ms, lr=1.00e-02
+2024-10-23 17:20:08,692 - train.py:82 - Epoch [   8] Train -- loss: 157048.91026, loss_e: 20.56694, loss_f: 196306.00000, Time: 1.60s
+2024-10-23 17:20:08,693 - train.py:82 - Epoch [   8] Val   -- loss: 188359.83061, loss_e: 25.24680, loss_f: 235443.46875
+2024-10-23 17:20:09,586 - train.py:82 - Epoch [   9][     0/1] -- loss: 176444.54954, loss_e: 25.24772, loss_f: 220549.37500, time/step=885ms, lr=1.00e-02
+2024-10-23 17:20:10,288 - train.py:82 - Epoch [   9] Train -- loss: 176444.54954, loss_e: 25.24772, loss_f: 220549.37500, Time: 1.59s
+2024-10-23 17:20:10,289 - train.py:82 - Epoch [   9] Val   -- loss: 61419.58653, loss_e: 27.32717, loss_f: 76767.64844
+2024-10-23 17:20:11,212 - train.py:82 - Epoch [  10][     0/1] -- loss: 223234.13732, loss_e: 27.32721, loss_f: 279035.84375, time/step=916ms, lr=1.00e-02
+2024-10-23 17:20:11,925 - train.py:82 - Epoch [  10] Train -- loss: 223234.13732, loss_e: 27.32721, loss_f: 279035.84375, Time: 1.64s
+2024-10-23 17:20:11,926 - train.py:82 - Epoch [  10] Val   -- loss: 103773.01603, loss_e: 27.77546, loss_f: 129709.32812
+2024-10-23 17:26:45,990 - train_fabric.py:265 - Namespace(train_file='tests/data/train.h5', valid_file='tests/data/valid.h5', test_file=None, statistics_file='tests/data/statistics.json', output_dir='tests/result', epochs=10, batch_size=64, batch_edge_limit=0, eval_batch_size=24, model='v1', alpha_drop=0.0, proj_drop=0.0, out_drop=0.0, drop_path_rate=0.0, opt='adamw', opt_eps=1e-08, opt_betas=None, clip_grad=None, momentum=0.9, weight_decay=0.005, sched='plateau', lr=0.01, lr_noise=None, lr_noise_pct=0.67, lr_noise_std=1.0, warmup_lr=0.01, min_lr=1e-06, decay_epochs=30, warmup_epochs=0, cooldown_epochs=0, patience_epochs=2, decay_rate=0.5, print_freq=100, energy_weight=0.2, force_weight=0.8, stress_weight=0.0, seed=1, workers=4, pin_mem=True, shuffle=True, load_checkpoint=None, load_checkpoint_model=None, evaluate=False, mixed_precision=False)
+2024-10-23 17:26:46,059 - train_fabric.py:265 - Using r_max=4.5 from statistics file `tests/data/statistics.json`
+2024-10-23 17:26:52,851 - train_fabric.py:265 - Epoch [0] Val -- loss: 2578.85153, loss_e: 0.61324, loss_f: 3224.82628
+2024-10-23 17:26:56,648 - train_fabric.py:265 - Epoch [0] Val -- loss: 19691.05043, loss_e: 0.96200, loss_f: 24859.06340
+2024-10-23 17:26:56,649 - train_fabric.py:280 - val_loss: 51020.61416168697 at step 1
+2024-10-23 17:26:56,649 - train_fabric.py:280 - loss_e: 1.2733023135358987 at step 1
+2024-10-23 17:26:56,650 - train_fabric.py:280 - loss_f: 64509.40625 at step 1
+2024-10-23 17:26:56,650 - train_fabric.py:280 - epoch: 0 at step 1
+2024-10-23 17:26:56,655 - train_fabric.py:265 - Epoch [0] Train -- loss: 19691.05043, loss_e: 0.96200, loss_f: 24859.06340
+2024-10-23 17:26:56,981 - train_fabric.py:285 - Checkpoint saved at <pytorch_lightning.callbacks.model_checkpoint.ModelCheckpoint object at 0x7f1e042acca0>
+2024-10-23 17:26:56,982 - train_fabric.py:280 - train_loss_epoch: 5474.562764488896 at step 1
+2024-10-23 17:26:56,982 - train_fabric.py:280 - loss_e_epoch: 0.9979310488627163 at step 1
+2024-10-23 17:26:56,982 - train_fabric.py:280 - loss_f_epoch: 6842.95361328125 at step 1
+2024-10-23 17:26:56,982 - train_fabric.py:280 - epoch: 0 at step 1
+2024-10-23 17:26:59,129 - train_fabric.py:265 - Epoch [1] Val -- loss: 27997.89183, loss_e: 1.00371, loss_f: 35161.75399
+2024-10-23 17:26:59,130 - train_fabric.py:280 - val_loss: 47147.3518922437 at step 3
+2024-10-23 17:26:59,130 - train_fabric.py:280 - loss_e: 0.7438678532593848 at step 3
+2024-10-23 17:26:59,130 - train_fabric.py:280 - loss_f: 59079.9453125 at step 3
+2024-10-23 17:26:59,130 - train_fabric.py:280 - epoch: 1 at step 3
+2024-10-23 17:26:59,135 - train_fabric.py:265 - Epoch [1] Train -- loss: 27997.89183, loss_e: 1.00371, loss_f: 35161.75399
+2024-10-23 17:26:59,547 - train_fabric.py:285 - Checkpoint saved at <pytorch_lightning.callbacks.model_checkpoint.ModelCheckpoint object at 0x7f1e042acca0>
+2024-10-23 17:26:59,548 - train_fabric.py:280 - train_loss_epoch: 33721.58687877069 at step 3
+2024-10-23 17:26:59,548 - train_fabric.py:280 - loss_e_epoch: 1.3889781611542853 at step 3
+2024-10-23 17:26:59,548 - train_fabric.py:280 - loss_f_epoch: 42151.63671875 at step 3
+2024-10-23 17:26:59,548 - train_fabric.py:280 - epoch: 1 at step 3
+2024-10-23 17:27:01,236 - train_fabric.py:265 - Epoch [2] Val -- loss: 33936.21229, loss_e: 3.03175, loss_f: 42805.95288
+2024-10-23 17:27:01,237 - train_fabric.py:280 - val_loss: 52990.2838838309 at step 5
+2024-10-23 17:27:01,237 - train_fabric.py:280 - loss_e: 12.699326766591494 at step 5
+2024-10-23 17:27:01,237 - train_fabric.py:280 - loss_f: 66150.015625 at step 5
+2024-10-23 17:27:01,237 - train_fabric.py:280 - epoch: 2 at step 5
+2024-10-23 17:27:01,243 - train_fabric.py:265 - Epoch [2] Train -- loss: 33936.21229, loss_e: 3.03175, loss_f: 42805.95288
+2024-10-23 17:27:01,245 - train_fabric.py:280 - train_loss_epoch: 46146.97243414299 at step 5
+2024-10-23 17:27:01,245 - train_fabric.py:280 - loss_e_epoch: 3.312625115454332 at step 5
+2024-10-23 17:27:01,245 - train_fabric.py:280 - loss_f_epoch: 57682.8828125 at step 5
+2024-10-23 17:27:01,245 - train_fabric.py:280 - epoch: 2 at step 5
+2024-10-23 17:27:02,910 - train_fabric.py:265 - Epoch [3] Val -- loss: 34761.55626, loss_e: 4.91761, loss_f: 43723.99888
+2024-10-23 17:27:02,911 - train_fabric.py:280 - val_loss: 42296.08802722245 at step 7
+2024-10-23 17:27:02,911 - train_fabric.py:280 - loss_e: 9.376931127034076 at step 7
+2024-10-23 17:27:02,911 - train_fabric.py:280 - loss_f: 52984.4453125 at step 7
+2024-10-23 17:27:02,911 - train_fabric.py:280 - epoch: 3 at step 7
+2024-10-23 17:27:02,917 - train_fabric.py:265 - Epoch [3] Train -- loss: 34761.55626, loss_e: 4.91761, loss_f: 43723.99888
+2024-10-23 17:27:03,311 - train_fabric.py:285 - Checkpoint saved at <pytorch_lightning.callbacks.model_checkpoint.ModelCheckpoint object at 0x7f1e042acca0>
+2024-10-23 17:27:03,312 - train_fabric.py:280 - train_loss_epoch: 32714.64196665464 at step 7
+2024-10-23 17:27:03,312 - train_fabric.py:280 - loss_e_epoch: 13.709917421446365 at step 7
+2024-10-23 17:27:03,312 - train_fabric.py:280 - loss_f_epoch: 40889.87109375 at step 7
+2024-10-23 17:27:03,312 - train_fabric.py:280 - epoch: 3 at step 7
+2024-10-23 17:27:04,984 - train_fabric.py:265 - Epoch [4] Val -- loss: 92980.14751, loss_e: 7.76064, loss_f: 114838.57290
+2024-10-23 17:27:04,985 - train_fabric.py:280 - val_loss: 344496.8383194327 at step 9
+2024-10-23 17:27:04,985 - train_fabric.py:280 - loss_e: 26.896425884056523 at step 9
+2024-10-23 17:27:04,985 - train_fabric.py:280 - loss_f: 430267.71875 at step 9
+2024-10-23 17:27:04,985 - train_fabric.py:280 - epoch: 4 at step 9
+2024-10-23 17:27:04,990 - train_fabric.py:265 - Epoch [4] Train -- loss: 92980.14751, loss_e: 7.76064, loss_f: 114838.57290
+2024-10-23 17:27:04,992 - train_fabric.py:280 - train_loss_epoch: 351555.2777840039 at step 9
+2024-10-23 17:27:04,993 - train_fabric.py:280 - loss_e_epoch: 14.013193687343813 at step 9
+2024-10-23 17:27:04,993 - train_fabric.py:280 - loss_f_epoch: 439440.53125 at step 9
+2024-10-23 17:27:04,993 - train_fabric.py:280 - epoch: 4 at step 9
+2024-10-23 17:27:06,680 - train_fabric.py:265 - Epoch [5] Val -- loss: 101375.73421, loss_e: 9.27035, loss_f: 123920.48031
+2024-10-23 17:27:06,681 - train_fabric.py:280 - val_loss: 38423.96235360801 at step 11
+2024-10-23 17:27:06,681 - train_fabric.py:280 - loss_e: 19.25336604918482 at step 11
+2024-10-23 17:27:06,681 - train_fabric.py:280 - loss_f: 47234.61328125 at step 11
+2024-10-23 17:27:06,681 - train_fabric.py:280 - epoch: 5 at step 11
+2024-10-23 17:27:06,687 - train_fabric.py:265 - Epoch [5] Train -- loss: 101375.73421, loss_e: 9.27035, loss_f: 123920.48031
+2024-10-23 17:27:07,088 - train_fabric.py:285 - Checkpoint saved at <pytorch_lightning.callbacks.model_checkpoint.ModelCheckpoint object at 0x7f1e042acca0>
+2024-10-23 17:27:07,089 - train_fabric.py:280 - train_loss_epoch: 240408.93284676038 at step 11
+2024-10-23 17:27:07,089 - train_fabric.py:280 - loss_e_epoch: 15.311643807525808 at step 11
+2024-10-23 17:27:07,089 - train_fabric.py:280 - loss_f_epoch: 300507.3125 at step 11
+2024-10-23 17:27:07,089 - train_fabric.py:280 - epoch: 5 at step 11
+2024-10-23 17:27:08,758 - train_fabric.py:265 - Epoch [6] Val -- loss: 99412.90020, loss_e: 9.44357, loss_f: 121865.53509
+2024-10-23 17:27:08,759 - train_fabric.py:280 - val_loss: 114474.15097830669 at step 13
+2024-10-23 17:27:08,759 - train_fabric.py:280 - loss_e: 4.090104736117413 at step 13
+2024-10-23 17:27:08,759 - train_fabric.py:280 - loss_f: 143129.5 at step 13
+2024-10-23 17:27:08,759 - train_fabric.py:280 - epoch: 6 at step 13
+2024-10-23 17:27:08,764 - train_fabric.py:265 - Epoch [6] Train -- loss: 99412.90020, loss_e: 9.44357, loss_f: 121865.53509
+2024-10-23 17:27:08,766 - train_fabric.py:280 - train_loss_epoch: 59113.232601106654 at step 13
+2024-10-23 17:27:08,766 - train_fabric.py:280 - loss_e_epoch: 17.027960890409897 at step 13
+2024-10-23 17:27:08,767 - train_fabric.py:280 - loss_f_epoch: 73887.28125 at step 13
+2024-10-23 17:27:08,767 - train_fabric.py:280 - epoch: 6 at step 13
+2024-10-23 17:27:10,464 - train_fabric.py:265 - Epoch [7] Val -- loss: 126906.46504, loss_e: 8.75662, loss_f: 157093.92450
+2024-10-23 17:27:10,465 - train_fabric.py:280 - val_loss: 422588.6656397149 at step 15
+2024-10-23 17:27:10,465 - train_fabric.py:280 - loss_e: 4.535070790015921 at step 15
+2024-10-23 17:27:10,465 - train_fabric.py:280 - loss_f: 541118.9375 at step 15
+2024-10-23 17:27:10,465 - train_fabric.py:280 - epoch: 7 at step 15
+2024-10-23 17:27:10,471 - train_fabric.py:265 - Epoch [7] Train -- loss: 126906.46504, loss_e: 8.75662, loss_f: 157093.92450
+2024-10-23 17:27:10,473 - train_fabric.py:280 - train_loss_epoch: 241196.33885663006 at step 15
+2024-10-23 17:27:10,473 - train_fabric.py:280 - loss_e_epoch: 2.7386071297283077 at step 15
+2024-10-23 17:27:10,473 - train_fabric.py:280 - loss_f_epoch: 301494.71875 at step 15
+2024-10-23 17:27:10,473 - train_fabric.py:280 - epoch: 7 at step 15
+2024-10-23 17:27:12,199 - train_fabric.py:265 - Epoch [8] Val -- loss: 170250.08346, loss_e: 8.50930, loss_f: 211868.00283
+2024-10-23 17:27:12,200 - train_fabric.py:280 - val_loss: 772152.8956769346 at step 17
+2024-10-23 17:27:12,200 - train_fabric.py:280 - loss_e: 7.1364727639962755 at step 17
+2024-10-23 17:27:12,200 - train_fabric.py:280 - loss_f: 963306.4375 at step 17
+2024-10-23 17:27:12,200 - train_fabric.py:280 - epoch: 8 at step 17
+2024-10-23 17:27:12,206 - train_fabric.py:265 - Epoch [8] Train -- loss: 170250.08346, loss_e: 8.50930, loss_f: 211868.00283
+2024-10-23 17:27:12,208 - train_fabric.py:280 - train_loss_epoch: 313272.2379653308 at step 17
+2024-10-23 17:27:12,208 - train_fabric.py:280 - loss_e_epoch: 5.607697969256074 at step 17
+2024-10-23 17:27:12,208 - train_fabric.py:280 - loss_f_epoch: 391588.875 at step 17
+2024-10-23 17:27:12,208 - train_fabric.py:280 - epoch: 8 at step 17
+2024-10-23 17:27:13,872 - train_fabric.py:265 - Epoch [9] Val -- loss: 216625.66234, loss_e: 8.37113, loss_f: 270111.02647
+2024-10-23 17:27:13,873 - train_fabric.py:280 - val_loss: 242711.12092419268 at step 19
+2024-10-23 17:27:13,873 - train_fabric.py:280 - loss_e: 7.023945262203681 at step 19
+2024-10-23 17:27:13,873 - train_fabric.py:280 - loss_f: 307094.0 at step 19
+2024-10-23 17:27:13,873 - train_fabric.py:280 - epoch: 9 at step 19
+2024-10-23 17:27:13,879 - train_fabric.py:265 - Epoch [9] Train -- loss: 216625.66234, loss_e: 8.37113, loss_f: 270111.02647
+2024-10-23 17:27:13,881 - train_fabric.py:280 - train_loss_epoch: 1071797.8569060438 at step 19
+2024-10-23 17:27:13,881 - train_fabric.py:280 - loss_e_epoch: 7.106242237312723 at step 19
+2024-10-23 17:27:13,881 - train_fabric.py:280 - loss_f_epoch: 1339745.5 at step 19
+2024-10-23 17:27:13,881 - train_fabric.py:280 - epoch: 9 at step 19
+2024-10-23 17:27:14,169 - train_fabric.py:268 - Training finalized with status: success
+2024-10-23 17:28:50,506 - train_fabric.py:260 - Namespace(train_file='tests/data/train.h5', valid_file='tests/data/valid.h5', test_file=None, statistics_file='tests/data/statistics.json', output_dir='tests/result', epochs=10, batch_size=64, batch_edge_limit=0, eval_batch_size=24, model='v1', alpha_drop=0.0, proj_drop=0.0, out_drop=0.0, drop_path_rate=0.0, opt='adamw', opt_eps=1e-08, opt_betas=None, clip_grad=None, momentum=0.9, weight_decay=0.005, sched='plateau', lr=0.01, lr_noise=None, lr_noise_pct=0.67, lr_noise_std=1.0, warmup_lr=0.01, min_lr=1e-06, decay_epochs=30, warmup_epochs=0, cooldown_epochs=0, patience_epochs=2, decay_rate=0.5, print_freq=100, energy_weight=0.2, force_weight=0.8, stress_weight=0.0, seed=1, workers=4, pin_mem=True, shuffle=True, load_checkpoint=None, load_checkpoint_model=None, evaluate=False, mixed_precision=False)
+2024-10-23 17:28:50,575 - train_fabric.py:260 - Using r_max=4.5 from statistics file `tests/data/statistics.json`
+2024-10-23 17:28:57,148 - train_fabric.py:260 - Epoch [0] Val -- loss: 2348.63058, loss_e: 0.61295, loss_f: 2936.83562
+2024-10-23 17:29:01,012 - train_fabric.py:260 - Epoch [0] Val -- loss: 23073.89112, loss_e: 3.85511, loss_f: 28556.14651
+2024-10-23 17:29:01,013 - train_fabric.py:275 - val_loss: 62638.23749234974 at step 1
+2024-10-23 17:29:01,013 - train_fabric.py:275 - loss_e: 6.909573825038209 at step 1
+2024-10-23 17:29:01,014 - train_fabric.py:275 - loss_f: 77441.578125 at step 1
+2024-10-23 17:29:01,014 - train_fabric.py:275 - epoch: 0 at step 1
+2024-10-23 17:29:01,019 - train_fabric.py:260 - Epoch [0] Train -- loss: 23073.89112, loss_e: 3.85511, loss_f: 28556.14651
+2024-10-23 17:29:01,357 - train_fabric.py:280 - Checkpoint saved at <pytorch_lightning.callbacks.model_checkpoint.ModelCheckpoint object at 0x7f7a0d8aa1a0>
+2024-10-23 17:29:01,358 - train_fabric.py:275 - train_loss_epoch: 4232.827484053328 at step 1
+2024-10-23 17:29:01,358 - train_fabric.py:275 - loss_e_epoch: 4.044209479715975 at step 1
+2024-10-23 17:29:01,358 - train_fabric.py:275 - loss_f_epoch: 5290.0234375 at step 1
+2024-10-23 17:29:01,358 - train_fabric.py:275 - epoch: 0 at step 1
+2024-10-23 17:29:03,554 - train_fabric.py:260 - Epoch [1] Val -- loss: 21455.36572, loss_e: 3.94218, loss_f: 26644.72415
+2024-10-23 17:29:03,555 - train_fabric.py:275 - val_loss: 8383.268089109286 at step 3
+2024-10-23 17:29:03,555 - train_fabric.py:275 - loss_e: 2.3820008323475075 at step 3
+2024-10-23 17:29:03,555 - train_fabric.py:275 - loss_f: 10470.2998046875 at step 3
+2024-10-23 17:29:03,555 - train_fabric.py:275 - epoch: 1 at step 3
+2024-10-23 17:29:03,561 - train_fabric.py:260 - Epoch [1] Train -- loss: 21455.36572, loss_e: 3.94218, loss_f: 26644.72415
+2024-10-23 17:29:03,984 - train_fabric.py:280 - Checkpoint saved at <pytorch_lightning.callbacks.model_checkpoint.ModelCheckpoint object at 0x7f7a0d8aa1a0>
+2024-10-23 17:29:03,985 - train_fabric.py:275 - train_loss_epoch: 29669.05780538739 at step 3
+2024-10-23 17:29:03,985 - train_fabric.py:275 - loss_e_epoch: 5.761430742231761 at step 3
+2024-10-23 17:29:03,985 - train_fabric.py:275 - loss_f_epoch: 37084.87890625 at step 3
+2024-10-23 17:29:03,985 - train_fabric.py:275 - epoch: 1 at step 3
+2024-10-23 17:29:05,697 - train_fabric.py:260 - Epoch [2] Val -- loss: 22360.16535, loss_e: 3.71035, loss_f: 27872.29686
+2024-10-23 17:29:05,698 - train_fabric.py:275 - val_loss: 42001.461996606 at step 5
+2024-10-23 17:29:05,698 - train_fabric.py:275 - loss_e: 4.028873432757092 at step 5
+2024-10-23 17:29:05,698 - train_fabric.py:275 - loss_f: 52523.01953125 at step 5
+2024-10-23 17:29:05,698 - train_fabric.py:275 - epoch: 2 at step 5
+2024-10-23 17:29:05,703 - train_fabric.py:260 - Epoch [2] Train -- loss: 22360.16535, loss_e: 3.71035, loss_f: 27872.29686
+2024-10-23 17:29:05,705 - train_fabric.py:275 - train_loss_epoch: 7488.002226608349 at step 5
+2024-10-23 17:29:05,705 - train_fabric.py:275 - loss_e_epoch: 2.2543508041134768 at step 5
+2024-10-23 17:29:05,705 - train_fabric.py:275 - loss_f_epoch: 9359.4384765625 at step 5
+2024-10-23 17:29:05,705 - train_fabric.py:275 - epoch: 2 at step 5
+2024-10-23 17:29:07,411 - train_fabric.py:260 - Epoch [3] Val -- loss: 113211.71217, loss_e: 14.11747, loss_f: 141785.85381
+2024-10-23 17:29:07,412 - train_fabric.py:275 - val_loss: 600202.8205500602 at step 7
+2024-10-23 17:29:07,412 - train_fabric.py:275 - loss_e: 66.28433919926078 at step 7
+2024-10-23 17:29:07,412 - train_fabric.py:275 - loss_f: 746063.0 at step 7
+2024-10-23 17:29:07,412 - train_fabric.py:275 - epoch: 3 at step 7
+2024-10-23 17:29:07,418 - train_fabric.py:260 - Epoch [3] Train -- loss: 113211.71217, loss_e: 14.11747, loss_f: 141785.85381
+2024-10-23 17:29:07,420 - train_fabric.py:275 - train_loss_epoch: 267930.0196885241 at step 7
+2024-10-23 17:29:07,420 - train_fabric.py:275 - loss_e_epoch: 35.785269434422325 at step 7
+2024-10-23 17:29:07,420 - train_fabric.py:275 - loss_f_epoch: 334903.59375 at step 7
+2024-10-23 17:29:07,420 - train_fabric.py:275 - epoch: 3 at step 7
+2024-10-23 17:29:09,034 - train_fabric.py:260 - Epoch [4] Val -- loss: 163002.21161, loss_e: 19.63847, loss_f: 204955.11409
+2024-10-23 17:29:09,035 - train_fabric.py:275 - val_loss: 384166.85330438614 at step 9
+2024-10-23 17:29:09,035 - train_fabric.py:275 - loss_e: 31.786143703255252 at step 9
+2024-10-23 17:29:09,035 - train_fabric.py:275 - loss_f: 473106.28125 at step 9
+2024-10-23 17:29:09,035 - train_fabric.py:275 - epoch: 4 at step 9
+2024-10-23 17:29:09,039 - train_fabric.py:260 - Epoch [4] Train -- loss: 163002.21161, loss_e: 19.63847, loss_f: 204955.11409
+2024-10-23 17:29:09,040 - train_fabric.py:275 - train_loss_epoch: 404273.4346517786 at step 9
+2024-10-23 17:29:09,040 - train_fabric.py:275 - loss_e_epoch: 57.952028734073075 at step 9
+2024-10-23 17:29:09,041 - train_fabric.py:275 - loss_f_epoch: 505327.28125 at step 9
+2024-10-23 17:29:09,041 - train_fabric.py:275 - epoch: 4 at step 9
+2024-10-23 17:29:10,609 - train_fabric.py:260 - Epoch [5] Val -- loss: 176600.95196, loss_e: 21.27195, loss_f: 222544.67485
+2024-10-23 17:29:10,610 - train_fabric.py:275 - val_loss: 311586.1330076695 at step 11
+2024-10-23 17:29:10,610 - train_fabric.py:275 - loss_e: 29.534319000314422 at step 11
+2024-10-23 17:29:10,610 - train_fabric.py:275 - loss_f: 395201.3125 at step 11
+2024-10-23 17:29:10,610 - train_fabric.py:275 - epoch: 5 at step 11
+2024-10-23 17:29:10,616 - train_fabric.py:260 - Epoch [5] Train -- loss: 176600.95196, loss_e: 21.27195, loss_f: 222544.67485
+2024-10-23 17:29:10,618 - train_fabric.py:275 - train_loss_epoch: 194704.78516133904 at step 11
+2024-10-23 17:29:10,618 - train_fabric.py:275 - loss_e_epoch: 31.168047341359717 at step 11
+2024-10-23 17:29:10,618 - train_fabric.py:275 - loss_f_epoch: 243373.203125 at step 11
+2024-10-23 17:29:10,618 - train_fabric.py:275 - epoch: 5 at step 11
+2024-10-23 17:29:12,299 - train_fabric.py:260 - Epoch [6] Val -- loss: 172763.56056, loss_e: 22.18365, loss_f: 217498.02615
+2024-10-23 17:29:12,300 - train_fabric.py:275 - val_loss: 152549.38653000596 at step 13
+2024-10-23 17:29:12,300 - train_fabric.py:275 - loss_e: 27.372893414935287 at step 13
+2024-10-23 17:29:12,300 - train_fabric.py:275 - loss_f: 191227.359375 at step 13
+2024-10-23 17:29:12,300 - train_fabric.py:275 - epoch: 6 at step 13
+2024-10-23 17:29:12,305 - train_fabric.py:260 - Epoch [6] Train -- loss: 172763.56056, loss_e: 22.18365, loss_f: 217498.02615
+2024-10-23 17:29:12,307 - train_fabric.py:275 - train_loss_epoch: 142535.61008065866 at step 13
+2024-10-23 17:29:12,307 - train_fabric.py:275 - loss_e_epoch: 28.93688288513495 at step 13
+2024-10-23 17:29:12,307 - train_fabric.py:275 - loss_f_epoch: 178162.265625 at step 13
+2024-10-23 17:29:12,308 - train_fabric.py:275 - epoch: 6 at step 13
+2024-10-23 17:29:13,830 - train_fabric.py:260 - Epoch [7] Val -- loss: 169971.17667, loss_e: 22.61991, loss_f: 214360.76013
+2024-10-23 17:29:13,831 - train_fabric.py:275 - val_loss: 94457.87980496287 at step 15
+2024-10-23 17:29:13,831 - train_fabric.py:275 - loss_e: 25.229308237023904 at step 15
+2024-10-23 17:29:13,832 - train_fabric.py:275 - loss_f: 123290.125 at step 15
+2024-10-23 17:29:13,832 - train_fabric.py:275 - epoch: 7 at step 15
+2024-10-23 17:29:13,837 - train_fabric.py:260 - Epoch [7] Train -- loss: 169971.17667, loss_e: 22.61991, loss_f: 214360.76013
+2024-10-23 17:29:13,839 - train_fabric.py:275 - train_loss_epoch: 206703.2728344219 at step 15
+2024-10-23 17:29:13,839 - train_fabric.py:275 - loss_e_epoch: 26.772335374841884 at step 15
+2024-10-23 17:29:13,839 - train_fabric.py:275 - loss_f_epoch: 258372.390625 at step 15
+2024-10-23 17:29:13,839 - train_fabric.py:275 - epoch: 7 at step 15
+2024-10-23 17:29:15,533 - train_fabric.py:260 - Epoch [8] Val -- loss: 163110.42136, loss_e: 22.86028, loss_f: 205529.76209
+2024-10-23 17:29:15,534 - train_fabric.py:275 - val_loss: 140471.9980717957 at step 17
+2024-10-23 17:29:15,535 - train_fabric.py:275 - loss_e: 24.830584151404246 at step 17
+2024-10-23 17:29:15,535 - train_fabric.py:275 - loss_f: 173651.25 at step 17
+2024-10-23 17:29:15,535 - train_fabric.py:275 - epoch: 8 at step 17
+2024-10-23 17:29:15,540 - train_fabric.py:260 - Epoch [8] Train -- loss: 163110.42136, loss_e: 22.86028, loss_f: 205529.76209
+2024-10-23 17:29:15,542 - train_fabric.py:275 - train_loss_epoch: 69830.08533065669 at step 17
+2024-10-23 17:29:15,542 - train_fabric.py:275 - loss_e_epoch: 25.203350420576644 at step 17
+2024-10-23 17:29:15,542 - train_fabric.py:275 - loss_f_epoch: 87281.3046875 at step 17
+2024-10-23 17:29:15,542 - train_fabric.py:275 - epoch: 8 at step 17
+2024-10-23 17:29:17,241 - train_fabric.py:260 - Epoch [9] Val -- loss: 157362.08766, loss_e: 23.03735, loss_f: 198175.91149
+2024-10-23 17:29:17,242 - train_fabric.py:275 - val_loss: 45294.308590972425 at step 19
+2024-10-23 17:29:17,242 - train_fabric.py:275 - loss_e: 24.703858926453016 at step 19
+2024-10-23 17:29:17,242 - train_fabric.py:275 - loss_f: 56552.14453125 at step 19
+2024-10-23 17:29:17,242 - train_fabric.py:275 - epoch: 9 at step 19
+2024-10-23 17:29:17,248 - train_fabric.py:260 - Epoch [9] Train -- loss: 157362.08766, loss_e: 23.03735, loss_f: 198175.91149
+2024-10-23 17:29:17,249 - train_fabric.py:275 - train_loss_epoch: 160066.1701367984 at step 19
+2024-10-23 17:29:17,250 - train_fabric.py:275 - loss_e_epoch: 24.781204116722893 at step 19
+2024-10-23 17:29:17,250 - train_fabric.py:275 - loss_f_epoch: 200076.515625 at step 19
+2024-10-23 17:29:17,250 - train_fabric.py:275 - epoch: 9 at step 19
+2024-10-23 17:29:17,546 - train_fabric.py:263 - Training finalized with status: success
+2024-10-23 17:31:19,818 - train_fabric.py:260 - Namespace(train_file='tests/data/train.h5', valid_file='tests/data/valid.h5', test_file=None, statistics_file='tests/data/statistics.json', output_dir='tests/result', epochs=10, batch_size=64, batch_edge_limit=0, eval_batch_size=24, model='v1', alpha_drop=0.0, proj_drop=0.0, out_drop=0.0, drop_path_rate=0.0, opt='adamw', opt_eps=1e-08, opt_betas=None, clip_grad=None, momentum=0.9, weight_decay=0.005, sched='plateau', lr=0.01, lr_noise=None, lr_noise_pct=0.67, lr_noise_std=1.0, warmup_lr=0.01, min_lr=1e-06, decay_epochs=30, warmup_epochs=0, cooldown_epochs=0, patience_epochs=2, decay_rate=0.5, print_freq=100, energy_weight=0.2, force_weight=0.8, stress_weight=0.0, seed=1, workers=4, pin_mem=True, shuffle=True, load_checkpoint=None, load_checkpoint_model=None, evaluate=False, mixed_precision=False)
+2024-10-23 17:31:19,886 - train_fabric.py:260 - Using r_max=4.5 from statistics file `tests/data/statistics.json`
+2024-10-23 17:31:25,984 - train_fabric.py:260 - Epoch [0] Val -- loss: 3979.72596, loss_e: 0.61285, loss_f: 4980.27393
+2024-10-23 17:31:29,393 - train_fabric.py:260 - Epoch [0] Val -- loss: 42079.37628, loss_e: 4.06199, loss_f: 53224.81668
+2024-10-23 17:31:29,394 - train_fabric.py:275 - val_loss: 120234.79451697171 at step 1
+2024-10-23 17:31:29,394 - train_fabric.py:275 - loss_e: 8.687196349509719 at step 1
+2024-10-23 17:31:29,394 - train_fabric.py:275 - loss_f: 152163.265625 at step 1
+2024-10-23 17:31:29,394 - train_fabric.py:275 - epoch: 0 at step 1
+2024-10-23 17:31:29,399 - train_fabric.py:260 - Epoch [0] Train -- loss: 42079.37628, loss_e: 4.06199, loss_f: 53224.81668
+2024-10-23 17:31:29,643 - train_fabric.py:280 - Checkpoint saved at <pytorch_lightning.callbacks.model_checkpoint.ModelCheckpoint object at 0x7fd777313580>
+2024-10-23 17:31:29,644 - train_fabric.py:275 - train_loss_epoch: 2025.303910412371 at step 1
+2024-10-23 17:31:29,644 - train_fabric.py:275 - loss_e_epoch: 2.888317341403085 at step 1
+2024-10-23 17:31:29,644 - train_fabric.py:275 - loss_f_epoch: 2530.90771484375 at step 1
+2024-10-23 17:31:29,645 - train_fabric.py:275 - epoch: 0 at step 1
+2024-10-23 17:31:31,680 - train_fabric.py:260 - Epoch [1] Val -- loss: 47626.57791, loss_e: 4.58874, loss_f: 59546.35986
+2024-10-23 17:31:31,681 - train_fabric.py:275 - val_loss: 33597.5129291255 at step 3
+2024-10-23 17:31:31,681 - train_fabric.py:275 - loss_e: 2.2087513332819046 at step 3
+2024-10-23 17:31:31,681 - train_fabric.py:275 - loss_f: 42147.01953125 at step 3
+2024-10-23 17:31:31,681 - train_fabric.py:275 - epoch: 1 at step 3
+2024-10-23 17:31:31,686 - train_fabric.py:260 - Epoch [1] Train -- loss: 47626.57791, loss_e: 4.58874, loss_f: 59546.35986
+2024-10-23 17:31:32,033 - train_fabric.py:280 - Checkpoint saved at <pytorch_lightning.callbacks.model_checkpoint.ModelCheckpoint object at 0x7fd777313580>
+2024-10-23 17:31:32,034 - train_fabric.py:275 - train_loss_epoch: 61557.95202380599 at step 3
+2024-10-23 17:31:32,034 - train_fabric.py:275 - loss_e_epoch: 6.964913708282436 at step 3
+2024-10-23 17:31:32,034 - train_fabric.py:275 - loss_f_epoch: 76945.703125 at step 3
+2024-10-23 17:31:32,034 - train_fabric.py:275 - epoch: 1 at step 3
+2024-10-23 17:31:33,668 - train_fabric.py:260 - Epoch [2] Val -- loss: 76052.46751, loss_e: 7.27162, loss_f: 94443.11343
+2024-10-23 17:31:33,669 - train_fabric.py:275 - val_loss: 113906.8737665221 at step 5
+2024-10-23 17:31:33,669 - train_fabric.py:275 - loss_e: 10.326283098382204 at step 5
+2024-10-23 17:31:33,669 - train_fabric.py:275 - loss_f: 142036.640625 at step 5
+2024-10-23 17:31:33,669 - train_fabric.py:275 - epoch: 2 at step 5
+2024-10-23 17:31:33,675 - train_fabric.py:260 - Epoch [2] Train -- loss: 76052.46751, loss_e: 7.27162, loss_f: 94443.11343
+2024-10-23 17:31:33,677 - train_fabric.py:275 - train_loss_epoch: 37480.481142222794 at step 5
+2024-10-23 17:31:33,677 - train_fabric.py:275 - loss_e_epoch: 4.086107230764263 at step 5
+2024-10-23 17:31:33,677 - train_fabric.py:275 - loss_f_epoch: 46849.578125 at step 5
+2024-10-23 17:31:33,677 - train_fabric.py:275 - epoch: 2 at step 5
+2024-10-23 17:31:35,306 - train_fabric.py:260 - Epoch [3] Val -- loss: 35162.42785, loss_e: 11.85970, loss_f: 43992.32109
+2024-10-23 17:31:35,307 - train_fabric.py:275 - val_loss: 14045.12916818857 at step 7
+2024-10-23 17:31:35,307 - train_fabric.py:275 - loss_e: 12.141847388882216 at step 7
+2024-10-23 17:31:35,307 - train_fabric.py:275 - loss_f: 17286.78125 at step 7
+2024-10-23 17:31:35,307 - train_fabric.py:275 - epoch: 3 at step 7
+2024-10-23 17:31:35,312 - train_fabric.py:260 - Epoch [3] Train -- loss: 35162.42785, loss_e: 11.85970, loss_f: 43992.32109
+2024-10-23 17:31:35,717 - train_fabric.py:280 - Checkpoint saved at <pytorch_lightning.callbacks.model_checkpoint.ModelCheckpoint object at 0x7fd777313580>
+2024-10-23 17:31:35,718 - train_fabric.py:275 - train_loss_epoch: 56560.61544042511 at step 7
+2024-10-23 17:31:35,719 - train_fabric.py:275 - loss_e_epoch: 11.637824291071924 at step 7
+2024-10-23 17:31:35,719 - train_fabric.py:275 - loss_f_epoch: 70697.859375 at step 7
+2024-10-23 17:31:35,719 - train_fabric.py:275 - epoch: 3 at step 7
+2024-10-23 17:31:37,384 - train_fabric.py:260 - Epoch [4] Val -- loss: 73258.16268, loss_e: 10.17376, loss_f: 90873.60034
+2024-10-23 17:31:37,385 - train_fabric.py:275 - val_loss: 81298.70519900025 at step 9
+2024-10-23 17:31:37,385 - train_fabric.py:275 - loss_e: 9.109563191292507 at step 9
+2024-10-23 17:31:37,385 - train_fabric.py:275 - loss_f: 102615.265625 at step 9
+2024-10-23 17:31:37,385 - train_fabric.py:275 - epoch: 4 at step 9
+2024-10-23 17:31:37,391 - train_fabric.py:260 - Epoch [4] Train -- loss: 73258.16268, loss_e: 10.17376, loss_f: 90873.60034
+2024-10-23 17:31:37,393 - train_fabric.py:275 - train_loss_epoch: 63307.82052259964 at step 9
+2024-10-23 17:31:37,393 - train_fabric.py:275 - loss_e_epoch: 11.343569276554515 at step 9
+2024-10-23 17:31:37,393 - train_fabric.py:275 - loss_f_epoch: 79131.9375 at step 9
+2024-10-23 17:31:37,393 - train_fabric.py:275 - epoch: 4 at step 9
+2024-10-23 17:31:39,075 - train_fabric.py:260 - Epoch [5] Val -- loss: 552207.85744, loss_e: 15.32234, loss_f: 725780.33707
+2024-10-23 17:31:39,076 - train_fabric.py:275 - val_loss: 187467.1676009178 at step 11
+2024-10-23 17:31:39,076 - train_fabric.py:275 - loss_e: 20.18895910305231 at step 11
+2024-10-23 17:31:39,076 - train_fabric.py:275 - loss_f: 232856.53125 at step 11
+2024-10-23 17:31:39,076 - train_fabric.py:275 - epoch: 5 at step 11
+2024-10-23 17:31:39,082 - train_fabric.py:260 - Epoch [5] Train -- loss: 552207.85744, loss_e: 15.32234, loss_f: 725780.33707
+2024-10-23 17:31:39,084 - train_fabric.py:275 - train_loss_epoch: 974965.4754953369 at step 11
+2024-10-23 17:31:39,084 - train_fabric.py:275 - loss_e_epoch: 10.654652138246972 at step 11
+2024-10-23 17:31:39,084 - train_fabric.py:275 - loss_f_epoch: 1218704.125 at step 11
+2024-10-23 17:31:39,084 - train_fabric.py:275 - epoch: 5 at step 11
+2024-10-23 17:31:40,749 - train_fabric.py:260 - Epoch [6] Val -- loss: 508932.67853, loss_e: 56.33453, loss_f: 646291.86756
+2024-10-23 17:31:40,750 - train_fabric.py:275 - val_loss: 35647.04487553835 at step 13
+2024-10-23 17:31:40,750 - train_fabric.py:275 - loss_e: 84.89568119659987 at step 13
+2024-10-23 17:31:40,750 - train_fabric.py:275 - loss_f: 44165.22265625 at step 13
+2024-10-23 17:31:40,750 - train_fabric.py:275 - epoch: 6 at step 13
+2024-10-23 17:31:40,756 - train_fabric.py:260 - Epoch [6] Train -- loss: 508932.67853, loss_e: 56.33453, loss_f: 646291.86756
+2024-10-23 17:31:40,758 - train_fabric.py:275 - train_loss_epoch: 998740.4414735801 at step 13
+2024-10-23 17:31:40,758 - train_fabric.py:275 - loss_e_epoch: 28.215020961907445 at step 13
+2024-10-23 17:31:40,758 - train_fabric.py:275 - loss_f_epoch: 1248418.5 at step 13
+2024-10-23 17:31:40,759 - train_fabric.py:275 - epoch: 6 at step 13
+2024-10-23 17:31:42,426 - train_fabric.py:260 - Epoch [7] Val -- loss: 34868.07862, loss_e: 86.98731, loss_f: 44234.24242
+2024-10-23 17:31:42,427 - train_fabric.py:275 - val_loss: 23130.57255349159 at step 15
+2024-10-23 17:31:42,428 - train_fabric.py:275 - loss_e: 89.07157890001933 at step 15
+2024-10-23 17:31:42,428 - train_fabric.py:275 - loss_f: 29564.294921875 at step 15
+2024-10-23 17:31:42,428 - train_fabric.py:275 - epoch: 7 at step 15
+2024-10-23 17:31:42,433 - train_fabric.py:260 - Epoch [7] Train -- loss: 34868.07862, loss_e: 86.98731, loss_f: 44234.24242
+2024-10-23 17:31:42,435 - train_fabric.py:275 - train_loss_epoch: 47140.47558974344 at step 15
+2024-10-23 17:31:42,435 - train_fabric.py:275 - loss_e_epoch: 85.60977269678699 at step 15
+2024-10-23 17:31:42,435 - train_fabric.py:275 - loss_f_epoch: 58904.19140625 at step 15
+2024-10-23 17:31:42,435 - train_fabric.py:275 - epoch: 7 at step 15
+2024-10-23 17:31:44,111 - train_fabric.py:260 - Epoch [8] Val -- loss: 31987.41483, loss_e: 90.18692, loss_f: 39276.29155
+2024-10-23 17:31:44,112 - train_fabric.py:275 - val_loss: 37982.3120404005 at step 17
+2024-10-23 17:31:44,112 - train_fabric.py:275 - loss_e: 91.2999924364544 at step 17
+2024-10-23 17:31:44,112 - train_fabric.py:275 - loss_f: 47411.69140625 at step 17
+2024-10-23 17:31:44,112 - train_fabric.py:275 - epoch: 8 at step 17
+2024-10-23 17:31:44,117 - train_fabric.py:260 - Epoch [8] Train -- loss: 31987.41483, loss_e: 90.18692, loss_f: 39276.29155
+2024-10-23 17:31:44,119 - train_fabric.py:275 - train_loss_epoch: 24930.675051441427 at step 17
+2024-10-23 17:31:44,120 - train_fabric.py:275 - loss_e_epoch: 89.79415158782146 at step 17
+2024-10-23 17:31:44,120 - train_fabric.py:275 - loss_f_epoch: 31140.892578125 at step 17
+2024-10-23 17:31:44,120 - train_fabric.py:275 - epoch: 8 at step 17
+2024-10-23 17:31:45,776 - train_fabric.py:260 - Epoch [9] Val -- loss: 22281.59505, loss_e: 92.67006, loss_f: 28329.67390
+2024-10-23 17:31:45,777 - train_fabric.py:275 - val_loss: 30380.256878733635 at step 19
+2024-10-23 17:31:45,777 - train_fabric.py:275 - loss_e: 93.6527139518807 at step 19
+2024-10-23 17:31:45,777 - train_fabric.py:275 - loss_f: 38960.49609375 at step 19
+2024-10-23 17:31:45,777 - train_fabric.py:275 - epoch: 9 at step 19
+2024-10-23 17:31:45,783 - train_fabric.py:260 - Epoch [9] Train -- loss: 22281.59505, loss_e: 92.67006, loss_f: 28329.67390
+2024-10-23 17:31:45,785 - train_fabric.py:275 - train_loss_epoch: 14177.453151923673 at step 19
+2024-10-23 17:31:45,785 - train_fabric.py:275 - loss_e_epoch: 91.8600432953867 at step 19
+2024-10-23 17:31:45,785 - train_fabric.py:275 - loss_f_epoch: 17698.853515625 at step 19
+2024-10-23 17:31:45,785 - train_fabric.py:275 - epoch: 9 at step 19
+2024-10-23 17:31:46,069 - train_fabric.py:263 - Training finalized with status: success
+2024-10-23 17:32:25,583 - train_fabric.py:260 - Namespace(train_file='tests/data/train.h5', valid_file='tests/data/valid.h5', test_file=None, statistics_file='tests/data/statistics.json', output_dir='tests/result', epochs=10, batch_size=64, batch_edge_limit=0, eval_batch_size=24, model='v1', alpha_drop=0.0, proj_drop=0.0, out_drop=0.0, drop_path_rate=0.0, opt='adamw', opt_eps=1e-08, opt_betas=None, clip_grad=None, momentum=0.9, weight_decay=0.005, sched='plateau', lr=0.01, lr_noise=None, lr_noise_pct=0.67, lr_noise_std=1.0, warmup_lr=0.01, min_lr=1e-06, decay_epochs=30, warmup_epochs=0, cooldown_epochs=0, patience_epochs=2, decay_rate=0.5, print_freq=100, energy_weight=0.2, force_weight=0.8, stress_weight=0.0, seed=1, workers=4, pin_mem=True, shuffle=True, load_checkpoint=None, load_checkpoint_model=None, evaluate=False, mixed_precision=False)
+2024-10-23 17:32:25,649 - train_fabric.py:260 - Using r_max=4.5 from statistics file `tests/data/statistics.json`
+2024-10-23 17:32:32,286 - train_fabric.py:260 - Epoch [0] Val -- loss: 2320.17333, loss_e: 0.61273, loss_f: 2900.89617
+2024-10-23 17:32:36,084 - train_fabric.py:260 - Epoch [0] Val -- loss: 29082.76522, loss_e: 2.23600, loss_f: 36170.77395
+2024-10-23 17:32:36,085 - train_fabric.py:275 - val_loss: 53188.88714459762 at step 1
+2024-10-23 17:32:36,086 - train_fabric.py:275 - loss_e: 3.5584601089865173 at step 1
+2024-10-23 17:32:36,086 - train_fabric.py:275 - loss_f: 66112.5 at step 1
+2024-10-23 17:32:36,086 - train_fabric.py:275 - epoch: 0 at step 1
+2024-10-23 17:32:36,092 - train_fabric.py:260 - Epoch [0] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 17:32:36,430 - train_fabric.py:280 - Checkpoint saved at <pytorch_lightning.callbacks.model_checkpoint.ModelCheckpoint object at 0x7f48b3223520>
+2024-10-23 17:32:36,432 - train_fabric.py:275 - train_loss_epoch: 4983.417779653012 at step 1
+2024-10-23 17:32:36,432 - train_fabric.py:275 - loss_e_epoch: 0.9144822095748874 at step 1
+2024-10-23 17:32:36,432 - train_fabric.py:275 - loss_f_epoch: 6229.04296875 at step 1
+2024-10-23 17:32:36,432 - train_fabric.py:275 - epoch: 0 at step 1
+2024-10-23 17:32:38,600 - train_fabric.py:260 - Epoch [1] Val -- loss: 88629.45711, loss_e: 3.15226, loss_f: 111354.81116
+2024-10-23 17:32:38,601 - train_fabric.py:275 - val_loss: 132876.92703379318 at step 3
+2024-10-23 17:32:38,601 - train_fabric.py:275 - loss_e: 4.2060383565538055 at step 3
+2024-10-23 17:32:38,601 - train_fabric.py:275 - loss_f: 167289.546875 at step 3
+2024-10-23 17:32:38,601 - train_fabric.py:275 - epoch: 1 at step 3
+2024-10-23 17:32:38,607 - train_fabric.py:260 - Epoch [1] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 17:32:38,609 - train_fabric.py:275 - train_loss_epoch: 44336.47894985943 at step 3
+2024-10-23 17:32:38,610 - train_fabric.py:275 - loss_e_epoch: 2.095646583175291 at step 3
+2024-10-23 17:32:38,610 - train_fabric.py:275 - loss_f_epoch: 55420.07421875 at step 3
+2024-10-23 17:32:38,610 - train_fabric.py:275 - epoch: 1 at step 3
+2024-10-23 17:32:40,314 - train_fabric.py:260 - Epoch [2] Val -- loss: 165569.10573, loss_e: 22.57944, loss_f: 208478.78166
+2024-10-23 17:32:40,315 - train_fabric.py:275 - val_loss: 237003.8677085936 at step 5
+2024-10-23 17:32:40,315 - train_fabric.py:275 - loss_e: 35.19989513053375 at step 5
+2024-10-23 17:32:40,316 - train_fabric.py:275 - loss_f: 296270.9375 at step 5
+2024-10-23 17:32:40,316 - train_fabric.py:275 - epoch: 2 at step 5
+2024-10-23 17:32:40,321 - train_fabric.py:260 - Epoch [2] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 17:32:40,323 - train_fabric.py:275 - train_loss_epoch: 96551.21651154579 at step 5
+2024-10-23 17:32:40,323 - train_fabric.py:275 - loss_e_epoch: 9.574886952330466 at step 5
+2024-10-23 17:32:40,323 - train_fabric.py:275 - loss_f_epoch: 120686.6328125 at step 5
+2024-10-23 17:32:40,323 - train_fabric.py:275 - epoch: 2 at step 5
+2024-10-23 17:32:42,041 - train_fabric.py:260 - Epoch [3] Val -- loss: 156438.37246, loss_e: 32.93650, loss_f: 196744.21809
+2024-10-23 17:32:42,042 - train_fabric.py:275 - val_loss: 139737.0563421726 at step 7
+2024-10-23 17:32:42,043 - train_fabric.py:275 - loss_e: 30.082234151509343 at step 7
+2024-10-23 17:32:42,043 - train_fabric.py:275 - loss_f: 177213.03125 at step 7
+2024-10-23 17:32:42,043 - train_fabric.py:275 - epoch: 3 at step 7
+2024-10-23 17:32:42,048 - train_fabric.py:260 - Epoch [3] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 17:32:42,050 - train_fabric.py:275 - train_loss_epoch: 173027.50885035805 at step 7
+2024-10-23 17:32:42,050 - train_fabric.py:275 - loss_e_epoch: 35.87563642731059 at step 7
+2024-10-23 17:32:42,050 - train_fabric.py:275 - loss_f_epoch: 216275.40625 at step 7
+2024-10-23 17:32:42,050 - train_fabric.py:275 - epoch: 3 at step 7
+2024-10-23 17:32:43,769 - train_fabric.py:260 - Epoch [4] Val -- loss: 515301.25856, loss_e: 30.06232, loss_f: 662522.11807
+2024-10-23 17:32:43,770 - train_fabric.py:275 - val_loss: 670701.977477479 at step 9
+2024-10-23 17:32:43,770 - train_fabric.py:275 - loss_e: 30.09864648629208 at step 9
+2024-10-23 17:32:43,770 - train_fabric.py:275 - loss_f: 866850.25 at step 9
+2024-10-23 17:32:43,770 - train_fabric.py:275 - epoch: 4 at step 9
+2024-10-23 17:32:43,776 - train_fabric.py:260 - Epoch [4] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 17:32:43,778 - train_fabric.py:275 - train_loss_epoch: 366561.25509268313 at step 9
+2024-10-23 17:32:43,778 - train_fabric.py:275 - loss_e_epoch: 30.17321001429136 at step 9
+2024-10-23 17:32:43,778 - train_fabric.py:275 - loss_f_epoch: 458194.0 at step 9
+2024-10-23 17:32:43,778 - train_fabric.py:275 - epoch: 4 at step 9
+2024-10-23 17:32:45,477 - train_fabric.py:260 - Epoch [5] Val -- loss: 274044.61218, loss_e: 29.65758, loss_f: 328204.79363
+2024-10-23 17:32:45,478 - train_fabric.py:275 - val_loss: 232878.40122298597 at step 11
+2024-10-23 17:32:45,478 - train_fabric.py:275 - loss_e: 29.50816718426421 at step 11
+2024-10-23 17:32:45,478 - train_fabric.py:275 - loss_f: 285585.21875 at step 11
+2024-10-23 17:32:45,478 - train_fabric.py:275 - epoch: 5 at step 11
+2024-10-23 17:32:45,483 - train_fabric.py:260 - Epoch [5] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 17:32:45,485 - train_fabric.py:275 - train_loss_epoch: 296665.50285281864 at step 11
+2024-10-23 17:32:45,485 - train_fabric.py:275 - loss_e_epoch: 30.02507049899523 at step 11
+2024-10-23 17:32:45,485 - train_fabric.py:275 - loss_f_epoch: 370824.34375 at step 11
+2024-10-23 17:32:45,485 - train_fabric.py:275 - epoch: 5 at step 11
+2024-10-23 17:32:47,179 - train_fabric.py:260 - Epoch [6] Val -- loss: 161881.63757, loss_e: 28.88123, loss_f: 201889.73515
+2024-10-23 17:32:47,180 - train_fabric.py:275 - val_loss: 195165.42895037532 at step 13
+2024-10-23 17:32:47,181 - train_fabric.py:275 - loss_e: 28.64282688829634 at step 13
+2024-10-23 17:32:47,181 - train_fabric.py:275 - loss_f: 244127.890625 at step 13
+2024-10-23 17:32:47,181 - train_fabric.py:275 - epoch: 6 at step 13
+2024-10-23 17:32:47,186 - train_fabric.py:260 - Epoch [6] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 17:32:47,188 - train_fabric.py:275 - train_loss_epoch: 127727.1058332565 at step 13
+2024-10-23 17:32:47,188 - train_fabric.py:275 - loss_e_epoch: 29.219376741623392 at step 13
+2024-10-23 17:32:47,188 - train_fabric.py:275 - loss_f_epoch: 159651.578125 at step 13
+2024-10-23 17:32:47,188 - train_fabric.py:275 - epoch: 6 at step 13
+2024-10-23 17:32:48,889 - train_fabric.py:260 - Epoch [7] Val -- loss: 161897.46475, loss_e: 28.48586, loss_f: 199962.15107
+2024-10-23 17:32:48,890 - train_fabric.py:275 - val_loss: 142718.0050864637 at step 15
+2024-10-23 17:32:48,890 - train_fabric.py:275 - loss_e: 28.666197477960264 at step 15
+2024-10-23 17:32:48,890 - train_fabric.py:275 - loss_f: 175833.03125 at step 15
+2024-10-23 17:32:48,890 - train_fabric.py:275 - epoch: 7 at step 15
+2024-10-23 17:32:48,895 - train_fabric.py:260 - Epoch [7] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 17:32:48,897 - train_fabric.py:275 - train_loss_epoch: 179278.7125680775 at step 15
+2024-10-23 17:32:48,898 - train_fabric.py:275 - loss_e_epoch: 28.54051895895783 at step 15
+2024-10-23 17:32:48,898 - train_fabric.py:275 - loss_f_epoch: 224091.265625 at step 15
+2024-10-23 17:32:48,898 - train_fabric.py:275 - epoch: 7 at step 15
+2024-10-23 17:32:50,567 - train_fabric.py:260 - Epoch [8] Val -- loss: 233467.87715, loss_e: 28.35548, loss_f: 300447.34138
+2024-10-23 17:32:50,568 - train_fabric.py:275 - val_loss: 162964.49410613178 at step 17
+2024-10-23 17:32:50,568 - train_fabric.py:275 - loss_e: 28.307907015558275 at step 17
+2024-10-23 17:32:50,568 - train_fabric.py:275 - loss_f: 201350.234375 at step 17
+2024-10-23 17:32:50,568 - train_fabric.py:275 - epoch: 8 at step 17
+2024-10-23 17:32:50,574 - train_fabric.py:260 - Epoch [8] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 17:32:50,576 - train_fabric.py:275 - train_loss_epoch: 319641.2748898641 at step 17
+2024-10-23 17:32:50,576 - train_fabric.py:275 - loss_e_epoch: 28.659029819257135 at step 17
+2024-10-23 17:32:50,576 - train_fabric.py:275 - loss_f_epoch: 399544.46875 at step 17
+2024-10-23 17:32:50,576 - train_fabric.py:275 - epoch: 8 at step 17
+2024-10-23 17:32:52,271 - train_fabric.py:260 - Epoch [9] Val -- loss: 191637.68285, loss_e: 28.20919, loss_f: 242430.57808
+2024-10-23 17:32:52,272 - train_fabric.py:275 - val_loss: 208383.31478037834 at step 19
+2024-10-23 17:32:52,272 - train_fabric.py:275 - loss_e: 28.208386512705527 at step 19
+2024-10-23 17:32:52,272 - train_fabric.py:275 - loss_f: 266348.8125 at step 19
+2024-10-23 17:32:52,272 - train_fabric.py:275 - epoch: 9 at step 19
+2024-10-23 17:32:52,278 - train_fabric.py:260 - Epoch [9] Train -- loss: 0.00000, loss_e: 0.00000, loss_f: 0.00000
+2024-10-23 17:32:52,279 - train_fabric.py:275 - train_loss_epoch: 174815.52611915005 at step 19
+2024-10-23 17:32:52,280 - train_fabric.py:275 - loss_e_epoch: 28.262681917944192 at step 19
+2024-10-23 17:32:52,280 - train_fabric.py:275 - loss_f_epoch: 218512.34375 at step 19
+2024-10-23 17:32:52,280 - train_fabric.py:275 - epoch: 9 at step 19
+2024-10-23 17:32:52,567 - train_fabric.py:263 - Training finalized with status: success
+2024-10-23 17:34:57,184 - train_fabric.py:260 - Namespace(train_file='tests/data/train.h5', valid_file='tests/data/valid.h5', test_file=None, statistics_file='tests/data/statistics.json', output_dir='tests/result', epochs=10, batch_size=64, batch_edge_limit=0, eval_batch_size=24, model='v1', alpha_drop=0.0, proj_drop=0.0, out_drop=0.0, drop_path_rate=0.0, opt='adamw', opt_eps=1e-08, opt_betas=None, clip_grad=None, momentum=0.9, weight_decay=0.005, sched='plateau', lr=0.01, lr_noise=None, lr_noise_pct=0.67, lr_noise_std=1.0, warmup_lr=0.01, min_lr=1e-06, decay_epochs=30, warmup_epochs=0, cooldown_epochs=0, patience_epochs=2, decay_rate=0.5, print_freq=100, energy_weight=0.2, force_weight=0.8, stress_weight=0.0, seed=1, workers=4, pin_mem=True, shuffle=True, load_checkpoint=None, load_checkpoint_model=None, evaluate=False, mixed_precision=False)
+2024-10-23 17:34:57,253 - train_fabric.py:260 - Using r_max=4.5 from statistics file `tests/data/statistics.json`
+2024-10-23 17:35:03,926 - train_fabric.py:260 - Epoch [0] Val -- loss: 2669.64483, loss_e: 0.61307, loss_f: 3338.71809
+2024-10-23 17:35:07,730 - train_fabric.py:260 - Epoch [0] Val -- loss: 5643.79529, loss_e: 6.33831, loss_f: 7087.24229
+2024-10-23 17:35:07,731 - train_fabric.py:275 - val_loss: 11612.495598840713 at step 1
+2024-10-23 17:35:07,731 - train_fabric.py:275 - loss_e: 12.545505938684048 at step 1
+2024-10-23 17:35:07,731 - train_fabric.py:275 - loss_f: 14612.0087890625 at step 1
+2024-10-23 17:35:07,732 - train_fabric.py:275 - epoch: 0 at step 1
+2024-10-23 17:35:07,737 - train_fabric.py:260 - Epoch [0] Train -- loss: 5643.79529, loss_e: 6.33831, loss_f: 7087.24229
+2024-10-23 17:35:08,072 - train_fabric.py:280 - Checkpoint saved at <pytorch_lightning.callbacks.model_checkpoint.ModelCheckpoint object at 0x7f7f095ca500>
+2024-10-23 17:35:08,073 - train_fabric.py:275 - train_loss_epoch: 2649.971373791193 at step 1
+2024-10-23 17:35:08,073 - train_fabric.py:275 - loss_e_epoch: 5.858216435060353 at step 1
+2024-10-23 17:35:08,073 - train_fabric.py:275 - loss_f_epoch: 3310.99951171875 at step 1
+2024-10-23 17:35:08,073 - train_fabric.py:275 - epoch: 0 at step 1
+2024-10-23 17:35:10,249 - train_fabric.py:260 - Epoch [1] Val -- loss: 9102.64081, loss_e: 6.90947, loss_f: 11394.82239
+2024-10-23 17:35:10,250 - train_fabric.py:275 - val_loss: 8850.740633769332 at step 3
+2024-10-23 17:35:10,250 - train_fabric.py:275 - loss_e: 3.5131667243346336 at step 3
+2024-10-23 17:35:10,251 - train_fabric.py:275 - loss_f: 11095.154296875 at step 3
+2024-10-23 17:35:10,251 - train_fabric.py:275 - epoch: 1 at step 3
+2024-10-23 17:35:10,256 - train_fabric.py:260 - Epoch [1] Train -- loss: 9102.64081, loss_e: 6.90947, loss_f: 11394.82239
+2024-10-23 17:35:10,662 - train_fabric.py:280 - Checkpoint saved at <pytorch_lightning.callbacks.model_checkpoint.ModelCheckpoint object at 0x7f7f095ca500>
+2024-10-23 17:35:10,664 - train_fabric.py:275 - train_loss_epoch: 9357.652379383198 at step 3
+2024-10-23 17:35:10,664 - train_fabric.py:275 - loss_e_epoch: 10.301185287585875 at step 3
+2024-10-23 17:35:10,664 - train_fabric.py:275 - loss_f_epoch: 11694.490234375 at step 3
+2024-10-23 17:35:10,664 - train_fabric.py:275 - epoch: 1 at step 3
+2024-10-23 17:35:12,345 - train_fabric.py:260 - Epoch [2] Val -- loss: 267001.01226, loss_e: 9.42712, loss_f: 332779.50301
+2024-10-23 17:35:12,346 - train_fabric.py:275 - val_loss: 524191.4876994148 at step 5
+2024-10-23 17:35:12,347 - train_fabric.py:275 - loss_e: 12.804067940128093 at step 5
+2024-10-23 17:35:12,347 - train_fabric.py:275 - loss_f: 652622.0 at step 5
+2024-10-23 17:35:12,347 - train_fabric.py:275 - epoch: 2 at step 5
+2024-10-23 17:35:12,352 - train_fabric.py:260 - Epoch [2] Train -- loss: 267001.01226, loss_e: 9.42712, loss_f: 332779.50301
+2024-10-23 17:35:12,354 - train_fabric.py:275 - train_loss_epoch: 10350.769451457823 at step 5
+2024-10-23 17:35:12,354 - train_fabric.py:275 - loss_e_epoch: 5.866754215489439 at step 5
+2024-10-23 17:35:12,354 - train_fabric.py:275 - loss_f_epoch: 12936.9951171875 at step 5
+2024-10-23 17:35:12,354 - train_fabric.py:275 - epoch: 2 at step 5
+2024-10-23 17:35:14,041 - train_fabric.py:260 - Epoch [3] Val -- loss: 326145.15870, loss_e: 40.53958, loss_f: 415502.79630
+2024-10-23 17:35:14,042 - train_fabric.py:275 - val_loss: 52024.498176771405 at step 7
+2024-10-23 17:35:14,042 - train_fabric.py:275 - loss_e: 41.01703856185991 at step 7
+2024-10-23 17:35:14,042 - train_fabric.py:275 - loss_f: 64565.07421875 at step 7
+2024-10-23 17:35:14,042 - train_fabric.py:275 - epoch: 3 at step 7
+2024-10-23 17:35:14,047 - train_fabric.py:260 - Epoch [3] Train -- loss: 326145.15870, loss_e: 40.53958, loss_f: 415502.79630
+2024-10-23 17:35:14,049 - train_fabric.py:275 - train_loss_epoch: 613160.6011708234 at step 7
+2024-10-23 17:35:14,049 - train_fabric.py:275 - loss_e_epoch: 40.91897769931222 at step 7
+2024-10-23 17:35:14,049 - train_fabric.py:275 - loss_f_epoch: 766440.5625 at step 7
+2024-10-23 17:35:14,049 - train_fabric.py:275 - epoch: 3 at step 7
+2024-10-23 17:35:15,746 - train_fabric.py:260 - Epoch [4] Val -- loss: 99449.62750, loss_e: 32.52224, loss_f: 125542.70599
+2024-10-23 17:35:15,747 - train_fabric.py:275 - val_loss: 167724.62169027328 at step 9
+2024-10-23 17:35:15,747 - train_fabric.py:275 - loss_e: 42.44209778863016 at step 9
+2024-10-23 17:35:15,747 - train_fabric.py:275 - loss_f: 211940.515625 at step 9
+2024-10-23 17:35:15,747 - train_fabric.py:275 - epoch: 4 at step 9
+2024-10-23 17:35:15,752 - train_fabric.py:260 - Epoch [4] Train -- loss: 99449.62750, loss_e: 32.52224, loss_f: 125542.70599
+2024-10-23 17:35:15,754 - train_fabric.py:275 - train_loss_epoch: 31320.69039438238 at step 9
+2024-10-23 17:35:15,754 - train_fabric.py:275 - loss_e_epoch: 23.85017025376123 at step 9
+2024-10-23 17:35:15,754 - train_fabric.py:275 - loss_f_epoch: 39144.8984375 at step 9
+2024-10-23 17:35:15,755 - train_fabric.py:275 - epoch: 4 at step 9
+2024-10-23 17:35:17,454 - train_fabric.py:260 - Epoch [5] Val -- loss: 170252.64378, loss_e: 46.89079, loss_f: 211302.05292
+2024-10-23 17:35:17,455 - train_fabric.py:275 - val_loss: 212851.127749455 at step 11
+2024-10-23 17:35:17,455 - train_fabric.py:275 - loss_e: 49.5414523529628 at step 11
+2024-10-23 17:35:17,455 - train_fabric.py:275 - loss_f: 257926.828125 at step 11
+2024-10-23 17:35:17,455 - train_fabric.py:275 - epoch: 5 at step 11
+2024-10-23 17:35:17,460 - train_fabric.py:260 - Epoch [5] Train -- loss: 170252.64378, loss_e: 46.89079, loss_f: 211302.05292
+2024-10-23 17:35:17,462 - train_fabric.py:275 - train_loss_epoch: 131750.7779128677 at step 11
+2024-10-23 17:35:17,462 - train_fabric.py:275 - loss_e_epoch: 44.72369486566574 at step 11
+2024-10-23 17:35:17,462 - train_fabric.py:275 - loss_f_epoch: 164677.296875 at step 11
+2024-10-23 17:35:17,462 - train_fabric.py:275 - epoch: 5 at step 11
+2024-10-23 17:35:19,131 - train_fabric.py:260 - Epoch [6] Val -- loss: 101018.27041, loss_e: 52.79249, loss_f: 124278.47616
+2024-10-23 17:35:19,132 - train_fabric.py:275 - val_loss: 116105.55672984124 at step 13
+2024-10-23 17:35:19,132 - train_fabric.py:275 - loss_e: 54.88195632509634 at step 13
+2024-10-23 17:35:19,132 - train_fabric.py:275 - loss_f: 141504.515625 at step 13
+2024-10-23 17:35:19,132 - train_fabric.py:275 - epoch: 6 at step 13
+2024-10-23 17:35:19,137 - train_fabric.py:260 - Epoch [6] Train -- loss: 101018.27041, loss_e: 52.79249, loss_f: 124278.47616
+2024-10-23 17:35:19,139 - train_fabric.py:275 - train_loss_epoch: 85652.13691909557 at step 13
+2024-10-23 17:35:19,140 - train_fabric.py:275 - loss_e_epoch: 50.92773961047737 at step 13
+2024-10-23 17:35:19,140 - train_fabric.py:275 - loss_f_epoch: 107052.4375 at step 13
+2024-10-23 17:35:19,140 - train_fabric.py:275 - epoch: 6 at step 13
+2024-10-23 17:35:20,817 - train_fabric.py:260 - Epoch [7] Val -- loss: 94507.69591, loss_e: 57.47370, loss_f: 117509.29959
+2024-10-23 17:35:20,818 - train_fabric.py:275 - val_loss: 58056.50497492552 at step 15
+2024-10-23 17:35:20,819 - train_fabric.py:275 - loss_e: 59.58853770924263 at step 15
+2024-10-23 17:35:20,819 - train_fabric.py:275 - loss_f: 70441.8828125 at step 15
+2024-10-23 17:35:20,819 - train_fabric.py:275 - epoch: 7 at step 15
+2024-10-23 17:35:20,824 - train_fabric.py:260 - Epoch [7] Train -- loss: 94507.69591, loss_e: 57.47370, loss_f: 117509.29959
+2024-10-23 17:35:20,826 - train_fabric.py:275 - train_loss_epoch: 131672.53476605366 at step 15
+2024-10-23 17:35:20,826 - train_fabric.py:275 - loss_e_epoch: 55.8211516969058 at step 15
+2024-10-23 17:35:20,826 - train_fabric.py:275 - loss_f_epoch: 164576.703125 at step 15
+2024-10-23 17:35:20,826 - train_fabric.py:275 - epoch: 7 at step 15
+2024-10-23 17:35:22,545 - train_fabric.py:260 - Epoch [8] Val -- loss: 69386.78578, loss_e: 59.35860, loss_f: 88200.27005
+2024-10-23 17:35:22,546 - train_fabric.py:275 - val_loss: 58349.854893147945 at step 17
+2024-10-23 17:35:22,547 - train_fabric.py:275 - loss_e: 59.513986252603075 at step 17
+2024-10-23 17:35:22,547 - train_fabric.py:275 - loss_f: 72629.7109375 at step 17
+2024-10-23 17:35:22,547 - train_fabric.py:275 - epoch: 8 at step 17
+2024-10-23 17:35:22,552 - train_fabric.py:260 - Epoch [8] Train -- loss: 69386.78578, loss_e: 59.35860, loss_f: 88200.27005
+2024-10-23 17:35:22,554 - train_fabric.py:275 - train_loss_epoch: 83028.60358138436 at step 17
+2024-10-23 17:35:22,554 - train_fabric.py:275 - loss_e_epoch: 59.720093004557555 at step 17
+2024-10-23 17:35:22,554 - train_fabric.py:275 - loss_f_epoch: 103770.828125 at step 17
+2024-10-23 17:35:22,554 - train_fabric.py:275 - epoch: 8 at step 17
+2024-10-23 17:35:24,281 - train_fabric.py:260 - Epoch [9] Val -- loss: 67332.02904, loss_e: 59.67644, loss_f: 84059.12790
+2024-10-23 17:35:24,282 - train_fabric.py:275 - val_loss: 93330.61147307158 at step 19
+2024-10-23 17:35:24,282 - train_fabric.py:275 - loss_e: 59.887010340787924 at step 19
+2024-10-23 17:35:24,282 - train_fabric.py:275 - loss_f: 116491.03125 at step 19
+2024-10-23 17:35:24,282 - train_fabric.py:275 - epoch: 9 at step 19
+2024-10-23 17:35:24,288 - train_fabric.py:260 - Epoch [9] Train -- loss: 67332.02904, loss_e: 59.67644, loss_f: 84059.12790
+2024-10-23 17:35:24,290 - train_fabric.py:275 - train_loss_epoch: 41313.69460872966 at step 19
+2024-10-23 17:35:24,290 - train_fabric.py:275 - loss_e_epoch: 59.576891437409415 at step 19
+2024-10-23 17:35:24,290 - train_fabric.py:275 - loss_f_epoch: 51627.22265625 at step 19
+2024-10-23 17:35:24,290 - train_fabric.py:275 - epoch: 9 at step 19
+2024-10-23 17:35:24,586 - train_fabric.py:263 - Training finalized with status: success
