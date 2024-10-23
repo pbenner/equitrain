@@ -269,6 +269,7 @@ class FileLogger:
         pass
     
     def log_metrics(self, metrics, step=None):
+        print("inner ")
         for key, value in metrics.items():
             if step is not None:
                 self.logger.info(f"{key}: {value} at step {step}")
@@ -316,6 +317,15 @@ class EquiTrainModule(pl.LightningModule):
         if torch.isnan(loss):
             self.logger.info(f'NaN value detected. Skipping batch...')
             return None
+        
+        # Log the metrics into PyTorch Lightning’s system
+        self.log('train_loss', loss, on_step=True, on_epoch=True, prog_bar=True)
+        if loss_e is not None:
+            self.log('loss_e', loss_e, on_step=True, on_epoch=True, prog_bar=True)
+        if loss_f is not None:
+            self.log('loss_f', loss_f, on_step=True, on_epoch=True, prog_bar=True)
+        if loss_s is not None:
+            self.log('loss_s', loss_s, on_step=True, on_epoch=True, prog_bar=True)
 
         # Log the metrics
         self.loss_metrics['total'].update(loss.item(), n=e_pred.shape[0])
@@ -325,6 +335,7 @@ class EquiTrainModule(pl.LightningModule):
             self.loss_metrics['forces'].update(loss_f.item(), n=f_pred.shape[0])
         if self.args.stress_weight > 0.0:
             self.loss_metrics['stress'].update(loss_s.item(), n=s_pred.shape[0])
+        
 
         return loss
 
@@ -385,23 +396,23 @@ class EquiTrainModule(pl.LightningModule):
     def on_validation_epoch_end(self):
         # Use the custom logger to log metrics at the end of the validation epoch
         log_metrics(self.args, self.custom_logger, f"Epoch [{self.current_epoch}] Val -- ", None, self.loss_metrics)
-        self.reset_loss_metrics()
+        #self.reset_loss_metrics()
 
     def reset_loss_metrics(self):
         for meter in self.loss_metrics.values():
             meter.reset()
 
-    #TEsting commits
 
 
 def _train(args):
     logger = FileLogger(is_master=True, is_rank0=True, output_dir=args.output_dir)
     logger.info(args)
 
-    device = torch.device("cuda:1")
     torch.set_float32_matmul_precision('medium')
     torch.manual_seed(args.seed)
     np.random.seed(args.seed)
+
+    args.batch_size = 32  # Reducing batch size to increase the number of batches
 
     # Distributed Data Parallel options
     ddp_kwargs = DistributedDataParallelKwargs(find_unused_parameters=True) if args.energy_weight == 0.0 else DistributedDataParallelKwargs()
@@ -431,7 +442,7 @@ def _train(args):
     trainer = pl.Trainer(
         max_epochs=args.epochs,
         devices=1,
-        accelerator='gpu',
+        accelerator='auto',
         precision=16 if args.mixed_precision else 32,
         log_every_n_steps=100,
         logger=logger,  # Integrate your custom logger
