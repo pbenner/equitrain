@@ -54,22 +54,49 @@ class AverageMeter:
         self.count += n
         self.avg    = self.sum / self.count
 
-def add_weight_decay(model, weight_decay=1e-5, skip_list=()):
+def add_weight_decay_and_groups(model, weight_decay=1e-5, filter_bias_and_bn=True, lr_groups=None):
     decay = []
     no_decay = []
+
+    # Parameters can be grouped according to a specific key, if lr_groups is provided
+    param_groups = {}  # Dictionary to store groups based on user-defined criteria
+
     for name, param in model.named_parameters():
         if not param.requires_grad:
-            continue  # frozen weights
-        if (name.endswith(".bias") or name.endswith(".affine_weight")  
-            or name.endswith(".affine_bias") or name.endswith('.mean_shift')
-            or 'bias.' in name 
-            or name in skip_list):
+            continue  # Skip frozen parameters
+
+        # Apply filtering for biases, batch normalization, affine weights, and affine biases
+        if filter_bias_and_bn and (
+            name.endswith(".bias") or 
+            "bn" in name.lower() or
+            name.endswith(".affine_weight") or
+            name.endswith(".affine_bias") or
+            'bias.' in name or
+            'mean_shift' in name
+        ):
             no_decay.append(param)
         else:
             decay.append(param)
-    return [
-        {'params': no_decay, 'weight_decay': 0.},
-        {'params': decay, 'weight_decay': weight_decay}]
+
+        # If user provides a grouping criterion, group parameters accordingly
+        if lr_groups:
+            for group_name, group_fn in lr_groups.items():
+                if group_fn(name):
+                    if group_name not in param_groups:
+                        param_groups[group_name] = {'params': []}
+                    param_groups[group_name]['params'].append(param)
+    
+    # Build the final parameter group list
+    param_group_list = [
+        {'params': decay, 'weight_decay': weight_decay},  # Parameters with weight decay
+        {'params': no_decay, 'weight_decay': 0.0},  # Parameters without weight decay (biases, BN layers, etc.)
+    ]
+    
+    # Include user-defined parameter groups
+    for group_name, group_params in param_groups.items():
+        param_group_list.append(group_params)
+    
+    return param_group_list
 
 def compute_weighted_loss(args, energy_loss, force_loss, stress_loss):
     result = 0.0
@@ -84,38 +111,28 @@ def compute_weighted_loss(args, energy_loss, force_loss, stress_loss):
     return result
 
 def create_optimizer(args, model, filter_bias_and_bn=True):
-    """ Create an optimizer using torch's native optimizers """
+    # Example: User-defined learning rate groups based on layer names
+    lr_groups = {
+        'group1': lambda name: 'layer1' in name,  # Apply specific criterion for grouping
+        'group2': lambda name: 'layer2' in name,
+    }
 
-    # Apply weight decay if necessary
-    if args.weight_decay and filter_bias_and_bn:
-        skip = {}
-        if hasattr(model, 'no_weight_decay'):
-            skip = model.no_weight_decay()
-        parameters = add_weight_decay(model, args.weight_decay, skip)
-        weight_decay = 0.0
+    # Add weight decay and group parameters based on bias/BN filtering and user-defined groups
+    params = add_weight_decay_and_groups(model, weight_decay=args.weight_decay, filter_bias_and_bn=filter_bias_and_bn, lr_groups=lr_groups)
+
+    # Create the optimizer based on user input
+    if args.opt == 'sgd':
+        return SGD(params, lr=args.lr, momentum=args.momentum)
+    elif args.opt == 'adam':
+        return Adam(params, lr=args.lr)
+    elif args.opt == 'adamw':
+        return AdamW(params, lr=args.lr)
+    elif args.opt == 'rmsprop':
+        return RMSprop(params, lr=args.lr, alpha=0.99)
+    elif args.opt == 'adadelta':
+        return Adadelta(params, lr=args.lr)
     else:
-        parameters = model.parameters()
-
-    optimizer_name = args.opt.lower()
-    opt_args = dict(lr=args.lr, weight_decay=args.weight_decay)
-
-    # Simplified selection of optimizer using torch's native optimizers
-    if optimizer_name == 'sgd':
-        optimizer = SGD(parameters, momentum=args.momentum, **opt_args)
-    elif optimizer_name == 'adam':
-        optimizer = Adam(parameters, **opt_args)
-    elif optimizer_name == 'adamw':
-        optimizer = AdamW(parameters, **opt_args)
-    elif optimizer_name == 'rmsprop':
-        optimizer = RMSprop(parameters, momentum=args.momentum, **opt_args)
-    elif optimizer_name == 'adadelta':
-        optimizer = Adadelta(parameters, **opt_args)
-    elif optimizer_name == 'radam':
-        optimizer = RAdam(parameters, **opt_args)
-    else:
-        raise ValueError(f"Unknown optimizer: {optimizer_name}")
-
-    return optimizer
+        raise ValueError(f"Unsupported optimizer: {args.opt}")
 
 
 class NoOp:
