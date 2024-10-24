@@ -392,7 +392,7 @@ def _train(args):
         devices=1,
         accelerator='auto',
         precision=16 if args.mixed_precision else 32,
-        log_every_n_steps=100,
+        log_every_n_steps=1,
         logger=logger,  # Integrate your custom logger
         default_root_dir=args.output_dir,
         callbacks=[checkpoint_callback]
