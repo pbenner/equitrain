@@ -201,7 +201,6 @@ class FileLogger:
         pass
     
     def log_metrics(self, metrics, step=None):
-        print("inner ")
         for key, value in metrics.items():
             if step is not None:
                 self.logger.info(f"{key}: {value} at step {step}")
