@@ -258,13 +258,13 @@ class EquiTrainModule(pl.LightningModule):
             return None
         
         # Log the metrics into PyTorch Lightning’s system
-        self.log('train_loss', loss, on_step=True, on_epoch=True, prog_bar=True)
+        self.log('train_loss', loss, on_step=True, on_epoch=True, prog_bar=True, batch_size=batch.num_graphs)
         if loss_e is not None:
-            self.log('loss_e', loss_e, on_step=True, on_epoch=True, prog_bar=True)
+            self.log('loss_e', loss_e, on_step=True, on_epoch=True, prog_bar=True, batch_size=batch.num_graphs)
         if loss_f is not None:
-            self.log('loss_f', loss_f, on_step=True, on_epoch=True, prog_bar=True)
+            self.log('loss_f', loss_f, on_step=True, on_epoch=True, prog_bar=True, batch_size=batch.num_graphs)
         if loss_s is not None:
-            self.log('loss_s', loss_s, on_step=True, on_epoch=True, prog_bar=True)
+            self.log('loss_s', loss_s, on_step=True, on_epoch=True, prog_bar=True, batch_size=batch.num_graphs)
 
         # Update the training metrics
         self.train_loss_metrics['total'].update(loss.item(), n=e_pred.shape[0])
@@ -305,14 +305,14 @@ class EquiTrainModule(pl.LightningModule):
             self.val_loss_metrics['stress'].update(loss_s.item(), n=pred_s.shape[0])
 
         # Log validation loss (this will be used by ModelCheckpoint)
-        self.log('val_loss', loss, prog_bar=True, batch_size=pred_e.shape[0])
+        self.log('val_loss', loss, prog_bar=True, batch_size=batch.num_graphs)
 
         if loss_e is not None:
-            self.log('loss_e', loss_e)
+            self.log('loss_e', loss_e, batch_size=batch.num_graphs)
         if loss_f is not None:
-            self.log('loss_f', loss_f)
+            self.log('loss_f', loss_f, batch_size=batch.num_graphs)
         if loss_s is not None:
-            self.log('loss_s', loss_s)
+            self.log('loss_s', loss_s, batch_size=batch.num_graphs)
 
         return loss
     
