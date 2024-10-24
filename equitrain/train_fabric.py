@@ -288,7 +288,14 @@ class EquiTrainModule(pl.LightningModule):
         self.model = model
         self.criterion = criterion
         self.custom_logger = logger
-        self.loss_metrics = {
+
+        self.train_loss_metrics = {
+            'total': AverageMeter(),
+            'energy': AverageMeter(),
+            'forces': AverageMeter(),
+            'stress': AverageMeter(),
+        }
+        self.val_loss_metrics = {
             'total': AverageMeter(),
             'energy': AverageMeter(),
             'forces': AverageMeter(),
@@ -327,38 +334,43 @@ class EquiTrainModule(pl.LightningModule):
         if loss_s is not None:
             self.log('loss_s', loss_s, on_step=True, on_epoch=True, prog_bar=True)
 
-        # Log the metrics
-        self.loss_metrics['total'].update(loss.item(), n=e_pred.shape[0])
+        # Update the training metrics
+        self.train_loss_metrics['total'].update(loss.item(), n=e_pred.shape[0])
         if self.args.energy_weight > 0.0:
-            self.loss_metrics['energy'].update(loss_e.item(), n=e_pred.shape[0])
+            self.train_loss_metrics['energy'].update(loss_e.item(), n=e_pred.shape[0])
         if self.args.force_weight > 0.0:
-            self.loss_metrics['forces'].update(loss_f.item(), n=f_pred.shape[0])
+            self.train_loss_metrics['forces'].update(loss_f.item(), n=f_pred.shape[0])
         if self.args.stress_weight > 0.0:
-            self.loss_metrics['stress'].update(loss_s.item(), n=s_pred.shape[0])
+            self.train_loss_metrics['stress'].update(loss_s.item(), n=s_pred.shape[0])
         
 
         return loss
 
     def validation_step(self, batch, batch_idx):
+        e_true = batch.y
+        f_true = batch['force']
+        s_true = batch['stress']
+
         pred_e, pred_f, pred_s = self(batch)
 
         loss_e, loss_f, loss_s = None, None, None
         if pred_e is not None:
-            loss_e = self.criterion(pred_e, batch.y)
+            loss_e = self.criterion(pred_e, e_true)
         if pred_f is not None:
-            loss_f = self.criterion(pred_f, batch['force'])
+            loss_f = self.criterion(pred_f, f_true)
         if pred_s is not None:
-            loss_s = self.criterion(pred_s, batch['stress'])
+            loss_s = self.criterion(pred_s, s_true)
 
         loss = compute_weighted_loss(self.args, loss_e, loss_f, loss_s)
 
-        self.loss_metrics['total'].update(loss.item(), n=pred_e.shape[0])
-        if pred_e is not None:
-            self.loss_metrics['energy'].update(loss_e.item(), n=pred_e.shape[0])
-        if pred_f is not None:
-            self.loss_metrics['forces'].update(loss_f.item(), n=pred_f.shape[0])
-        if pred_s is not None:
-            self.loss_metrics['stress'].update(loss_s.item(), n=pred_s.shape[0])
+        # Update the validation metrics
+        self.val_loss_metrics['total'].update(loss.item(), n=pred_e.shape[0])
+        if self.args.energy_weight > 0.0:
+            self.val_loss_metrics['energy'].update(loss_e.item(), n=pred_e.shape[0])
+        if self.args.force_weight > 0.0:
+            self.val_loss_metrics['forces'].update(loss_f.item(), n=pred_e.shape[0])
+        if self.args.stress_weight > 0.0:
+            self.val_loss_metrics['stress'].update(loss_s.item(), n=pred_s.shape[0])
 
         # Log validation loss (this will be used by ModelCheckpoint)
         self.log('val_loss', loss, prog_bar=True, batch_size=pred_e.shape[0])
@@ -390,16 +402,20 @@ class EquiTrainModule(pl.LightningModule):
 
     def on_train_epoch_end(self):
         # Use the custom logger to log metrics at the end of the training epoch
-        log_metrics(self.args, self.custom_logger, f"Epoch [{self.current_epoch}] Train -- ", None, self.loss_metrics)
-        self.reset_loss_metrics()
+        log_metrics(self.args, self.custom_logger, f"Epoch [{self.current_epoch}] Train -- ", None, self.train_loss_metrics)
+        self.reset_train_loss_metrics()
 
     def on_validation_epoch_end(self):
         # Use the custom logger to log metrics at the end of the validation epoch
-        log_metrics(self.args, self.custom_logger, f"Epoch [{self.current_epoch}] Val -- ", None, self.loss_metrics)
-        #self.reset_loss_metrics()
+        log_metrics(self.args, self.custom_logger, f"Epoch [{self.current_epoch}] Val -- ", None, self.val_loss_metrics)
+        self.reset_val_loss_metrics()
 
-    def reset_loss_metrics(self):
-        for meter in self.loss_metrics.values():
+    def reset_train_loss_metrics(self):
+        for meter in self.train_loss_metrics.values():
+            meter.reset()
+
+    def reset_val_loss_metrics(self):
+        for meter in self.val_loss_metrics.values():
             meter.reset()
 
 
