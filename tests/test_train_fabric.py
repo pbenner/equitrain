@@ -1,7 +1,7 @@
 # %%
         
 from equitrain import get_args_parser_train
-from equitrain import train
+from equitrain import train_fabric
 
 # %%
 
@@ -20,7 +20,7 @@ def main():
     args.batch_size = 64
     args.lr         = 0.01
 
-    train(args)
+    train_fabric(args)
 
 # %%
 if __name__ == "__main__":

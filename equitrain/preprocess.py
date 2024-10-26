@@ -13,9 +13,11 @@ import os
 from pathlib import Path
 
 from equitrain.mace import tools
-from equitrain.mace.data import HDF5Dataset
+from equitrain.mace.data import HDF5Dataset, random_train_valid_split
 from equitrain.mace.data.utils import save_configurations_as_HDF5, compute_statistics
 from equitrain.mace.tools.scripts_utils import get_dataset_from_xyz, get_atomic_energies
+from equitrain.mace.data.utils import load_from_xyz_in_chunks, process_atoms_list
+from equitrain.mace.tools.scripts_utils import SubsetCollection
 
 def split_array(a: np.ndarray, max_size: int):
     drop_last = False
@@ -68,17 +70,43 @@ def _preprocess(args):
         config_type_weights = {"Default": 1.0}
 
     # Data preparation
-    collections, atomic_energies_dict = get_dataset_from_xyz(
-        train_path=args.train_file,
-        valid_path=args.valid_file,
-        valid_fraction=args.valid_fraction,
+    logging.info("Loading dataset in chunks")
+    atomic_energies_dict = {}
+    collections = SubsetCollection(train=[], valid=[], tests=[])
+
+    # Load and process training data in chunks
+    atomic_energies_dict, collections.train = load_from_xyz_in_chunks(
+        file_path=args.train_file,
         config_type_weights=config_type_weights,
-        test_path=args.test_file,
-        seed=args.seed,
         energy_key=args.energy_key,
         forces_key=args.forces_key,
         stress_key=args.stress_key,
+        extract_atomic_energies=True,
     )
+
+    # If validation file is provided
+    if args.valid_file:
+        _, collections.valid = load_from_xyz_in_chunks(
+            file_path=args.valid_file,
+            config_type_weights=config_type_weights,
+            energy_key=args.energy_key,
+            forces_key=args.forces_key,
+            stress_key=args.stress_key,
+        )
+    else:
+        collections.train, collections.valid = random_train_valid_split(
+            collections.train, args.valid_fraction, args.seed
+        )
+
+    # If test file is provided
+    if args.test_file:
+        for name, subset in collections.tests:
+            _, collections.tests = load_from_xyz_in_chunks(
+                file_path=args.test_file,
+                config_type_weights=config_type_weights,
+                energy_key=args.energy_key,
+                forces_key=args.forces_key,
+            )
 
     # Atomic number table
     # yapf: disable
