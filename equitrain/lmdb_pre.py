@@ -22,7 +22,6 @@ def convert_to_ase_object(data):
     else:
         atoms = Atoms(numbers=numbers, positions=positions, cell=np.reshape(cell, (3, 3)), pbc=data['pbc'])
 
-
     # Include energy if available
     if 'energy' in data:
         atoms.info['energy'] = data['energy']
@@ -37,7 +36,7 @@ def convert_to_ase_object(data):
 
     return atoms
 
-metadata = np.load('tests/data/lmdb/val_metadata.npz')
+metadata = np.load('equitrain/equitrain/tests/data/lmdb/val_metadata.npz')
 
 dataset_path = '/home/cmadaria/equitrain/equitrain/tests/data/lmdb/val.aselmdb'
 # Update config_kwargs with metadata
@@ -56,31 +55,30 @@ config_kwargs = {
 
 dataset = AseDBDataset(config=dict(src=dataset_path, **config_kwargs))
 
-# atoms objects can be retrieved by index
-#atoms = dataset.get_atoms(0)
-
-#atoms_list = []
-
-#print(atoms)
-
-#for data in dataset:
-#    atoms = convert_to_ase_object(data)  # Convert batch data to ASE Atoms
-#    atoms_list.append(atoms)
-
-    #print(data)
-
-# Write the data to HDF5 using h5py
+# Initialize the HDF5 file
 output_hdf5 = 'output_data.h5'
 
-with h5py.File('output_data.h5', 'w') as f:
+with h5py.File(output_hdf5, 'w') as f:
+    # Create batches, each with multiple configurations
+    batch_size = 5  # Number of configurations per batch (adjust as needed)
+    current_batch = None
+
     for i, data in enumerate(dataset):
+        # Start a new batch every 'batch_size' configurations
+        if i % batch_size == 0:
+            batch_index = i // batch_size
+            current_batch = f.create_group(f"config_batch_{batch_index}")
+        
+        # Convert LMDB data to ASE Atoms object
         atoms = convert_to_ase_object(data)
-        group = f.create_group(f"atoms_{i}")
-        group.create_dataset('positions', data=atoms.get_positions())
-        group.create_dataset('numbers', data=atoms.get_atomic_numbers())
-        group.create_dataset('cell', data=atoms.get_cell())
-        group.create_dataset('energy', data=atoms.info['energy'])
-        group.create_dataset('forces', data=atoms.arrays['forces'])
-        group.create_dataset('stress', data=atoms.info['stress'])
+        
+        # Create a new configuration inside the current batch
+        config_group = current_batch.create_group(f"config_{i % batch_size}")
+        config_group.create_dataset('positions', data=atoms.get_positions())
+        config_group.create_dataset('numbers', data=atoms.get_atomic_numbers())
+        config_group.create_dataset('cell', data=atoms.get_cell())
+        config_group.create_dataset('energy', data=atoms.info['energy'])
+        config_group.create_dataset('forces', data=atoms.arrays['forces'])
+        config_group.create_dataset('stress', data=atoms.info['stress'])
 
 print(f"Data successfully written to {output_hdf5}")
