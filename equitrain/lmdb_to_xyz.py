@@ -1,5 +1,4 @@
 import numpy as np
-import h5py
 from ase import Atoms
 from fairchem.core.datasets import AseDBDataset
 
@@ -24,7 +23,7 @@ def convert_to_ase_object(data):
     if 'forces' in data:
         atoms.arrays['forces'] = data['forces']
     if 'stress' in data:
-        atoms.info['stress'] = data['stress']
+        atoms.info['stress'] = data['stress']  # Ensure stress is set correctly
 
     return atoms
 
@@ -46,14 +45,18 @@ def convert_aselmdb_to_xyz(lmdb_path, output_xyz):
             cell = atoms.get_cell().reshape(-1)
             lattice_str = " ".join(map(str, cell))
 
-            # Energy, stress
+            # Energy and stress
             energy = atoms.info.get('energy', 0.0)
             stress = atoms.info.get('stress', np.zeros(9))
 
+            # Ensure stress is a 9-long vector
+            if stress.shape != (9,):
+                stress = np.zeros(9)  # Default to zero if stress is not valid
+
             # Write the header line in the XYZ file
             xyz_file.write(f'Lattice="{lattice_str}" Properties=species:S:1:pos:R:3:forces:R:3 ')
-            xyz_file.write(f'config_type=Default energy={energy} energy_corrected={energy} ')
-            xyz_file.write(f'stress="{stress}" pbc="T T T"\n')
+            xyz_file.write(f'config_type=Default energy={energy:.6f} energy_corrected={energy:.6f} ')
+            xyz_file.write(f'stress="{ " ".join(map(str, stress)) }" pbc="T T T"\n')
 
             # Write each atom's data (species, position, forces)
             for symbol, pos, force in zip(atoms.get_chemical_symbols(), atoms.get_positions(), atoms.arrays.get('forces', np.zeros_like(atoms.get_positions()))):
