@@ -194,6 +194,8 @@ def _train(args):
     for epoch in range(args.epochs):
         logger.info(f"Epoch nº {epoch+1}")
         logger.info("-----------------")
+
+
         model.train()
         for batch in train_loader:
             optimizer.zero_grad()
@@ -223,6 +225,7 @@ def _train(args):
                 e_true = batch.y
                 f_true = batch['force']
                 s_true = batch['stress']
+
                 e_pred, f_pred, s_pred = model(batch)
                 loss_e, loss_f, loss_s = None, None, None
                 if args.energy_weight > 0.0:

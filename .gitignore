@@ -4,3 +4,8 @@ __pycache__
 *.bin
 *.pkl
 *.log
+*.h5
+*.xyz
+*.aselmdb
+*.npz
+*.aselmdb
