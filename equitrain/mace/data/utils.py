@@ -245,27 +245,38 @@ def load_from_xyz(
     )
     return atomic_energies_dict, configs
 
-def process_atoms_list(atoms_list, config_type_weights, energy_key, forces_key, stress_key, virials_key, dipole_key, charges_key, extract_atomic_energies=False):
+def process_atoms_list(
+    atoms_list,
+    config_type_weights,
+    energy_key="energy",
+    forces_key="forces",
+    stress_key="stress",
+    virials_key="virials",
+    dipole_key="dipole",
+    charges_key="charges",
+    extract_atomic_energies=False
+):
     atomic_energies_dict = {}
-    if extract_atomic_energies:
-        atoms_without_iso_atoms = []
-        for idx, atoms in enumerate(atoms_list):
-            if len(atoms) == 1 and atoms.info["config_type"] == "IsolatedAtom":
-                if energy_key in atoms.info.keys():
-                    atomic_energies_dict[atoms.get_atomic_numbers()[0]] = atoms.info[energy_key]
-                else:
-                    logging.warning(
-                        f"Configuration '{idx}' is marked as 'IsolatedAtom' "
-                        "but does not contain an energy."
-                    )
-            else:
-                atoms_without_iso_atoms.append(atoms)
 
-        if len(atomic_energies_dict) > 0:
-            logging.info("Using isolated atom energies from training file")
+    for atoms in atoms_list:
+        unique_atomic_numbers = set(atoms.get_atomic_numbers())
+        for atomic_number in unique_atomic_numbers:
+            if atomic_number not in atomic_energies_dict:
+                atomic_energies_dict[atomic_number] = 0.0  # Initialize with None or a default
 
-        atoms_list = atoms_without_iso_atoms
 
+    # Iterate over all configurations in the atoms_list
+    for idx, atoms in enumerate(atoms_list):
+        unique_atomic_numbers = set(atoms.get_atomic_numbers())
+        energy_key = energy_key if energy_key in atoms.info else "energy_corrected"
+
+        if energy_key in atoms.info:
+            energy_value = atoms.info[energy_key]
+            atomic_energies_dict[idx] = energy_value
+        else:
+            logging.error(f"Configuration '{idx}' does not contain an '{energy_key}' field.")
+    
+    # Process configurations with the extracted atomic energies
     configs = config_from_atoms_list(
         atoms_list,
         config_type_weights=config_type_weights,
@@ -276,13 +287,14 @@ def process_atoms_list(atoms_list, config_type_weights, energy_key, forces_key, 
         dipole_key=dipole_key,
         charges_key=charges_key,
     )
+
     return atomic_energies_dict, configs
 
 def load_from_xyz_in_chunks(
     file_path: str,
     config_type_weights: Dict,
     chunk_size: int = 1000,
-    energy_key: str = "energy",
+    energy_key: str = "energy_corrected",
     forces_key: str = "forces",
     stress_key: str = "stress",
     virials_key: str = "virials",
@@ -290,7 +302,6 @@ def load_from_xyz_in_chunks(
     charges_key: str = "charges",
     extract_atomic_energies: bool = False,
 ):
-    """Load training and test dataset from xyz file in chunks"""
     atomic_energies_dict = {}
     total_configs = []
     start = 0
@@ -315,6 +326,7 @@ def load_from_xyz_in_chunks(
             charges_key=charges_key,
             extract_atomic_energies=extract_atomic_energies,
         )
+
 
         atomic_energies_dict.update(current_energies_dict)
         total_configs.extend(configs)

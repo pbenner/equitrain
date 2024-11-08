@@ -74,6 +74,19 @@ def _preprocess(args):
     atomic_energies_dict = {}
     collections = SubsetCollection(train=[], valid=[], tests=[])
 
+    if args.atomic_numbers is None:
+        z_table = tools.get_atomic_number_table_from_zs(
+            z
+            for configs in (collections.train, collections.valid)
+            for config in configs
+            for z in config.atomic_numbers
+        )
+    else:
+        logging.info("Using atomic numbers from command line argument")
+        zs_list = ast.literal_eval(args.atomic_numbers)
+        assert isinstance(zs_list, list)
+        z_table = tools.get_atomic_number_table_from_zs(zs_list)
+
     # Load and process training data in chunks
     atomic_energies_dict, collections.train = load_from_xyz_in_chunks(
         file_path=args.train_file,
@@ -83,6 +96,11 @@ def _preprocess(args):
         stress_key=args.stress_key,
         extract_atomic_energies=True,
     )
+
+    #if len(atomic_energies_dict) == 0:
+    #    logging.info("Atomic energies not found in isolated atoms, using fallback calculation.")
+    #    atomic_energies_dict = get_atomic_energies(args.E0s, collections.train, z_table)
+    #logging.info(f"Fallback atomic energies: {atomic_energies_dict}")
 
     # If validation file is provided
     if args.valid_file:
@@ -110,18 +128,6 @@ def _preprocess(args):
 
     # Atomic number table
     # yapf: disable
-    if args.atomic_numbers is None:
-        z_table = tools.get_atomic_number_table_from_zs(
-            z
-            for configs in (collections.train, collections.valid)
-            for config in configs
-            for z in config.atomic_numbers
-        )
-    else:
-        logging.info("Using atomic numbers from command line argument")
-        zs_list = ast.literal_eval(args.atomic_numbers)
-        assert isinstance(zs_list, list)
-        z_table = tools.get_atomic_number_table_from_zs(zs_list)
 
     logging.info("Preparing training set")
 
@@ -141,7 +147,7 @@ def _preprocess(args):
         atomic_energies: np.ndarray = np.array(
             [atomic_energies_dict[z] for z in z_table.zs]
         )
-        logging.info(f"Atomic energies: {atomic_energies.tolist()}")
+        logging.info(f"Atomic energies array for computation: {atomic_energies.tolist()}")
         train_dataset = HDF5Dataset(os.path.join(args.output_dir, "train.h5"), z_table=z_table, r_max=args.r_max)
         train_loader = torch_geometric.loader.DataLoader(
             dataset=train_dataset, 
@@ -158,13 +164,14 @@ def _preprocess(args):
             
         # save the statistics as a json
         statistics = {
-            "atomic_energies": str(atomic_energies_dict),
+            "atomic_energies": {int(k): float(v) for k, v in atomic_energies_dict.items()},
             "avg_num_neighbors": avg_num_neighbors,
             "mean": mean,
             "std": std,
-            "atomic_numbers": str(z_table.zs),
+            "atomic_numbers": z_table.zs,
             "r_max": args.r_max,
         }
+        logging.info(f"Final statistics to be saved: {statistics}")
         del train_dataset
         del train_loader
         with open(os.path.join(args.output_dir, "statistics.json"), "w") as f:
