@@ -21,21 +21,24 @@ class CachedCalc:
     def get_stress(self, apply_constraint=False):
         return self.stress
 
+
 def unpack_value(value):
     value = value.decode("utf-8") if isinstance(value, bytes) else value
     return None if str(value) == "None" else value
 
+
 class HDF5Dataset(Dataset):
     def __init__(self, file_path, r_max, z_table, **kwargs):
         super(HDF5Dataset, self).__init__()
-        self.file_path = file_path
-        self._file = None
-        batch_key = list(self.file.keys())[0]
+        self.file_path  = file_path
+        self._file      = None
+        batch_key       = list(self.file.keys())[0]
         self.batch_size = len(self.file[batch_key].keys())
-        self.length = len(self.file.keys()) * self.batch_size
-        self.converter = AtomsToGraphs(r_energy=True, r_forces=True, r_stress=True, r_pbc=True, radius=r_max)
-        self.r_max = r_max
-        self.z_table = z_table
+        self.length     = len(self.file.keys()) * self.batch_size
+        self.converter  = AtomsToGraphs(z_table, r_energy=True, r_forces=True, r_stress=True, r_pbc=True, radius=r_max)
+        self.r_max      = r_max
+        self.z_table    = z_table
+
         try:
             self.drop_last = bool(self.file.attrs["drop_last"])
         except KeyError:
@@ -60,10 +63,10 @@ class HDF5Dataset(Dataset):
 
     def __getitem__(self, index):
         # compute the index of the batch
-        batch_index = index // self.batch_size
+        batch_index  = index // self.batch_size
         config_index = index % self.batch_size
-        grp = self.file["config_batch_" + str(batch_index)]
-        subgrp = grp["config_" + str(config_index)]
+        grp          = self.file["config_batch_" + str(batch_index)]
+        subgrp       = grp["config_" + str(config_index)]
 
         atoms = Atoms(
             numbers   = subgrp["atomic_numbers"][()],

@@ -10,23 +10,11 @@ import ase.io.trajectory
 import numpy as np
 import torch
 
+from pymatgen.io.ase import AseAtomsAdaptor
 from torch_geometric.data import Data
+from tqdm import tqdm
 
-
-try:
-    from pymatgen.io.ase import AseAtomsAdaptor
-except Exception:
-    pass
-
-
-try:
-    shell = get_ipython().__class__.__name__
-    if shell == "ZMQInteractiveShell":
-        from tqdm.notebook import tqdm
-    else:
-        from tqdm import tqdm
-except NameError:
-    from tqdm import tqdm
+from equitrain.mace.tools import atomic_numbers_to_indices, to_one_hot
 
 
 class AtomsToGraphs:
@@ -68,6 +56,7 @@ class AtomsToGraphs:
 
     def __init__(
         self,
+        z_table,
         max_neigh=200,
         radius=6,
         r_energy=False,
@@ -78,15 +67,17 @@ class AtomsToGraphs:
         r_fixed=True,
         r_pbc=False,
     ):
-        self.max_neigh = max_neigh
-        self.radius = radius
-        self.r_energy = r_energy
-        self.r_forces = r_forces
-        self.r_stress = r_stress
+        
+        self.z_table     = z_table
+        self.max_neigh   = max_neigh
+        self.radius      = radius
+        self.r_energy    = r_energy
+        self.r_forces    = r_forces
+        self.r_stress    = r_stress
         self.r_distances = r_distances
-        self.r_fixed = r_fixed
-        self.r_edges = r_edges
-        self.r_pbc = r_pbc
+        self.r_fixed     = r_fixed
+        self.r_edges     = r_edges
+        self.r_pbc       = r_pbc
 
     def _get_neighbors_pymatgen(self, atoms):
         """Preforms nearest neighbor search and returns edge index, distances,
@@ -152,13 +143,20 @@ class AtomsToGraphs:
         # https://wiki.fysik.dtu.dk/ase/_modules/ase/atoms.html#Atoms.get_tags
         tags = torch.Tensor(atoms.get_tags())
 
+        indices = atomic_numbers_to_indices(atomic_numbers, z_table=self.z_table)
+        node_attrs = to_one_hot(
+            torch.tensor(indices, dtype=torch.long).unsqueeze(-1),
+            num_classes=len(self.z_table),
+        )
+
         # put the minimum data in torch geometric data object
         data = Data(
             cell=cell,
             # atomic positions are sometimes expected as `pos`, or `positions`
             pos=positions, positions=positions,
-            # atomic numbers are expected as `node_attrs`, or `atomic_numbers`
-            node_attrs=atomic_numbers,
+            # atomic numbers represented as one hot encoding
+            node_attrs=node_attrs,
+            # plain atomic numbers
             atomic_numbers=atomic_numbers,
             natoms=natoms,
             tags=tags,

@@ -10,20 +10,21 @@ from torch_geometric.data.collate import collate
 from pymatgen.core import Structure
 from pymatgen.io.ase import AseAtomsAdaptor
 
+from equitrain.mace.tools  import AtomicNumberTable
 from equitrain.model       import get_model
 from equitrain.dataloaders import get_dataloader
 from equitrain.ocpmodels.preprocessing import AtomsToGraphs
 
 
-def predict_structures(model: torch.nn.Module, structure_list: List[Structure], max_neighbors=200, r_max = None, num_workers = 1, pin_memory = False, batch_size = 12, device = None) -> List[torch.Tensor]:
+def predict_structures(model: torch.nn.Module, structure_list: List[Structure], z_table : AtomicNumberTable, max_neighbors=200, r_max = None, num_workers = 1, pin_memory = False, batch_size = 12, device = None) -> List[torch.Tensor]:
     """Predict energy, forces, and stress of a structure"""
 
     atoms_list = [ AseAtomsAdaptor.get_atoms(structure) for structure in structure_list ]
 
-    return predict_atoms(model, atoms_list, num_workers = num_workers, pin_memory = pin_memory, batch_size = batch_size, device = device)
+    return predict_atoms(model, atoms_list, z_table, max_neighbors = max_neighbors, r_max = r_max, num_workers = num_workers, pin_memory = pin_memory, batch_size = batch_size, device = device)
 
 
-def predict_atoms(model: torch.nn.Module, atoms_list: List[ase.Atoms], max_neighbors=200, r_max = None, num_workers = 1, pin_memory = False, batch_size = 12, device = None) -> List[torch.Tensor]:
+def predict_atoms(model: torch.nn.Module, atoms_list: List[ase.Atoms], z_table : AtomicNumberTable, max_neighbors=200, r_max = None, num_workers = 1, pin_memory = False, batch_size = 12, device = None) -> List[torch.Tensor]:
     """Predict energy, forces, and stress of a structure"""
 
     if hasattr(model, 'cutoff'):
@@ -35,6 +36,7 @@ def predict_atoms(model: torch.nn.Module, atoms_list: List[ase.Atoms], max_neigh
         raise ValueError('Could not determine r_max value')
 
     atoms_to_graphs = AtomsToGraphs(
+        z_table,
         max_neigh=max_neighbors,
         radius=r_max,
         r_energy=False,
