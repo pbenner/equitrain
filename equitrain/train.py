@@ -394,10 +394,6 @@ def train_one_epoch(args,
                     epoch: int, 
                     print_freq: int = 100, 
                     logger=None):
-    
-    device = torch.device("cuda:1")
-    model.to(device)
-    criterion.to(device)
 
     model.train()
     criterion.train()
@@ -412,8 +408,6 @@ def train_one_epoch(args,
     start_time = time.perf_counter()
 
     for step, data in enumerate(data_loader):
-        
-        data.to(device)
 
         # prevent out of memory error
         if args.batch_edge_limit > 0:
@@ -478,8 +472,6 @@ def _train(args):
     
     logger = FileLogger(is_master=True, is_rank0=True, output_dir=args.output_dir)
     logger.info(args)
-
-    device = torch.device("cuda:1")
     
     # since dataset needs random 
     torch.manual_seed(args.seed)
@@ -501,8 +493,6 @@ def _train(args):
         compute_force=args.force_weight > 0.0,
         compute_stress=args.stress_weight > 0.0,
         logger=logger)
-    
-    model.to(device)
 
     if accelerator.process_index == 0:
 
