@@ -3,6 +3,7 @@ import h5py
 from ase import Atoms
 from fairchem.core.datasets import AseDBDataset
 
+
 def convert_to_ase_object(data):
     # Use 'pos' for atomic positions
     positions = data['pos']

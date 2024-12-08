@@ -2,6 +2,7 @@ import torch
 
 from typing import List, Optional, Tuple
 
+
 def compute_stress(
     energy: torch.Tensor,
     displacement: torch.Tensor,

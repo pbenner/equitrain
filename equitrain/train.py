@@ -31,7 +31,6 @@ from equitrain.model         import get_model
 import warnings
 warnings.filterwarnings("ignore", message=r".*TorchScript type system.*")
 
-# %%
 
 class FileLogger:
     def __init__(self, is_master=False, is_rank0=False, output_dir=None, logger_name='training'):
@@ -81,13 +80,13 @@ class FileLogger:
     def info(self, *args):
         self.logger.info(*args)
 
+
 # no_op method/object that accept every signature
 class NoOp:
     def __getattr__(self, *args):
         def no_op(*args, **kwargs): pass
         return no_op
 
-# %%
 
 class AverageMeter:
     """Computes and stores the average and current value"""
@@ -105,6 +104,7 @@ class AverageMeter:
         self.sum   += val * n
         self.count += n
         self.avg    = self.sum / self.count
+
 
 def compute_stats(data_loader, max_radius, logger, print_freq=1000):
     '''
@@ -141,7 +141,7 @@ def compute_stats(data_loader, max_radius, logger, print_freq=1000):
             log_str += 'avg degree: {}, '.format(avg_degree.avg)
             logger.info(log_str)
 
-#%%
+
 def add_weight_decay(model, weight_decay=1e-5, skip_list=()):
     decay = []
     no_decay = []
@@ -272,7 +272,6 @@ def create_optimizer_v2(
 
     return optimizer
 
-# %%
 
 def log_metrics(args, logger, prefix, postfix, loss_metrics):
 
@@ -359,6 +358,7 @@ def evaluate(args,
                 break
 
     return loss_metrics
+
 
 def update_best_results(args, best_metrics, val_loss, epoch):
 
@@ -467,6 +467,7 @@ def train_one_epoch(args,
                 log_metrics(args, logger, info_str_prefix, info_str_postfix, loss_metrics)
 
     return loss_metrics
+
 
 def _train(args):
     

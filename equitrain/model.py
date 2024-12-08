@@ -3,7 +3,6 @@ import torch
 from equitrain.equiformer_v1 import DotProductAttentionTransformerOC20
 from equitrain.equiformer_v2 import EquiformerV2_OC20
 
-# %%
 
 def get_model(r_max, args, compute_force=True, compute_stress=True, logger=None):
 
@@ -41,6 +40,5 @@ def get_model(r_max, args, compute_force=True, compute_stress=True, logger=None)
             logger.info(f'Loading model checkpoint {args.load_checkpoint_model}...')
 
         model.load_state_dict(torch.load(args.load_checkpoint_model))
-
 
     return model

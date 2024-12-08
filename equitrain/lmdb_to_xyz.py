@@ -2,6 +2,7 @@ import numpy as np
 from ase import Atoms
 from fairchem.core.datasets import AseDBDataset
 
+
 def convert_to_ase_object(data):
     """Convert the LMDB data object to ASE Atoms object."""
     positions = data['pos']
@@ -26,6 +27,7 @@ def convert_to_ase_object(data):
         atoms.info['stress'] = data['stress']  # Ensure stress is set correctly
 
     return atoms
+
 
 def convert_aselmdb_to_xyz(lmdb_path, output_xyz):
     """Convert ASELMDB data to XYZ format."""
@@ -65,6 +67,7 @@ def convert_aselmdb_to_xyz(lmdb_path, output_xyz):
                 xyz_file.write(f"{symbol} {pos_str} {force_str}\n")
 
     print(f"Conversion complete: {output_xyz}")
+
 
 # Example usage:
 if __name__ == "__main__":

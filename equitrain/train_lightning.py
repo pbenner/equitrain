@@ -12,6 +12,7 @@ from torch.optim import SGD, Adam, AdamW, RMSprop, Adadelta
 from equitrain.dataloaders   import get_dataloaders
 from equitrain.model         import get_model
 
+
 def log_metrics(args, logger, prefix, postfix, loss_metrics):
 
     info_str  = prefix
@@ -35,6 +36,7 @@ def log_metrics(args, logger, prefix, postfix, loss_metrics):
 
     logger.info(info_str)
 
+
 class AverageMeter:
     """Computes and stores the average and current value"""
     def __init__(self):
@@ -51,6 +53,7 @@ class AverageMeter:
         self.sum   += val * n
         self.count += n
         self.avg    = self.sum / self.count
+
 
 def add_weight_decay_and_groups(model, weight_decay=1e-5, filter_bias_and_bn=True, lr_groups=None):
     decay = []
@@ -96,6 +99,7 @@ def add_weight_decay_and_groups(model, weight_decay=1e-5, filter_bias_and_bn=Tru
     
     return param_group_list
 
+
 def compute_weighted_loss(args, energy_loss, force_loss, stress_loss):
     result = 0.0
     # handle initial values correctly when weights are zero, i.e. 0.0*Inf -> NaN
@@ -107,6 +111,7 @@ def compute_weighted_loss(args, energy_loss, force_loss, stress_loss):
         result += args.stress_weight * stress_loss
 
     return result
+
 
 def create_optimizer(args, model, filter_bias_and_bn=True):
     # Example: User-defined learning rate groups based on layer names
@@ -137,6 +142,7 @@ class NoOp:
     def __getattr__(self, *args):
         def no_op(*args, **kwargs): pass
         return no_op
+
 
 class FileLogger:
     def __init__(self, is_master=False, is_rank0=False, output_dir=None, logger_name='training', version='1'):
@@ -207,7 +213,6 @@ class FileLogger:
 
     def after_save_checkpoint(self, checkpoint):
         self.logger.info(f"Checkpoint saved at {checkpoint}")
-
 
 
 class EquiTrainModule(pl.LightningModule):
@@ -346,7 +351,6 @@ class EquiTrainModule(pl.LightningModule):
     def reset_val_loss_metrics(self):
         for meter in self.val_loss_metrics.values():
             meter.reset()
-
 
 
 def _train(args):

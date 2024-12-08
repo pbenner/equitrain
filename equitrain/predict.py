@@ -14,7 +14,6 @@ from equitrain.model       import get_model
 from equitrain.dataloaders import get_dataloader
 from equitrain.ocpmodels.preprocessing import AtomsToGraphs
 
-# %%
 
 def predict_structures(model: torch.nn.Module, structure_list: List[Structure], max_neighbors=200, r_max = None, num_workers = 1, pin_memory = False, batch_size = 12, device = None) -> List[torch.Tensor]:
     """Predict energy, forces, and stress of a structure"""

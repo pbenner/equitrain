@@ -19,6 +19,7 @@ from equitrain.mace.tools.scripts_utils import get_dataset_from_xyz, get_atomic_
 from equitrain.mace.data.utils import load_from_xyz_in_chunks, process_atoms_list
 from equitrain.mace.tools.scripts_utils import SubsetCollection
 
+
 def split_array(a: np.ndarray, max_size: int):
     drop_last = False
     if len(a) % 2 == 1:
@@ -96,11 +97,6 @@ def _preprocess(args):
         stress_key=args.stress_key,
         extract_atomic_energies=True,
     )
-
-    #if len(atomic_energies_dict) == 0:
-    #    logging.info("Atomic energies not found in isolated atoms, using fallback calculation.")
-    #    atomic_energies_dict = get_atomic_energies(args.E0s, collections.train, z_table)
-    #logging.info(f"Fallback atomic energies: {atomic_energies_dict}")
 
     # If validation file is provided
     if args.valid_file:
@@ -193,6 +189,7 @@ def _preprocess(args):
                 f.attrs["drop_last"] = drop_last
                 for i, batch in enumerate(split_test):
                     save_configurations_as_HDF5(batch, i, f)
+
 
 def preprocess(args):
     if args.train_file is None:
