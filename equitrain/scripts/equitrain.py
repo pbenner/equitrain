@@ -1,7 +1,8 @@
 #! /usr/bin/env python
-# %%
 
-from equitrain import get_args_parser_train
+import sys
+
+from equitrain import get_args_parser_train, ArgumentError
 from equitrain import train
 
 # %%
@@ -10,7 +11,11 @@ def main():
 
     parser = get_args_parser_train()
 
-    train(parser.parse_args())
+    try:
+        train(parser.parse_args())
+    except ArgumentError as v:
+        print(v, file=sys.stderr)
+        exit(1)
 
 # %%
 if __name__ == "__main__":

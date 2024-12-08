@@ -155,7 +155,10 @@ class AtomsToGraphs:
         # put the minimum data in torch geometric data object
         data = Data(
             cell=cell,
-            pos=positions,
+            # atomic positions are sometimes expected as `pos`, or `positions`
+            pos=positions, positions=positions,
+            # atomic numbers are expected as `node_attrs`, or `atomic_numbers`
+            node_attrs=atomic_numbers,
             atomic_numbers=atomic_numbers,
             natoms=natoms,
             tags=tags,

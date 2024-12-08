@@ -32,7 +32,7 @@ def get_model(r_max, args, compute_force=True, compute_stress=True, logger=None)
             proj_drop        = args.proj_drop,
         )
     else:
-        raise ValueError("Invalid model argument")
+        model = torch.load(args.model)
 
     if args.load_checkpoint_model is not None:
 

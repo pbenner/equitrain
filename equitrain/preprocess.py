@@ -18,6 +18,7 @@ from equitrain.mace.data.utils import save_configurations_as_HDF5, compute_stati
 from equitrain.mace.tools.scripts_utils import get_dataset_from_xyz, get_atomic_energies
 from equitrain.mace.data.utils import load_from_xyz_in_chunks, process_atoms_list
 from equitrain.mace.tools.scripts_utils import SubsetCollection
+from equitrain.argparser import ArgumentError
 
 
 def split_array(a: np.ndarray, max_size: int):
@@ -193,13 +194,13 @@ def _preprocess(args):
 
 def preprocess(args):
     if args.train_file is None:
-        raise ValueError("--train-file is a required argument")
+        raise ArgumentError("--train-file is a required argument")
     if args.valid_file is None:
-        raise ValueError("--valid-file is a required argument")
+        raise ArgumentError("--valid-file is a required argument")
     if args.statistics_file is None:
-        raise ValueError("--statistics-file is a required argument")
+        raise ArgumentError("--statistics-file is a required argument")
     if args.output_dir is None:
-        raise ValueError("--output-dir is a required argument")
+        raise ArgumentError("--output-dir is a required argument")
 
     if args.output_dir:
         Path(args.output_dir).mkdir(parents=True, exist_ok=True)

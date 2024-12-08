@@ -1,5 +1,11 @@
 import argparse
 
+
+class ArgumentError(ValueError):
+    """Custom exception raised when invalid or missing argument is present."""
+    pass
+
+
 def get_args_parser_train():
     parser = argparse.ArgumentParser('Equitrain training script', add_help=False)
     # required arguments
@@ -15,7 +21,8 @@ def get_args_parser_train():
                         help='Skip batches with too many connections, used to prevent out of memory errors')
     parser.add_argument("--eval-batch-size", type=int, default=24)
     # model type parameter
-    parser.add_argument('--model', type=str, default="v1")
+    parser.add_argument('--model', type=str, default=None,
+                        help='Path to a model file')
     # regularization
     parser.add_argument('--alpha-drop', type=float, default=0.0)
     parser.add_argument('--proj-drop', type=float, default=0.0)
@@ -164,6 +171,7 @@ def get_args_parser_preprocess() -> argparse.ArgumentParser:
     )
     return parser
 
+
 def get_args_parser_test() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser('Equitrain test script', add_help=False)
     # model type parameter
@@ -211,6 +219,7 @@ def get_args_parser_test() -> argparse.ArgumentParser:
     parser.set_defaults(pin_mem=True)
 
     return parser
+
 
 def get_args_parser_predict() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser('Equitrain predict script', add_help=False)

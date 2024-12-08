@@ -25,8 +25,9 @@ from timm.optim.sgdp import SGDP
 from timm.optim.adabelief import AdaBelief
 from timm.scheduler import create_scheduler
 
-from equitrain.dataloaders   import get_dataloaders
-from equitrain.model         import get_model
+from equitrain.argparser   import ArgumentError
+from equitrain.dataloaders import get_dataloaders
+from equitrain.model       import get_model
 
 import warnings
 warnings.filterwarnings("ignore", message=r".*TorchScript type system.*")
@@ -586,16 +587,18 @@ def _train(args):
 def train(args):
 
     if args.train_file is None:
-        raise ValueError("--train-file is a required argument")
+        raise ArgumentError("--train-file is a required argument")
     if args.valid_file is None:
-        raise ValueError("--valid-file is a required argument")
+        raise ArgumentError("--valid-file is a required argument")
     if args.statistics_file is None:
-        raise ValueError("--statistics-file is a required argument")
+        raise ArgumentError("--statistics-file is a required argument")
     if args.output_dir is None:
-        raise ValueError("--output-dir is a required argument")
+        raise ArgumentError("--output-dir is a required argument")
+    if args.model is None:
+        raise ArgumentError("--model is a required argument")
 
     if args.energy_weight == 0.0 and args.force_weight == 0.0 and args.stress_weight == 0.0:
-        raise ValueError("at least one non-zero loss weight is required")
+        raise ArgumentError("at least one non-zero loss weight is required")
 
     if args.output_dir:
         Path(args.output_dir).mkdir(parents=True, exist_ok=True)
