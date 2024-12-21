@@ -23,7 +23,7 @@ def to_one_hot(indices: torch.Tensor, num_classes: int) -> torch.Tensor:
     :return: (N x num_classes) tensor
     """
     shape = indices.shape[:-1] + (num_classes,)
-    oh = torch.zeros(shape, device=indices.device).view(shape)
+    oh = torch.zeros(shape, device=indices.device, dtype=torch.double).view(shape)
 
     # scatter_ is the in-place version of scatter
     oh.scatter_(dim=-1, index=indices, value=1)

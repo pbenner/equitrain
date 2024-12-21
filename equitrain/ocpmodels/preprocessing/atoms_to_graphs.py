@@ -15,7 +15,7 @@ from torch_geometric.data import Data
 from tqdm import tqdm
 
 from equitrain.mace.tools import atomic_numbers_to_indices, to_one_hot
-
+from equitrain.mace.data.neighborhood import get_neighborhood
 
 class AtomsToGraphs:
     """A class to help convert periodic atomic structures to graphs.
@@ -79,10 +79,19 @@ class AtomsToGraphs:
         self.r_edges     = r_edges
         self.r_pbc       = r_pbc
 
+    def _get_neighbors(self, atoms):
+
+        return get_neighborhood(
+            atoms.get_positions(),
+            self.radius,
+            atoms.pbc,
+            np.array(atoms.get_cell()))
+
     def _get_neighbors_pymatgen(self, atoms):
         """Preforms nearest neighbor search and returns edge index, distances,
         and cell offsets"""
         struct = AseAtomsAdaptor.get_structure(atoms)
+
         _c_index, _n_index, _offsets, n_distance = struct.get_neighbor_list(
             r=self.radius, numerical_tol=0, exclude_self=True
         )
@@ -95,27 +104,27 @@ class AtomsToGraphs:
             _nonmax_idx.append(idx_i[idx_sorted])
         _nonmax_idx = np.concatenate(_nonmax_idx)
 
-        _c_index = _c_index[_nonmax_idx]
-        _n_index = _n_index[_nonmax_idx]
+        _c_index   = _c_index  [_nonmax_idx]
+        _n_index   = _n_index  [_nonmax_idx]
         n_distance = n_distance[_nonmax_idx]
-        _offsets = _offsets[_nonmax_idx]
+        _offsets   = _offsets  [_nonmax_idx]
 
         return _c_index, _n_index, n_distance, _offsets
 
     def _reshape_features(self, c_index, n_index, n_distance, offsets):
         """Stack center and neighbor index and reshapes distances,
         takes in np.arrays and returns torch tensors"""
-        edge_index = torch.LongTensor(np.vstack((n_index, c_index)))
+        edge_index     = torch.LongTensor(np.vstack((n_index, c_index)))
         edge_distances = torch.FloatTensor(n_distance)
-        cell_offsets = torch.LongTensor(offsets)
+        cell_offsets   = torch.LongTensor(offsets)
 
         # remove distances smaller than a tolerance ~ 0. The small tolerance is
         # needed to correct for pymatgen's neighbor_list returning self atoms
         # in a few edge cases.
-        nonzero = torch.where(edge_distances >= 1e-8)[0]
-        edge_index = edge_index[:, nonzero]
+        nonzero        = torch.where(edge_distances >= 1e-8)[0]
+        edge_index     = edge_index[:, nonzero]
         edge_distances = edge_distances[nonzero]
-        cell_offsets = cell_offsets[nonzero]
+        cell_offsets   = cell_offsets[nonzero]
 
         return edge_index, edge_distances, cell_offsets
 
@@ -135,9 +144,9 @@ class AtomsToGraphs:
         """
 
         # set the atomic numbers, positions, and cell
-        atomic_numbers = torch.Tensor(atoms.get_atomic_numbers())
-        positions      = torch.Tensor(atoms.get_positions())
-        cell           = torch.Tensor(np.array(atoms.get_cell())).view(1, 3, 3)
+        atomic_numbers = torch.tensor(atoms.get_atomic_numbers())
+        positions      = torch.tensor(atoms.get_positions(), dtype=torch.get_default_dtype())
+        cell           = torch.tensor(np.array(atoms.get_cell()), dtype=torch.get_default_dtype()).view(1, 3, 3)
         natoms         = positions.shape[0]
         # initialized to torch.zeros(natoms) if tags missing.
         # https://wiki.fysik.dtu.dk/ase/_modules/ase/atoms.html#Atoms.get_tags
@@ -164,25 +173,37 @@ class AtomsToGraphs:
 
         # optionally include other properties
         if self.r_edges:
-            # run internal functions to get padded indices and distances
-            split_idx_dist = self._get_neighbors_pymatgen(atoms)
-            edge_index, edge_distances, cell_offsets = self._reshape_features(
-                *split_idx_dist
-            )
+            if False:
+                # run internal functions to get padded indices and distances
+                split_idx_dist = self._get_neighbors_pymatgen(atoms)
+                edge_index, edge_distances, cell_offsets = self._reshape_features(
+                    *split_idx_dist
+                )
+                data.edge_index = edge_index
+                data.cell_offsets = cell_offsets
 
-            data.edge_index = edge_index
-            data.cell_offsets = cell_offsets
+                if self.r_distances:
+                    data.distances = edge_distances
+            else:
+                edge_index, shifts, _unit_shifts, cell = self._get_neighbors(atoms)
+
+                if cell is None:
+                    cell = 3 * [0.0, 0.0, 0.0]
+
+                data.edge_index = torch.tensor(edge_index, dtype=torch.long)
+                data.shifts     = torch.tensor(shifts,     dtype=torch.get_default_dtype())
+                data.cell       = torch.tensor(cell,       dtype=torch.get_default_dtype())
+
+
         if self.r_energy:
             energy = atoms.get_potential_energy(apply_constraint=False)
-            data.y = energy
+            data.y = torch.tensor(energy, dtype=torch.get_default_dtype())
         if self.r_forces:
-            forces = torch.Tensor(atoms.get_forces(apply_constraint=False))
-            data.force = forces
+            forces = atoms.get_forces(apply_constraint=False)
+            data.force = torch.tensor(forces, dtype=torch.get_default_dtype())
         if self.r_stress:
-            stress = torch.Tensor(np.array([atoms.get_stress(voigt=False, apply_constraint=False)]))
-            data.stress = stress
-        if self.r_distances and self.r_edges:
-            data.distances = edge_distances
+            stress = np.array([atoms.get_stress(voigt=False, apply_constraint=False)])
+            data.stress = torch.tensor(stress, dtype=torch.get_default_dtype())
         if self.r_fixed:
             fixed_idx = torch.zeros(natoms)
             if hasattr(atoms, "constraints"):

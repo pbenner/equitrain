@@ -27,7 +27,7 @@ from timm.scheduler import create_scheduler
 
 from equitrain.argparser   import ArgumentError
 from equitrain.dataloaders import get_dataloaders
-from equitrain.model       import get_model
+from equitrain.model       import get_model, ModelWrapper
 
 import warnings
 warnings.filterwarnings("ignore", message=r".*TorchScript type system.*")
@@ -327,36 +327,34 @@ def evaluate(args,
         'stress': AverageMeter(),
     }
 
-    with torch.no_grad():
-            
-        for step, data in enumerate(data_loader):
+    for step, data in enumerate(data_loader):
 
-            pred_e, pred_f, pred_s = model(data)
+        pred_e, pred_f, pred_s = model(data)
 
-            loss_e = None
-            loss_f = None
-            loss_s = None
+        loss_e = None
+        loss_f = None
+        loss_s = None
 
-            if pred_e is not None:
-                loss_e = criterion(pred_e, data.y)
-            if pred_f is not None:
-                loss_f = criterion(pred_f, data['force'])
-            if pred_s is not None:
-                loss_s = criterion(pred_s, data['stress'])
+        if pred_e is not None:
+            loss_e = criterion(pred_e, data.y)
+        if pred_f is not None:
+            loss_f = criterion(pred_f, data['force'])
+        if pred_s is not None:
+            loss_s = criterion(pred_s, data['stress'])
 
-            loss = compute_weighted_loss(args, loss_e, loss_f, loss_s)
+        loss = compute_weighted_loss(args, loss_e, loss_f, loss_s)
 
-            loss_metrics['total'].update(loss.item(), n=pred_e.shape[0])
+        loss_metrics['total'].update(loss.item(), n=pred_e.shape[0])
 
-            if pred_e is not None:
-                loss_metrics['energy'].update(loss_e.item(), n=pred_e.shape[0])
-            if pred_f is not None:
-                loss_metrics['forces'].update(loss_f.item(), n=pred_f.shape[0])
-            if pred_s is not None:
-                loss_metrics['stress'].update(loss_s.item(), n=pred_s.shape[0])
-            
-            if ((step + 1) >= max_iter) and (max_iter != -1):
-                break
+        if pred_e is not None:
+            loss_metrics['energy'].update(loss_e.item(), n=pred_e.shape[0])
+        if pred_f is not None:
+            loss_metrics['forces'].update(loss_f.item(), n=pred_f.shape[0])
+        if pred_s is not None:
+            loss_metrics['stress'].update(loss_s.item(), n=pred_s.shape[0])
+
+        if ((step + 1) >= max_iter) and (max_iter != -1):
+            break
 
     return loss_metrics
 
@@ -478,6 +476,9 @@ def _train(args):
     # since dataset needs random 
     torch.manual_seed(args.seed)
     np.random.seed(args.seed)
+
+    # set dtype globally
+    torch.set_default_dtype(torch.float64)
 
     if args.energy_weight == 0.0:
         ddp_kwargs = DistributedDataParallelKwargs(find_unused_parameters=True)
