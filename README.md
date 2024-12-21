@@ -23,9 +23,10 @@ pip install -e .
 
 ```
 
+Execute a mace model:
 ```sh
     mkdir result
-    equitrain --train-file data/data-train.h5 --valid-file data/data-valid.h5 --statistics-file data/statistics.json --output-dir result
+    equitrain --train-file data/train.h5 --valid-file data/valid.h5  --statistics-file data/statistics.json --output-dir result --model mace.model
 ```
 
 ## Multi-GPU execution
