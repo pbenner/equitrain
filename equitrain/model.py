@@ -14,7 +14,7 @@ class ModelWrapper(torch.nn.Module):
 
 
     def forward(self, *args):
-        r = self.model(*args)
+        r = self.model(*args, training=self.training)
 
         if isinstance(r, dict):
             energy = r['energy']

@@ -123,7 +123,10 @@ def compute_stats(data_loader, max_radius, logger, print_freq=1000):
         
         pos   = data.pos
         batch = data.batch
-        edge_src, edge_dst = radius_graph(pos, r=max_radius, batch=batch,
+        edge_src, edge_dst = radius_graph(
+            pos,
+            r=max_radius,
+            batch=batch,
             max_num_neighbors=1000)
 
         batch_size = float(batch.max() + 1)
@@ -510,6 +513,7 @@ def _train(args):
         if hasattr(lr_scheduler, 'warmup_t'):
             # manually disable warmup (timm bugfix)
             lr_scheduler.warmup_t = -1
+
     criterion = torch.nn.L1Loss() 
 
     model, optimizer, lr_scheduler = accelerator.prepare(model, optimizer, lr_scheduler)
@@ -542,14 +546,21 @@ def _train(args):
         
         epoch_start_time = time.perf_counter()
 
-        lr_scheduler.step(best_metrics['val_epoch'], epoch)
-
-        train_loss = train_one_epoch(args=args, model=model, accelerator=accelerator, criterion=criterion,
-            data_loader=train_loader, optimizer=optimizer,
-            epoch=epoch, print_freq=args.print_freq, logger=logger)
+        train_loss = train_one_epoch(
+            args=args,
+            model=model,
+            accelerator=accelerator,
+            criterion=criterion,
+            data_loader=train_loader,
+            optimizer=optimizer,
+            epoch=epoch,
+            print_freq=args.print_freq,
+            logger=logger)
         
         val_loss = evaluate(args, model=model, criterion=criterion, data_loader=val_loader)
-        
+
+        lr_scheduler.step(best_metrics['val_epoch'], epoch)
+
         # Only main process should save model
         if accelerator.process_index == 0:
 
